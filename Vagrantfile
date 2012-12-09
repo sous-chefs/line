@@ -58,7 +58,8 @@ Vagrant::Config.run do |config|
     }
 
     chef.run_list = [
-      "recipe[line::default]"
+      "recipe[line::tester]"
     ]
   end
 end
+
