@@ -30,8 +30,8 @@ cookbook_file "/tmp/dangerfile" do
 end
 
 append_if_no_line "example 1" do
-  file "/tmp/dangerfile"
-  string "HI THERE I AM STRING"
+  path "/tmp/dangerfile"
+  line "HI THERE I AM STRING"
 end
 
 # append_if_no_lines "example 2" do

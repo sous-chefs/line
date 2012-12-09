@@ -31,13 +31,13 @@ class Chef
       end
       
       def action_append
-        f = Chef::Util::FileEdit.new(new_resource.file)
+        f = Chef::Util::FileEdit.new(new_resource.path)
         g = f.dup
 
-        regex = escape_string new_resource.string
+        regex = escape_string new_resource.line
         regex = "^#{regex}$"
         
-        f.insert_line_if_no_match(/#{regex}/,new_resource.string)
+        f.insert_line_if_no_match(/#{regex}/,new_resource.line)
         f.write_file
 
         # UGLY hack. How can I avoid this?

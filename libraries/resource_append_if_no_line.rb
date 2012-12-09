@@ -29,17 +29,17 @@ class Chef
         @allowed_actions.push(:append)
       end
 
-      def file(arg=nil)
+      def path(arg=nil)
         set_or_return(
-          :file,
+          :path,
           arg,
           :kind_of => String
           )
       end
 
-      def string(arg=nil)
+      def line(arg=nil)
         set_or_return(
-          :string,
+          :line,
           arg,
           :kind_of => String
           )
