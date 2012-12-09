@@ -24,13 +24,31 @@ class Chef
 
       def load_current_resource
       end
+
+      def escape_string(string)
+        pattern = /(\'|\"|\.|\*|\/|\-|\\|\(|\))/
+        string.gsub(pattern){|match|"\\" + match}
+      end
       
       def action_append
         f = Chef::Util::FileEdit.new(new_resource.file)
-        f.insert_line_if_no_match(/^#{new_resource.string}$/,new_resource.string)
+        g = f.dup
+
+        regex = escape_string new_resource.string
+        regex = "^#{regex}$"
+        
+        f.insert_line_if_no_match(/#{regex}/,new_resource.string)
         f.write_file
+
+        # UGLY hack. How can I avoid this?
+        # All I need to do is figure out if the file has changed or not.
+        # maybe change contents from private to protected in
+        # Chef::Util::FileEdit ?        
+        if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
+          new_resource.updated_by_last_action(true)
+        end
       end
-      
+
     end
   end
 end
