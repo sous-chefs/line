@@ -18,6 +18,10 @@
 # limitations under the License.
 #
 
+##################################
+# files to edit
+##################################
+
 execute "woot" do
   command "echo woot"
   action :nothing
@@ -29,32 +33,41 @@ cookbook_file "/tmp/dangerfile" do
   notifies :run, "execute[woot]"
 end
 
+cookbook_file "/tmp/serial.conf" do
+  owner "root"
+  mode "00644"
+  notifies :run, "execute[woot]"
+end
+
+##################################
+
 append_if_no_line "example 1" do
   path "/tmp/dangerfile"
   line "HI THERE I AM STRING"
 end
 
-# append_if_no_lines "example 2" do
-#   file "/tmp/example2"
-#   lines [ "string1", "string2" ]
-# end
+uncomment_lines_matching "example 2" do
+  path "/tmp/dangerfile"
+  regex /UNCOMMENTME/
+  comment :bang
+end
 
 # comment_lines_matching "example3" do
-#   file "/tmp/example3"
+#   path "/tmp/example3"
 #   regex "^*.why_hello$"
 #   comment :bang
 # end
 
+# append_if_no_lines "example 2" do
+#   path "/tmp/example2"
+#   lines [ "string1", "string2" ]
+# end
+
 # delete_lines_matching "example 4" do
-#   file "/tmp/example4"
+#   path "/tmp/example4"
 #   regex "^DELETEME*"
 # end
 
-# uncomment_lines_matching "example 5" do
-#   file "/tmp/example5"
-#   regex "UNCOMMENTME"
-#   comment :bang
-# end
 
 # 'matching' vs 'containing'
 # rubs chin
