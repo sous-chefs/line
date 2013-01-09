@@ -25,8 +25,8 @@ class Chef
       def initialize(name, run_context=nil)
         super
         @resource_name = :append_if_no_line
-        @action = :append
-        @allowed_actions.push(:append)
+        @action = :edit
+        @allowed_actions.push(:edit)
       end
 
       def path(arg=nil)

@@ -25,18 +25,17 @@ class Chef
       def load_current_resource
       end
       
-      def action_append
+      def action_edit
         f = Chef::Util::FileEdit.new(new_resource.path)
-        g = f.dup
 
         regex = escape_string new_resource.line
         regex = "^#{regex}$"
         
         f.insert_line_if_no_match(/#{regex}/,new_resource.line)
-        f.write_file
 
         # hax CHEF-3714
-        if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
+        if f.inspect.split('@')[2].split('=')[1] =~ /true/
+          f.write_file
           new_resource.updated_by_last_action(true)
         end
       end
