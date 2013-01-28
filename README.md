@@ -10,8 +10,8 @@ Add "depends 'line'" to your cookbook's metadata.rb to gain access to
 the resoures.
 
     append_if_no_line "example 1" do
-      file "/tmp/dangerfile"
-      string "HI THERE I AM STRING"
+      path "/tmp/dangerfile"
+      line "HI THERE I AM STRING"
     end
 
     replace_or_add "ipv4 localhost hosts entry" do
@@ -27,6 +27,7 @@ So far, the only resource implemented are
 
 Planned future resources will include:
 
+* append_if_no_lines
 * comment_lines_matching
 * uncomment_lines_matching
 * delete_lines_matching
