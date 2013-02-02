@@ -27,14 +27,19 @@ class Chef
 
       def action_edit
         f = Chef::Util::FileEdit.new(new_resource.path)
+        Chef::Log.info("DEBUG: replace_or_add: new_resource.path #{new_resource.path}")
         g = f.dup
 
         # first, attempt to find and replace
         f.search_file_replace(new_resource.pattern,new_resource.line)
+        f.write_file
         
         # hax CHEF-3714
+        Chef::Log.info("DEBUG: replace_or_add: f.inspect.split('@')[3] #{f.inspect.split('@')[3]}")
+        Chef::Log.info("DEBUG: replace_or_add: g.inspect.split('@')[3] #{g.inspect.split('@')[3]}")
+
         if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
-          f.write_file
+          Chef::Log.info "DEBUG : EDITED THAT SHIT!"
           new_resource.updated_by_last_action(true)
         else
           # if that didn't work, add it to the file.
@@ -42,9 +47,10 @@ class Chef
           regex = "^#{regex}$"
           
           f.insert_line_if_no_match(/#{regex}/,new_resource.line)
+          f.write_file
           
           if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
-            f.write_file
+            Chef::Log.info "DEBUG : EDITED THAT SHIT!"
             new_resource.updated_by_last_action(true)
           end          
         end
