@@ -27,7 +27,7 @@ class Chef
 
       def action_edit
         f = Chef::Util::FileEdit.new(new_resource.path)
-        Chef::Log.info("DEBUG: replace_or_add: new_resource.path #{new_resource.path}")
+        # Chef::Log.info("DEBUG: replace_or_add: new_resource.path #{new_resource.path}")
         g = f.dup
 
         # first, attempt to find and replace
@@ -35,11 +35,11 @@ class Chef
         f.write_file
         
         # hax CHEF-3714
-        Chef::Log.info("DEBUG: replace_or_add: f.inspect.split('@')[3] #{f.inspect.split('@')[3]}")
-        Chef::Log.info("DEBUG: replace_or_add: g.inspect.split('@')[3] #{g.inspect.split('@')[3]}")
+        # Chef::Log.info("DEBUG: replace_or_add: f.inspect.split('@')[3] #{f.inspect.split('@')[3]}")
+        # Chef::Log.info("DEBUG: replace_or_add: g.inspect.split('@')[3] #{g.inspect.split('@')[3]}")
 
         if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
-          Chef::Log.info "DEBUG : EDITED THAT SHIT!"
+#          Chef::Log.info "DEBUG : EDITED THAT SHIT!"
           new_resource.updated_by_last_action(true)
         else
           # if that didn't work, add it to the file.
