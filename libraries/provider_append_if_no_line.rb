@@ -26,29 +26,31 @@ class Chef
       end
 
       def escape_string(string)
-        pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\))/
+        pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\})/
         string.gsub(pattern){|match|"\\" + match}
       end
       
-      def action_edit
-        f = Chef::Util::FileEdit.new(new_resource.path)
-        g = f.dup
-
-        regex = escape_string new_resource.line
-        regex = "^#{regex}$"
+      def action_edit             
+        string = escape_string new_resource.line
+        regex = /^#{string}$/
+        f = ::File.open(new_resource.path, "r+")
         
-        f.insert_line_if_no_match(/#{regex}/,new_resource.line)
-        f.write_file
-
-        # UGLY hack. How can I avoid this?
-        # All I need to do is figure out if the file has changed or not.
-        # maybe change contents from private to protected in
-        # Chef::Util::FileEdit ?        
-        if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
+        found = false
+        f.lines.each do |line|
+          found = true if line =~ regex
+        end
+        
+        if ! found then
+          f.puts new_resource.line
           new_resource.updated_by_last_action(true)
         end
+        
+        f.close
       end
 
+      def nothing
+      end
+      
     end
   end
 end

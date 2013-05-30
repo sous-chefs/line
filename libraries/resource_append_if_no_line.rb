@@ -26,7 +26,7 @@ class Chef
         super
         @resource_name = :append_if_no_line
         @action = :edit
-        @allowed_actions.push(:edit)
+        @allowed_actions.push(:edit,:nothing)
       end
 
       def path(arg=nil)
