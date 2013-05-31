@@ -24,11 +24,6 @@ class Chef
 
       def load_current_resource
       end
-
-      def escape_string(string)
-        pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\})/
-        string.gsub(pattern){|match|"\\" + match}
-      end
       
       def action_edit             
         string = escape_string new_resource.line
