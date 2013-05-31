@@ -19,6 +19,6 @@
 #    
 
 def escape_string(string)
-  pattern = /(\'|\"|\.|\*|\/|\-|\\|\(|\))/
+  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\))/
   string.gsub(pattern){|match|"\\" + match}
 end
