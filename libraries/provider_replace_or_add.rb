@@ -30,10 +30,10 @@ class Chef
       
       def action_edit             
         regex = /new_resource.pattern/
-        
-        if ::File.exists?(file) then
+       
+        if ::File.exists?(new_resource.path) then
           begin
-            f = ::File.open(file, "r+")
+            f = ::File.open(new_resource.path, "r+")
 
             modified = false
             found = false
@@ -67,7 +67,7 @@ class Chef
           end
         else
           begin
-            f = ::File.open(file, "w")
+            f = ::File.open(new_resource.path, "w")
             f.puts new_resource_line
             new_resource.updated_by_last_action(true)
           ensure

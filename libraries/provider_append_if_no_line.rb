@@ -30,7 +30,7 @@ class Chef
         regex = /^#{string}$/
 
 
-        if ::File.exists?(file) then
+        if ::File.exists?(new_resource.path) then
           begin
             f = ::File.open(new_resource.path, "r+")
             

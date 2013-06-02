@@ -46,11 +46,13 @@ append_if_no_line "example 1" do
   line "HI THERE I AM STRING"
 end
 
-uncomment_lines_matching "example 2" do
-  path "/tmp/dangerfile"
-  regex /UNCOMMENTME/
-  comment :bang
-end
+#replace_or_add 
+
+# uncomment_lines_matching "example 2" do
+#   path "/tmp/dangerfile"
+#   line /UNCOMMENTME/
+#   comment :bang
+# end
 
 # comment_lines_matching "example3" do
 #   path "/tmp/example3"
