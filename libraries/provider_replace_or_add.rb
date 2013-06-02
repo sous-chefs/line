@@ -34,7 +34,8 @@ class Chef
         if ::File.exists?(new_resource.path) then
           begin
             f = ::File.open(new_resource.path, "r+")
-
+            temp_file = Tempfile.new('foo')
+            
             modified = false
             found = false
 
