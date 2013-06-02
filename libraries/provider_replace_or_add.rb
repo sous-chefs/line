@@ -34,6 +34,11 @@ class Chef
         if ::File.exists?(new_resource.path) then
           begin
             f = ::File.open(new_resource.path, "r+")
+
+            file_owner = f.lstat.uid
+            file_group = f.lstat.gid
+            file_mode = f.lstat.mode
+              
             temp_file = Tempfile.new('foo')
             
             modified = false
@@ -58,7 +63,9 @@ class Chef
 
             if modified then
               temp_file.rewind
-              FileUtils.mv(temp_file,new_resource.path)
+              FileUtils.copy_file(temp_file,new_resource.path)
+              FileUtils.chown(file_owner,file_group,new_resource.path)
+              FileUtils.chmod(file_mode,new_resource.path)              
               new_resource.updated_by_last_action(true)
             end
 
