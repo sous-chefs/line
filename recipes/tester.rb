@@ -46,7 +46,11 @@ append_if_no_line "example 1" do
   line "HI THERE I AM STRING"
 end
 
-#replace_or_add 
+replace_or_add "example 2" do
+  path "/tmp/dangerfile"
+  pattern "hey there.*"
+  line "hey there how you doin"
+end
 
 # uncomment_lines_matching "example 2" do
 #   path "/tmp/dangerfile"

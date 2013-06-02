@@ -29,8 +29,8 @@ class Chef
       end
       
       def action_edit             
-        regex = /new_resource.pattern/
-       
+        regex = /#{new_resource.pattern}/
+        
         if ::File.exists?(new_resource.path) then
           begin
             f = ::File.open(new_resource.path, "r+")
@@ -42,8 +42,8 @@ class Chef
             f.lines.each do |line|
               if line =~ regex then
                 found = true
-                unless line == new_resource_line
-                  line = new_resource_line
+                unless line == new_resource.line
+                  line = new_resource.line
                   modified = true
                 end
               end
@@ -51,14 +51,14 @@ class Chef
             end
 
             if (found && !modified) then
-              f.puts new_resource_line
+              f.puts new_resource.line
             end
 
             f.close
 
             if modified then
               temp_file.rewind
-              FileUtils.mv(temp_file,file)
+              FileUtils.mv(temp_file,new_resource.path)
               new_resource.updated_by_last_action(true)
             end
 
@@ -69,7 +69,7 @@ class Chef
         else
           begin
             f = ::File.open(new_resource.path, "w")
-            f.puts new_resource_line
+            f.puts new_resource.line
             new_resource.updated_by_last_action(true)
           ensure
             f.close
