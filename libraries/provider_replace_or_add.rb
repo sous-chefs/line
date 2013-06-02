@@ -18,42 +18,68 @@
 # limitations under the License.
 #    
 
+require 'fileutils'
+require 'tempfile'
+
 class Chef
   class Provider
     class ReplaceOrAdd < Chef::Provider
 
       def load_current_resource
       end
-
-      def action_edit
-        f = Chef::Util::FileEdit.new(new_resource.path)
-        # Chef::Log.info("DEBUG: replace_or_add: new_resource.path #{new_resource.path}")
-        g = f.dup
-
-        # first, attempt to find and replace
-        f.search_file_replace(new_resource.pattern,new_resource.line)
-        f.write_file
+      
+      def action_edit             
+        regex = /new_resource.pattern/
         
-        # hax CHEF-3714
-        # Chef::Log.info("DEBUG: replace_or_add: f.inspect.split('@')[3] #{f.inspect.split('@')[3]}")
-        # Chef::Log.info("DEBUG: replace_or_add: g.inspect.split('@')[3] #{g.inspect.split('@')[3]}")
+        if ::File.exists?(file) then
+          begin
+            f = ::File.open(file, "r+")
 
-        if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
-          new_resource.updated_by_last_action(true)
+            modified = false
+            found = false
+
+            f.lines.each do |line|
+              if line =~ regex then
+                found = true
+                unless line == new_resource_line
+                  line = new_resource_line
+                  modified = true
+                end
+              end
+              temp_file.puts line
+            end
+
+            if (found && !modified) then
+              f.puts new_resource_line
+            end
+
+            f.close
+
+            if modified then
+              temp_file.rewind
+              FileUtils.mv(temp_file,file)
+              new_resource.updated_by_last_action(true)
+            end
+
+          ensure
+            temp_file.close
+            temp_file.unlink
+          end
         else
-          # if that didn't work, add it to the file.
-          regex = escape_string new_resource.line
-          regex = "^#{regex}$"
-          
-          f.insert_line_if_no_match(/#{regex}/,new_resource.line)
-          f.write_file
-          
-          if f.inspect.split('@')[3] != g.inspect.split('@')[3] then
+          begin
+            f = ::File.open(file, "w")
+            f.puts new_resource_line
             new_resource.updated_by_last_action(true)
-          end          
+          ensure
+            f.close
+          end
+          
         end
-        
       end
+      
+      def nothing
+      end
+      
     end
   end
 end

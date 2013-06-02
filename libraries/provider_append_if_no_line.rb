@@ -28,23 +28,36 @@ class Chef
       def action_edit             
         string = escape_string new_resource.line
         regex = /^#{string}$/
-        
-        f = ::File.open(new_resource.path, "r+")
-        
-        found = false
-        f.lines.each { |line| found = true if line =~ regex }
-        
-        if ! found then
-          f.puts new_resource.line
-          new_resource.updated_by_last_action(true)
+
+
+        if ::File.exists?(file) then
+          begin
+            f = ::File.open(new_resource.path, "r+")
+            
+            found = false
+            f.lines.each { |line| found = true if line =~ regex }
+            
+            if ! found then
+              f.puts new_resource.line
+              new_resource.updated_by_last_action(true)
+            end
+          ensure
+            f.close
+          end
+        else
+          begin
+            f = ::File.open(new_resource.path, "w")
+            f.puts new_resource.line
+          ensure
+            f.close
+          end
         end
         
-        f.close
+        
+        def nothing
+        end
+        
       end
-
-      def nothing
-      end
-      
     end
   end
 end
