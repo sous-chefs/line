@@ -9,28 +9,24 @@ resources that will help you do this.
 Add "depends 'line'" to your cookbooks metadata.rb to gain access to
 the resoures.
 
-append_if_no_line "example 1" do
+append_if_no_line "make sure a line is in dangerfile" do
   file "/tmp/dangerfile"
   string "HI THERE I AM STRING"
 end
 
-replace_or_add "ipv4 localhost hosts entry" do
-  path "/etc/hosts"
+replace_or_add "spread the love" do
+  path "/some/file"
   pattern "Why hello there.*"
-  line "Why hello there you beautiful person, you."
+  line "Why hello there, you beautiful person, you."
 end
 
 # Notes
 So far, the only resource implemented are 
 
-* append_if_no_line.
-* 
-Planned future resources will include:
+> append_if_no_line.
+> replace_or_add
 
-* append_if_no_line
-* comment_lines_matching
-* uncomment_lines_matching
-* delete_lines_matching
+More to follow.
 
 # Recipes
 tester -  A recipe to exercise the resources

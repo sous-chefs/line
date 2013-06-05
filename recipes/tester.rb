@@ -52,29 +52,3 @@ replace_or_add "example 2" do
   line "hey there how you doin"
 end
 
-# uncomment_lines_matching "example 2" do
-#   path "/tmp/dangerfile"
-#   line /UNCOMMENTME/
-#   comment :bang
-# end
-
-# comment_lines_matching "example3" do
-#   path "/tmp/example3"
-#   regex "^*.why_hello$"
-#   comment :bang
-# end
-
-# append_if_no_lines "example 2" do
-#   path "/tmp/example2"
-#   lines [ "string1", "string2" ]
-# end
-
-# delete_lines_matching "example 4" do
-#   path "/tmp/example4"
-#   regex "^DELETEME*"
-# end
-
-
-# 'matching' vs 'containing'
-# rubs chin
-
