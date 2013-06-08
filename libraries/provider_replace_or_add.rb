@@ -20,7 +20,6 @@
 
 require 'fileutils'
 require 'tempfile'
-require 'pry'
 
 class Chef
   class Provider
