@@ -20,6 +20,7 @@
 
 require 'fileutils'
 require 'tempfile'
+require 'pry'
 
 class Chef
   class Provider
@@ -75,16 +76,20 @@ class Chef
             temp_file.unlink
           end
         else
+
+
           begin
-            f = ::File.open(new_resource.path, "w")
-            f.puts new_resource.line
+            nf = ::File.open(new_resource.path, 'w')            
+            nf.puts new_resource.line
             new_resource.updated_by_last_action(true)
+          rescue ENOENT
+            Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
           ensure
-            f.close
+            nf.close
           end
           
-        end
-      end
+        end # if ::File.exists?
+      end # def action_edit
       
       def nothing
       end
