@@ -55,7 +55,7 @@ class Chef
               temp_file.puts line
             end
 
-            if (!found && !modified) then # "add"!
+            if (!found && modified) then # "add"!
               temp_file.puts new_resource.line
               modified = true
             end

@@ -33,6 +33,13 @@ cookbook_file "/tmp/dangerfile" do
   notifies :run, "execute[woot]"
 end
 
+cookbook_file "/tmp/dangerfile2" do
+  owner "root"
+  mode "00666"
+  notifies :run, "execute[woot]"
+  action :create_if_missing
+end
+
 cookbook_file "/tmp/serial.conf" do
   owner "root"
   mode "00644"
@@ -52,3 +59,14 @@ replace_or_add "example 2" do
   line "hey there how you doin"
 end
 
+replace_or_add "example 3" do
+  path "/tmp/dangerfile"
+  pattern "hey there.*"
+  line "hey there how you doin"
+end
+
+replace_or_add "example 4" do
+  path "/tmp/dangerfile2"
+  pattern "ssh-rsa AAAAB3NzaC1yc2EAAAADDEADBEEF.*"
+  line ""
+end
