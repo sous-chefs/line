@@ -10,7 +10,7 @@ Add "depends 'line'" to your cookbook's metadata.rb to gain access to
 the resoures.
 
     append_if_no_line "make sure a line is in dangerfile" do
-      file "/tmp/dangerfile"
+      path "/tmp/dangerfile"
       line "HI THERE I AM STRING"
     end
     
