@@ -1,8 +1,9 @@
 #
 # Cookbook Name:: line
-# Library:: provider_replace_or_add
+# Library:: provider_delete_lines
 #
-# Author:: Sean OMeara <someara@opscode.com>                                  
+# Author:: Sean OMeara <someara@opscode.com>
+# Author:: Jeff Blaine <jblaine@kickflop.net>
 # Copyright 2012-2013, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,21 +17,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 
 require 'fileutils'
 require 'tempfile'
 
 class Chef
   class Provider
-    class ReplaceOrAdd < Chef::Provider
+    class DeleteLines < Chef::Provider
 
       def load_current_resource
       end
-      
-      def action_edit             
+
+      def action_edit
         regex = /#{new_resource.pattern}/
-        
+
         if ::File.exists?(new_resource.path) then
           begin
             f = ::File.open(new_resource.path, "r+")
@@ -38,26 +39,17 @@ class Chef
             file_owner = f.lstat.uid
             file_group = f.lstat.gid
             file_mode = f.lstat.mode
-              
+
             temp_file = Tempfile.new('foo')
-            
+
             modified = false
-            found = false
 
             f.lines.each do |line|
               if line =~ regex then
-                found = true
-                unless line == new_resource.line << "\n"
-                  line = new_resource.line
-                  modified = true
-                end
+                modified = true
+              else
+                temp_file.puts line
               end
-              temp_file.puts line
-            end
-
-            if (!found) then # "add"!
-              temp_file.puts new_resource.line
-              modified = true
             end
 
             f.close
@@ -66,7 +58,7 @@ class Chef
               temp_file.rewind
               FileUtils.copy_file(temp_file.path,new_resource.path)
               FileUtils.chown(file_owner,file_group,new_resource.path)
-              FileUtils.chmod(file_mode,new_resource.path)              
+              FileUtils.chmod(file_mode,new_resource.path)
               new_resource.updated_by_last_action(true)
             end
 
@@ -74,25 +66,12 @@ class Chef
             temp_file.close
             temp_file.unlink
           end
-        else
-
-
-          begin
-            nf = ::File.open(new_resource.path, 'w')            
-            nf.puts new_resource.line
-            new_resource.updated_by_last_action(true)
-          rescue ENOENT
-            Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-          ensure
-            nf.close
-          end
-          
-        end # if ::File.exists?
+        end # ::File.exists
       end # def action_edit
-      
-      def nothing
+
+      def action_nothing
       end
-      
+
     end
   end
 end

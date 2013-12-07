@@ -20,11 +20,17 @@ the resoures.
       line "Why hello there, you beautiful person, you."
     end
 
+    delete_lines "remove hash-comments from /some/file" do
+      path "/some/file"
+      pattern "^#.*"
+    end
+
 # Notes
 So far, the only resource implemented are 
 
-    append_if_no_line.
+    append_if_no_line
     replace_or_add
+    delete_lines
 
 More to follow.
 
