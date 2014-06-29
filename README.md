@@ -43,10 +43,12 @@ So far, the only resource implemented are
 
   add_to_list
     delim must be an array of 1 or 2 muli-character elements.
-      If one delimiter is given, the delimiter will proceed each entry and each entry will be followed by either the delimeter or a new line character.
+      If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and
+      each entry will be followed by either the delimeter or a new line character:
 	  delim [","]
           People to call: Joe, Bobby, Karen
           People to call: Joe, Karen, Bobby
+          People to call: Bobby, Joe, Karen
 	   
       If two delimiters are given, they will suround each entry. For Example:
 	  delim ["(,",",)"]

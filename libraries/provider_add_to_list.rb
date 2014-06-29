@@ -47,7 +47,7 @@ class Chef
               if line =~ regex then
                 found = true
 		if new_resource.delim.count == 1
-                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*[#{new_resource.delim[0]}\n]/
+                  unless line =~ /(#{new_resource.delim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#{new_resource.delim[0]}|\n)/
                     line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
                     modified = true
                   end
