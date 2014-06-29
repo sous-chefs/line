@@ -48,7 +48,7 @@ class Chef
         set_or_return(
           :delim,
           arg,
-          :kind_of => String
+          :kind_of => Array
           )
       end
 

@@ -46,9 +46,16 @@ class Chef
             f.lines.each do |line|
               if line =~ regex then
                 found = true
-                unless line.include? "#{new_resource.delim}\s#{new_resource.entry}\s#{new_resource.delim}"
-                  line = new_resource.line + "#{new_resource.delim}\s#{new_resource.entry}"
-                  modified = true
+		if new_resource.delim.count == 1
+                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*[#{new_resource.delim[0]}\n]/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
+                    modified = true
+                  end
+                else
+                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*#{new_resource.delim[1]}/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}#{new_resource.delim[1]}"
+                    modified = true
+                  end
                 end
               end
               temp_file.puts line
