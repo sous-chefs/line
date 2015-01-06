@@ -44,7 +44,7 @@ class Chef
             modified = false
             found = false
 
-            f.lines.each do |line|
+            f.each_line do |line|
               if line =~ regex then
                 found = true
                 unless line == new_resource.line << "\n"
