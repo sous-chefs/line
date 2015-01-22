@@ -35,7 +35,7 @@ class Chef
             f = ::File.open(new_resource.path, "r+")
             
             found = false
-            f.lines.each { |line| found = true if line =~ regex }
+            f.each_line { |line| found = true if line =~ regex }
             
             if ! found then
               f.puts new_resource.line

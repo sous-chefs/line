@@ -22,51 +22,62 @@
 # files to edit
 ##################################
 
-execute "woot" do
-  command "echo woot"
-  action :nothing
-end
-
-cookbook_file "/tmp/dangerfile" do
+file "/tmp/dangerfile" do
+  action :create
   owner "root"
   mode "00644"
-  notifies :run, "execute[woot]"
+  content 'HELLO THERE I AM DANGERFILE
+# UNCOMMENT ME YOU FOOL
+COMMENT ME AND I STOP YELLING I PROMISE
+int main(void){ for i=0; i<100; i++ };'
 end
 
-cookbook_file "/tmp/dangerfile2" do
+file "/tmp/dangerfile2" do
+  action :create_if_missing
   owner "root"
   mode "00666"
-  notifies :run, "execute[woot]"
-  action :create_if_missing
+  content '# authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADA1F45ADMVN24QFL123LPPEQWERWWEWO keepme@yourfile
+ssh-rsa AAAAB3NzaC1yc2EAAAADDEADBEEFDERPDERPDERPILIKESSHTOO skelator@grayskull
+ssh-rsa AAAAB3NzaC1yc2EAAAADAKHASDKJHSDKHASDHK1231235KJASD0 keepmetoo@yourfile'
 end
 
 cookbook_file "/tmp/serial.conf" do
   owner "root"
   mode "00644"
-  notifies :run, "execute[woot]"
 end
 
 ##################################
 
-append_if_no_line "example 1" do
+append_if_no_line "Operation 1" do
   path "/tmp/dangerfile"
   line "HI THERE I AM STRING"
 end
 
-replace_or_add "example 2" do
+replace_or_add "Operation 2" do
   path "/tmp/dangerfile"
   pattern "hey there.*"
   line "hey there how you doin"
 end
 
-replace_or_add "example 3" do
+replace_or_add "Operation 3" do
   path "/tmp/dangerfile"
   pattern "hey there.*"
   line "hey there how you doin"
 end
 
-replace_or_add "example 4" do
+replace_or_add "Operation 4" do
   path "/tmp/dangerfile2"
   pattern "ssh-rsa AAAAB3NzaC1yc2EAAAADDEADBEEF.*"
   line ""
+end
+
+delete_lines 'Operation 5' do
+  path "/tmp/dangerfile"
+  pattern '^HI.*'
+end
+
+delete_lines 'Operation 6' do
+  path "/tmp/dangerfile2"
+  pattern '^#.*'
 end

@@ -44,7 +44,7 @@ class Chef
 
             modified = false
 
-            f.lines.each do |line|
+            f.each_line do |line|
               if line =~ regex then
                 modified = true
               else

@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: line
-# Library:: provider_replace_or_add
+# Library:: provider_add_to_list
 #
 # Author:: Sean OMeara <someara@opscode.com>                                  
 # Copyright 2012-2013, Opscode, Inc.
@@ -23,7 +23,7 @@ require 'tempfile'
 
 class Chef
   class Provider
-    class ReplaceOrAdd < Chef::Provider
+    class AddToList < Chef::Provider
 
       def load_current_resource
       end
@@ -42,22 +42,23 @@ class Chef
             temp_file = Tempfile.new('foo')
             
             modified = false
-            found = false
 
-            f.each_line do |line|
+            f.lines.each do |line|
               if line =~ regex then
                 found = true
-                unless line == new_resource.line + "\n"
-                  line = new_resource.line
-                  modified = true
+		if new_resource.delim.count == 1
+                  unless line =~ /(#{new_resource.delim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#{new_resource.delim[0]}|\n)/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
+                    modified = true
+                  end
+                else
+                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*#{new_resource.delim[1]}/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}#{new_resource.delim[1]}"
+                    modified = true
+                  end
                 end
               end
               temp_file.puts line
-            end
-
-            if (!found) then # "add"!
-              temp_file.puts new_resource.line
-              modified = true
             end
 
             f.close
@@ -73,20 +74,7 @@ class Chef
           ensure
             temp_file.close
             temp_file.unlink
-          end
-        else
-
-
-          begin
-            nf = ::File.open(new_resource.path, 'w')            
-            nf.puts new_resource.line
-            new_resource.updated_by_last_action(true)
-          rescue ENOENT
-            Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-          ensure
-            nf.close
-          end
-          
+          end          
         end # if ::File.exists?
       end # def action_edit
       
