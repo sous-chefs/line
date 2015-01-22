@@ -47,7 +47,7 @@ class Chef
             f.lines.each do |line|
               if line =~ regex then
                 found = true
-                unless line == new_resource.line << "\n"
+                unless line == new_resource.line + "\n"
                   line = new_resource.line
                   modified = true
                 end
