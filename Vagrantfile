@@ -18,7 +18,7 @@ Vagrant::Config.run do |config|
 
   config.vm.host_name = "line-berkshelf"
 
-  config.vm.box = "opscode-centos-6.3"
+  config.vm.box = "chef-centos-6.3"
   config.vm.box_url = "https://dl.dropbox.com/u/31081437/Berkshelf-CentOS-6.3-x86_64-minimal.box"
 
   # Boot with a GUI so you can see the screen. (Default is headless)

@@ -2,8 +2,8 @@
 # Cookbook Name:: line
 # Library:: provider_replace_or_add
 #
-# Author:: Sean OMeara <someara@opscode.com>                                  
-# Copyright 2012-2013, Opscode, Inc.
+# Author:: Sean OMeara <someara@chef.io>                                  
+# Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
