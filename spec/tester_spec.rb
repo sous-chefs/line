@@ -13,15 +13,16 @@ describe 'line::tester' do
   end
 
   it 'creates dangerfile with line "# UNCOMMENT ME YOU FOOL"' do
-    expect(chef_run).to render_file('/tmp/dangerfile').with_content(/^# UNCOMMENT ME YOU FOOL$/)
+    expect(chef_run).to render_file('/tmp/dangerfile')
+      .with_content(/^# UNCOMMENT ME YOU FOOL$/)
   end
 
   it 'creates dangerfile2 with at least 1 line starting "ssh"' do
-    expect(chef_run).to render_file('/tmp/dangerfile2').with_content(/^ssh.*/)
+    expect(chef_run).to render_file('/tmp/dangerfile2')
+      .with_content(/^ssh.*/)
   end
 
   it 'creates serial.conf' do
     expect(chef_run).to render_file('/tmp/serial.conf')
   end
 end
-
