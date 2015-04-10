@@ -30,42 +30,43 @@ class Chef
       def load_current_resource
       end
 
+      # rubocop:disable MethodLength, AbcSize
       def action_edit
         unless ::File.exist?(new_resource.path)
           create_new
+          new_resource.updated_by_last_action(true)
           return
         end
 
-        regex = /#{new_resource.pattern}/
+        temp_file = check_each_line
+        f = ::File.new(new_resource.path)
 
-        begin
-          f = ::File.open(new_resource.path, 'r+')
-
-          temp_file = Tempfile.new('foo')
-
-          f.each_line do |line|
-            if line !~ regex || line.strip == new_resource.line.strip
-              temp_file.puts line
-            else
-              temp_file.puts new_resource.line
-            end
-          end
-
-          overwrite_original(f, temp_file) if ::File.compare(f, temp_file)
-        ensure
-          temp_file.close unless temp_file.nil?
-          f.close unless f.nil?
-
-          temp_file.unlink
+        unless ::File.compare(f, temp_file)
+          new_resource.updated_by_last_action(true)
+          overwrite_original(f, temp_file)
         end
+        temp_file.unlink
       end # def action_edit
+      # rubocop:enable MethodLength, AbcSize
 
       # private
+
+      def check_each_line
+        temp_file = Tempfile.new('foo')
+        ::File.open(new_resource.path, 'r+').each_line do |line|
+          if line.match(new_resource.pattern)
+            temp_file.puts line
+          else
+            temp_file.puts new_resource.line
+          end
+        end
+        temp_file.close unless temp_file.nil?
+        temp_file
+      end
 
       def create_new
         nf = ::File.open(new_resource.path, 'w')
         nf.puts new_resource.line
-        new_resource.updated_by_last_action(true)
         rescue ENOENT
           msg = "ERROR: Containing directory does not exist for #{nf.class}"
           Chef::Log.info msg
