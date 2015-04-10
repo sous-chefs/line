@@ -18,8 +18,11 @@
 # limitations under the License.
 #
 
+# extends Chef class
 class Chef
+  # extends Resource class
   class Resource
+    # inherits from Chef::Resource
     class DeleteLines < Chef::Resource
       def initialize(name, run_context = nil)
         super
