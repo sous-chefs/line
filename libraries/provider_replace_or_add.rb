@@ -31,66 +31,47 @@ class Chef
       end
 
       def action_edit
+        unless ::File.exist?(new_resource.path)
+          create_new
+          return
+        end
+
         regex = /#{new_resource.pattern}/
 
-        if ::File.exist?(new_resource.path)
-          begin
-            f = ::File.open(new_resource.path, 'r+')
+        begin
+          f = ::File.open(new_resource.path, 'r+')
 
-            file_owner = f.lstat.uid
-            file_group = f.lstat.gid
-            file_mode = f.lstat.mode
+          temp_file = Tempfile.new('foo')
 
-            temp_file = Tempfile.new('foo')
-
-            modified = false
-            found = false
-
-            f.each_line do |line|
-              if line =~ regex
-                found = true
-                unless line == new_resource.line + "\n"
-                  line = new_resource.line
-                  modified = true
-                end
-              end
+          f.each_line do |line|
+            if line !~ regex || line.strip == new_resource.line.strip
               temp_file.puts line
-            end
-
-            unless found # "add"!
+            else
               temp_file.puts new_resource.line
-              modified = true
             end
-
-            f.close
-
-            if modified
-              temp_file.rewind
-              FileUtils.copy_file(temp_file.path, new_resource.path)
-              FileUtils.chown(file_owner, file_group, new_resource.path)
-              FileUtils.chmod(file_mode, new_resource.path)
-              new_resource.updated_by_last_action(true)
-            end
-
-          ensure
-            temp_file.close
-            temp_file.unlink
-          end
-        else
-
-          begin
-            nf = ::File.open(new_resource.path, 'w')
-            nf.puts new_resource.line
-            new_resource.updated_by_last_action(true)
-          rescue ENOENT
-            msg = "ERROR: Containing directory does not exist for #{nf.class}"
-            Chef::Log.info msg
-          ensure
-            nf.close
           end
 
-        end # if ::File.exists?
+          overwrite_original(f, temp_file) if ::File.compare(f, temp_file)
+        ensure
+          temp_file.close unless temp_file.nil?
+          f.close unless f.nil?
+
+          temp_file.unlink
+        end
       end # def action_edit
+
+      # private
+
+      def create_new
+        nf = ::File.open(new_resource.path, 'w')
+        nf.puts new_resource.line
+        new_resource.updated_by_last_action(true)
+        rescue ENOENT
+          msg = "ERROR: Containing directory does not exist for #{nf.class}"
+          Chef::Log.info msg
+        ensure
+          nf.close unless nf.nil?
+      end
 
       def nothing
       end

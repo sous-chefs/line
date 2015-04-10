@@ -22,3 +22,14 @@ def escape_string(string)
   pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$)/
   string.gsub(pattern) { |match| '\\' + match }
 end
+
+def overwrite_original(orig_file, temp_file)
+  owner = orig_file.lstat.uid
+  group = orig_file.lstat.gid
+  mode = orig_file.lstat.mode
+
+  temp_file.rewind
+  FileUtils.copy_file(temp_file.path, orig_file.path)
+  FileUtils.chown(owner, group, orig_file.path)
+  FileUtils.chmod(mode, orig_file.path)
+end

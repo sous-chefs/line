@@ -37,35 +37,18 @@ class Chef
         return unless ::File.exist?(new_resource.path)
         begin
           f = ::File.open(new_resource.path, 'r+')
-
-          file_owner = f.lstat.uid
-          file_group = f.lstat.gid
-          file_mode = f.lstat.mode
-
           temp_file = Tempfile.new('foo')
 
-          modified = false
-
           f.each_line do |line|
-            if line =~ regex
-              modified = true
-            else
-              temp_file.puts line
-            end
+            next if line =~ regex
+            temp_file.puts line
           end
 
-          f.close
-
-          if modified
-            temp_file.rewind
-            FileUtils.copy_file(temp_file.path, new_resource.path)
-            FileUtils.chown(file_owner, file_group, new_resource.path)
-            FileUtils.chmod(file_mode, new_resource.path)
-            new_resource.updated_by_last_action(true)
-          end
-
+          write_original(f, temp_file) if ::File.compare(f, temp_file)
         ensure
-          temp_file.close
+          temp_file.close unless temp_file.nil?
+          f.close unless f.nil?
+
           temp_file.unlink
         end
       end # def action_edit

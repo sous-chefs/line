@@ -32,7 +32,6 @@ class Chef
 
       def action_edit
         return unless ::File.exist?(new_resource.path)
-        regex = /#{new_resource.pattern}/
 
         begin
           f = ::File.open(new_resource.path, 'r+')
@@ -45,54 +44,33 @@ class Chef
 
           temp_file = Tempfile.new('foo')
 
-          modified = false
-
           f.lines.each do |line|
-            unless line =~ regex
+            unless line.match pattern
               temp_file.puts line
               next
             end
 
             line.chomp!
             if new_resource.delim.count == 1
-              r = /(#{delim[0]}|#{pattern})\s*#{entry}\s*(#{delim[0]}|\n)/
-              if line !~ r
-                line += "#{delim[0]}#{entry}"
-                modified = true
-              end
+              regex = /(#{delim[0]}|#{pattern})\s*#{entry}\s*(#{delim[0]}|\n)/
+              line += "#{delim[0]}#{entry}" unless line =~ regex
             else
-              r = /#{delim[0]}\s*#{entry}\s*#{delim[1]}/
-              if line !~ r
-                line += "#{delim[0]}#{entry}#{delim[1]}"
-                modified = true
-              end
+              regex = /#{delim[0]}\s*#{entry}\s*#{delim[1]}/
+              line += "#{delim[0]}#{entry}#{delim[1]}" unless line =~ regex
             end
             temp_file.puts line
           end
 
-          write_original(new_resource.path, temp_file) if modified
+          overwrite_original(f, temp_file) if ::File.cmp(f, temp_file)
         ensure
           temp_file.close unless temp_file.nil?
           f.close unless f.nil?
           temp_file.unlink
         end
-        new_resource.updated_by_last_action(modified)
+        new_resource.updated_by_last_action(true)
       end # def action_edit
 
       def nothing
-      end
-
-      # private
-
-      def write_original(path, temp_file)
-        file_owner = f.lstat.uid
-        file_group = f.lstat.gid
-        file_mode = f.lstat.mode
-
-        temp_file.rewind
-        FileUtils.copy_file(temp_file.path, path)
-        FileUtils.chown(file_owner, file_group, path)
-        FileUtils.chmod(file_mode, path)
       end
     end
   end
