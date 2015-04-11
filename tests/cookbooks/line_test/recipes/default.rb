@@ -51,12 +51,7 @@ file '/tmp/listfile' do
   action :create
   owner 'root'
   mode 00644
-  content 'People to call:
-Susie
-Lauren
-Adam
-George
-'
+  content 'People to call: Susie,Lauren,Adam,George'
 end
 
 ##################################
