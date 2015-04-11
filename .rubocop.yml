@@ -6,3 +6,4 @@ AllCops:
     - Gemfile
     - Guardfile
     - Thorfile
+    - .kitchen/**/*
