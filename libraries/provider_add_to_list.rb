@@ -33,16 +33,16 @@ class Chef
       def action_edit
         return unless ::File.exist?(new_resource.path)
 
+        # setting these local variables here so the lines below
+        # can be shortened
+        delim = [new_resource.delim[0], new_resource.delim[1]]
+        entry = new_resource.entry
+        pattern = new_resource.pattern
+        f = nil
+
         begin
-          f = ::File.open(new_resource.path, 'r+')
-
-          # setting these local variables here so the lines below
-          # can be shortened
-          delim = [new_resource.delim[0], new_resource.delim[1]]
-          entry = new_resource.entry
-          pattern = new_resource.pattern
-
           temp_file = Tempfile.new('foo')
+          f = ::File.open(new_resource.path, 'r+')
 
           f.lines.each do |line|
             unless line.match pattern
@@ -63,11 +63,15 @@ class Chef
         ensure
           temp_file.close unless temp_file.nil?
           f.close unless f.nil?
-          temp_file.unlink
         end
 
-        return if ::File.cmp(f, temp_file)
+        if ::File.cmp(f, temp_file)
+          temp_file.unlink
+          return
+        end
+
         overwrite_original(f, temp_file)
+        temp_file.unlink
         new_resource.updated_by_last_action(true)
       end # def action_edit
 
