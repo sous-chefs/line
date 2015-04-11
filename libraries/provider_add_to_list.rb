@@ -2,7 +2,7 @@
 # Cookbook Name:: line
 # Library:: provider_add_to_list
 #
-# Author:: Sean OMeara <someara@chef.io>                                  
+# Author:: Sean OMeara <someara@chef.io>
 # Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,71 +16,67 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 
 require 'fileutils'
 require 'tempfile'
 
+# extend Chef class
 class Chef
+  # extend Provider class
   class Provider
+    # define AddToList, which extends Chef::Provider
     class AddToList < Chef::Provider
-
       def load_current_resource
       end
-      
-      def action_edit             
-        regex = /#{new_resource.pattern}/
-        
-        if ::File.exists?(new_resource.path) then
-          begin
-            f = ::File.open(new_resource.path, "r+")
 
-            file_owner = f.lstat.uid
-            file_group = f.lstat.gid
-            file_mode = f.lstat.mode
-              
-            temp_file = Tempfile.new('foo')
-            
-            modified = false
+      def action_edit
+        return unless ::File.exist?(new_resource.path)
 
-            f.lines.each do |line|
-              if line =~ regex then
-                found = true
-		if new_resource.delim.count == 1
-                  unless line =~ /(#{new_resource.delim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#{new_resource.delim[0]}|\n)/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
-                    modified = true
-                  end
-                else
-                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*#{new_resource.delim[1]}/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}#{new_resource.delim[1]}"
-                    modified = true
-                  end
-                end
-              end
+        # setting these local variables here so the lines below
+        # can be shortened
+        delim = [new_resource.delim[0], new_resource.delim[1]]
+        entry = new_resource.entry
+        pattern = new_resource.pattern
+        f = nil
+
+        begin
+          temp_file = Tempfile.new('foo')
+          f = ::File.open(new_resource.path, 'r+')
+
+          f.lines.each do |line|
+            unless line.match pattern
               temp_file.puts line
+              next
             end
 
-            f.close
-
-            if modified then
-              temp_file.rewind
-              FileUtils.copy_file(temp_file.path,new_resource.path)
-              FileUtils.chown(file_owner,file_group,new_resource.path)
-              FileUtils.chmod(file_mode,new_resource.path)              
-              new_resource.updated_by_last_action(true)
+            line.chomp!
+            if new_resource.delim.count == 1
+              regex = /(#{delim[0]}|#{pattern})\s*#{entry}\s*(#{delim[0]}|\n)/
+              line += "#{delim[0]}#{entry}" unless line =~ regex
+            else
+              regex = /#{delim[0]}\s*#{entry}\s*#{delim[1]}/
+              line += "#{delim[0]}#{entry}#{delim[1]}" unless line =~ regex
             end
+            temp_file.puts line
+          end
+        ensure
+          temp_file.close unless temp_file.nil?
+          f.close unless f.nil?
+        end
 
-          ensure
-            temp_file.close
-            temp_file.unlink
-          end          
-        end # if ::File.exists?
+        if ::File.cmp(f, temp_file)
+          temp_file.unlink
+          return
+        end
+
+        overwrite_original(f, temp_file)
+        temp_file.unlink
+        new_resource.updated_by_last_action(true)
       end # def action_edit
-      
+
       def nothing
       end
-      
     end
   end
 end

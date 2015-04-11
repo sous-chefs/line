@@ -2,7 +2,7 @@
 # Cookbook Name:: line
 # Library:: default
 #
-# Author:: Sean OMeara <someara@chef.io>                                  
+# Author:: Sean OMeara <someara@chef.io>
 # Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,9 +16,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 
 def escape_string(string)
   pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$)/
-  string.gsub(pattern){|match|"\\" + match}
+  string.gsub(pattern) { |match| '\\' + match }
+end
+
+def overwrite_original(orig_file, temp_file)
+  owner = orig_file.lstat.uid
+  group = orig_file.lstat.gid
+  mode = orig_file.lstat.mode
+
+  temp_file.rewind
+  FileUtils.copy_file(temp_file.path, orig_file.path)
+  FileUtils.chown(owner, group, orig_file.path)
+  FileUtils.chmod(mode, orig_file.path)
 end

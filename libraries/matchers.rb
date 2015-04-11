@@ -1,5 +1,4 @@
 if defined?(ChefSpec)
-
   def edit_add_to_list(resource)
     ChefSpec::Matchers::ResourceMatcher.new(:add_to_list, :edit, resource)
   end

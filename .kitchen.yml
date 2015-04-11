@@ -23,5 +23,5 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[line]"]
-  attributes: {}
+  run_list:
+    - recipe[line_test]
