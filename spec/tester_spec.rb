@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 # Historical Note: For those coming across this cookbook, these
-# filenames were of the original author's doing (Seam O'Meara).
+# filenames were of the original author's doing (Sean O'Meara).
 # There is no special meaning behind them, so don't be confused.
 # He's just weird like the rest of us.
 
-describe 'line::tester' do
-  let(:chef_run) { ChefSpec::Runner.new.converge 'line::tester' }
+describe 'line_test::default' do
+  let(:chef_run) { ChefSpec::ServerRunner.new.converge described_recipe }
 
   it 'creates dangerfile with HELLO as first word on a line' do
     expect(chef_run).to render_file('/tmp/dangerfile').with_content(/^HELLO.*/)

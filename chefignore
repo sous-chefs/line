@@ -50,3 +50,6 @@ cookbooks/*
 
 # Vagrant
 .vagrant
+
+# test cookbooks
+tests/*
