@@ -66,10 +66,9 @@ class Chef
           temp_file.unlink
         end
 
-        unless ::File.cmp(f, temp_file)
-          overwrite_original(f, temp_file)
-          new_resource.updated_by_last_action(true)
-        end
+        return if ::File.cmp(f, temp_file)
+        overwrite_original(f, temp_file)
+        new_resource.updated_by_last_action(true)
       end # def action_edit
 
       def nothing
