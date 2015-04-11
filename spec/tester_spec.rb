@@ -25,4 +25,37 @@ describe 'line_test::default' do
   it 'creates serial.conf' do
     expect(chef_run).to render_file('/tmp/serial.conf')
   end
+
+  it 'creates listfile' do
+    expect(chef_run).to render_file('/tmp/listfile')
+      .with_content(/People to call:/)
+  end
+
+  it 'append if no line' do
+    expect(chef_run).to edit_append_if_no_line('Operation 1')
+  end
+
+  it 'replace or add, operation 2' do
+    expect(chef_run).to edit_replace_or_add('Operation 2')
+  end
+
+  it 'replace or add, operation 3' do
+    expect(chef_run).to edit_replace_or_add('Operation 3')
+  end
+
+  it 'replace or add, operation 4' do
+    expect(chef_run).to edit_replace_or_add('Operation 4')
+  end
+
+  it 'delete lines, operation 5' do
+    expect(chef_run).to edit_delete_lines('Operation 5')
+  end
+
+  it 'delete lines, operation 6' do
+    expect(chef_run).to edit_delete_lines('Operation 6')
+  end
+
+  it 'added Bobby to listfile' do
+    expect(chef_run).to edit_add_to_list('Operation 7')
+  end
 end

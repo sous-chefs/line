@@ -47,6 +47,18 @@ cookbook_file '/tmp/serial.conf' do
   mode 00644
 end
 
+file '/tmp/listfile' do
+  action :create
+  owner 'root'
+  mode 00644
+  content 'People to call:
+Susie
+Lauren
+Adam
+George
+'
+end
+
 ##################################
 
 append_if_no_line 'Operation 1' do
@@ -80,4 +92,11 @@ end
 delete_lines 'Operation 6' do
   path '/tmp/dangerfile2'
   pattern '^#.*'
+end
+
+add_to_list 'Operation 7' do
+  path '/tmp/listfile'
+  pattern 'People to call: '
+  delim [',']
+  entry 'Bobby'
 end
