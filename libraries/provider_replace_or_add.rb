@@ -33,12 +33,12 @@ class Chef
       # rubocop:disable MethodLength, AbcSize
       def action_edit
         unless ::File.exist?(new_resource.path)
-          create_new
+          create_new new_resource.path
           new_resource.updated_by_last_action(true)
           return
         end
 
-        temp_file = check_each_line
+        temp_file = check_lines_in new_resource.path
         f = ::File.new(new_resource.path)
 
         unless ::File.compare(f, temp_file)
@@ -49,23 +49,31 @@ class Chef
       end # def action_edit
       # rubocop:enable MethodLength, AbcSize
 
-      # private
+      private
 
-      def check_each_line
+      # Compare each line in the target file to the given
+      # pattern. If the line matches the pattern, then write
+      # out the line to the temp file. Otherwise, write the resource's
+      # line to the temp file.
+      #
+      # @return Tempfile
+      def check_lines_in(path = new_resource.path)
         temp_file = Tempfile.new('foo')
-        ::File.open(new_resource.path, 'r+').each_line do |line|
-          if line.match(new_resource.pattern)
-            temp_file.puts line
-          else
+        ::File.open(path, 'r+').each_line do |line|
+          if line.match(new_resource.pattern) &&
+             line != "#{new_resource.line}\n"
             temp_file.puts new_resource.line
+          else
+            temp_file.puts line
           end
         end
         temp_file.close unless temp_file.nil?
         temp_file
       end
 
-      def create_new
-        nf = ::File.open(new_resource.path, 'w')
+      # create a new file
+      def create_new(path = new_resource.path)
+        nf = ::File.open(path, 'w')
         nf.puts new_resource.line
         rescue ENOENT
           msg = "ERROR: Containing directory does not exist for #{nf.class}"

@@ -36,8 +36,8 @@ class Chef
         begin
           f = ::File.open(new_resource.path, 'r+')
 
-          # setting these local variables here so the lines containing
-          # regex's, below, can be shortened
+          # setting these local variables here so the lines below
+          # can be shortened
           delim = [new_resource.delim[0], new_resource.delim[1]]
           entry = new_resource.entry
           pattern = new_resource.pattern
