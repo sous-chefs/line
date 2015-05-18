@@ -55,8 +55,6 @@ class Chef
                 # This catches when 'new_resource.pattern' matches line on
                 # first pass but fails on second pass appending the line
                 # to the bottom of temp_file.
-                Chef::Log.info("WARN: Consider adjusting the pattern attribute in replace_or_add resource.")
-                Chef::Log.info("WARN: The pattern did not match but the line was found.")
                 found = true
               end
               temp_file.puts line
