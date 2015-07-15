@@ -225,13 +225,12 @@ describe 'replace_or_add lines in a missing file' do
   end
 end
 
-# rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 def file_replacement
-  allow(::File).to receive(:exists?).and_call_original
+  allow(::File).to receive(:exist?).and_call_original
   allow(Tempfile).to receive(:new).and_call_original
   allow(FileUtils).to receive(:copy_file).and_call_original
   # Specific replacements
-  allow(::File).to receive(:exists?).with('file').and_return(true)
+  allow(::File).to receive(:exist?).with('file').and_return(true)
   fake_file = StringIO.open(@file_content)
   fake_lstat = double
   allow(::File).to receive(:open).with('file', 'r+').and_return(fake_file)
@@ -247,7 +246,7 @@ def file_replacement
   allow(FileUtils).to receive(:chown)
   allow(FileUtils).to receive(:chmod)
   missing_file = double
-  allow(::File).to receive(:exists?).with('missingfile').and_return(false)
+  allow(::File).to receive(:exist?).with('missingfile').and_return(false)
   allow(::File).to receive(:open).with('missingfile', 'w').and_return(missing_file)
   allow(missing_file).to receive(:puts) { |line| @file_content << "#{line}\n" }
   allow(missing_file).to receive(:close)
