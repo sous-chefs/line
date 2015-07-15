@@ -51,6 +51,11 @@ class Chef
                   line = new_resource.line
                   modified = true
                 end
+              elsif line == new_resource.line then
+                # This catches when 'new_resource.pattern' matches line on
+                # first pass but fails on second pass appending the line
+                # to the bottom of temp_file.
+                found = true
               end
               temp_file.puts line
             end
