@@ -25,16 +25,15 @@ require 'tempfile'
 class Chef
   class Provider
     class DeleteLines < Chef::Provider
-
       def load_current_resource
       end
 
       def action_edit
         regex = /#{new_resource.pattern}/
 
-        if ::File.exists?(new_resource.path) then
+        if ::File.exist?(new_resource.path)
           begin
-            f = ::File.open(new_resource.path, "r+")
+            f = ::File.open(new_resource.path, 'r+')
 
             file_owner = f.lstat.uid
             file_group = f.lstat.gid
@@ -45,7 +44,7 @@ class Chef
             modified = false
 
             f.each_line do |line|
-              if line =~ regex then
+              if line =~ regex
                 modified = true
               else
                 temp_file.puts line
@@ -54,11 +53,11 @@ class Chef
 
             f.close
 
-            if modified then
+            if modified
               temp_file.rewind
-              FileUtils.copy_file(temp_file.path,new_resource.path)
-              FileUtils.chown(file_owner,file_group,new_resource.path)
-              FileUtils.chmod(file_mode,new_resource.path)
+              FileUtils.copy_file(temp_file.path, new_resource.path)
+              FileUtils.chown(file_owner, file_group, new_resource.path)
+              FileUtils.chmod(file_mode, new_resource.path)
               new_resource.updated_by_last_action(true)
             end
 
@@ -71,7 +70,6 @@ class Chef
 
       def action_nothing
       end
-
     end
   end
 end

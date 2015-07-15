@@ -21,30 +21,28 @@
 class Chef
   class Resource
     class DeleteLines < Chef::Resource
-
-      def initialize(name, run_context=nil)
+      def initialize(name, run_context = nil)
         super
         @resource_name = :delete_lines
         @action = :edit
-        @allowed_actions.push(:edit,:nothing)
+        @allowed_actions.push(:edit, :nothing)
       end
 
-      def path(arg=nil)
+      def path(arg = nil)
         set_or_return(
           :path,
           arg,
-          :kind_of => String
-          )
+          kind_of: String
+        )
       end
 
-      def pattern(arg=nil)
+      def pattern(arg = nil)
         set_or_return(
           :line,
           arg,
-          :kind_of => String
-          )
+          kind_of: String
+        )
       end
-
     end
   end
 end

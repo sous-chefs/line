@@ -24,4 +24,3 @@ describe 'line::tester' do
     expect(chef_run).to render_file('/tmp/serial.conf')
   end
 end
-

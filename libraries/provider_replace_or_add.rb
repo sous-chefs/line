@@ -2,7 +2,7 @@
 # Cookbook Name:: line
 # Library:: provider_replace_or_add
 #
-# Author:: Sean OMeara <someara@chef.io>                                  
+# Author:: Sean OMeara <someara@chef.io>
 # Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 
 require 'fileutils'
 require 'tempfile'
@@ -24,34 +24,33 @@ require 'tempfile'
 class Chef
   class Provider
     class ReplaceOrAdd < Chef::Provider
-
       def load_current_resource
       end
-      
-      def action_edit             
+
+      def action_edit
         regex = /#{new_resource.pattern}/
-        
-        if ::File.exists?(new_resource.path) then
+
+        if ::File.exist?(new_resource.path)
           begin
-            f = ::File.open(new_resource.path, "r+")
+            f = ::File.open(new_resource.path, 'r+')
 
             file_owner = f.lstat.uid
             file_group = f.lstat.gid
             file_mode = f.lstat.mode
-              
+
             temp_file = Tempfile.new('foo')
-            
+
             modified = false
             found = false
 
             f.each_line do |line|
-              if line =~ regex || line.chomp == new_resource.line then
+              if line =~ regex || line.chomp == new_resource.line
                 found = true
                 unless line.chomp == new_resource.line
                   line = new_resource.line
                   modified = true
                 end
-              elsif line == new_resource.line then
+              elsif line == new_resource.line
                 # This catches when 'new_resource.pattern' matches line on
                 # first pass but fails on second pass appending the line
                 # to the bottom of temp_file.
@@ -60,18 +59,18 @@ class Chef
               temp_file.puts line
             end
 
-            if (!found) then # "add"!
+            unless found # "add"!
               temp_file.puts new_resource.line
               modified = true
             end
 
             f.close
 
-            if modified then
+            if modified
               temp_file.rewind
-              FileUtils.copy_file(temp_file.path,new_resource.path)
-              FileUtils.chown(file_owner,file_group,new_resource.path)
-              FileUtils.chmod(file_mode,new_resource.path)              
+              FileUtils.copy_file(temp_file.path, new_resource.path)
+              FileUtils.chown(file_owner, file_group, new_resource.path)
+              FileUtils.chmod(file_mode, new_resource.path)
               new_resource.updated_by_last_action(true)
             end
 
@@ -81,9 +80,8 @@ class Chef
           end
         else
 
-
           begin
-            nf = ::File.open(new_resource.path, 'w')            
+            nf = ::File.open(new_resource.path, 'w')
             nf.puts new_resource.line
             new_resource.updated_by_last_action(true)
           rescue ENOENT
@@ -91,13 +89,12 @@ class Chef
           ensure
             nf.close
           end
-          
+
         end # if ::File.exists?
       end # def action_edit
-      
+
       def nothing
       end
-      
     end
   end
 end

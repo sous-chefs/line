@@ -2,7 +2,7 @@
 # Cookbook Name:: line
 # Library:: provider_append_if_no_such_line
 #
-# Author:: Sean OMeara <someara@chef.io>                                  
+# Author:: Sean OMeara <someara@chef.io>
 # Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,28 +16,26 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 
 class Chef
   class Provider
     class AppendIfNoLine < Chef::Provider
-
       def load_current_resource
       end
-      
-      def action_edit             
+
+      def action_edit
         string = escape_string new_resource.line
         regex = /^#{string}$/
 
-
-        if ::File.exists?(new_resource.path) then
+        if ::File.exist?(new_resource.path)
           begin
-            f = ::File.open(new_resource.path, "r+")
-            
+            f = ::File.open(new_resource.path, 'r+')
+
             found = false
             f.each_line { |line| found = true if line =~ regex }
-            
-            if ! found then
+
+            unless found
               f.puts new_resource.line
               new_resource.updated_by_last_action(true)
             end
@@ -46,17 +44,15 @@ class Chef
           end
         else
           begin
-            f = ::File.open(new_resource.path, "w")
+            f = ::File.open(new_resource.path, 'w')
             f.puts new_resource.line
           ensure
             f.close
           end
         end
-        
-        
+
         def nothing
         end
-        
       end
     end
   end
