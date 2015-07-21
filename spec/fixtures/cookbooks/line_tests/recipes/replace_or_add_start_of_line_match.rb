@@ -1,9 +1,7 @@
 #
-# Cookbook Name:: line
-# Library:: default
+# Cookbook Name:: line_tests
 #
-# Author:: Sean OMeara <someara@chef.io>
-# Copyright 2012-2013, Chef Software, Inc.
+# Copyright 2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +16,8 @@
 # limitations under the License.
 #
 
-def escape_string(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$)/
-  string.gsub(pattern) { |match| '\\' + match }
+replace_or_add 'start_of_line_match' do
+  path 'file'
+  pattern 'Data line'
+  line 'Data line longer and longer'
 end

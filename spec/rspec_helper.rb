@@ -1,9 +1,7 @@
 #
 # Cookbook Name:: line
-# Library:: default
 #
-# Author:: Sean OMeara <someara@chef.io>
-# Copyright 2012-2013, Chef Software, Inc.
+# Copyright 2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +16,16 @@
 # limitations under the License.
 #
 
-def escape_string(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$)/
-  string.gsub(pattern) { |match| '\\' + match }
+require 'chefspec'
+require 'chefspec/berkshelf'
+
+Dir.glob('libraries/*.rb') do |file|
+  require "./#{file}"
+end
+
+RSpec.configure do |config|
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
+  config.order = 'random'
+  config.expose_dsl_globally = true
 end

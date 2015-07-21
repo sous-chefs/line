@@ -25,7 +25,7 @@
 file '/tmp/dangerfile' do
   action :create
   owner 'root'
-  mode '00644'
+  mode 00644
   content 'HELLO THERE I AM DANGERFILE
 # UNCOMMENT ME YOU FOOL
 COMMENT ME AND I STOP YELLING I PROMISE
@@ -35,7 +35,7 @@ end
 file '/tmp/dangerfile2' do
   action :create_if_missing
   owner 'root'
-  mode '00666'
+  mode 00666
   content '# authorized_keys
 ssh-rsa AAAAB3NzaC1yc2EAAAADA1F45ADMVN24QFL123LPPEQWERWWEWO keepme@yourfile
 ssh-rsa AAAAB3NzaC1yc2EAAAADDEADBEEFDERPDERPDERPILIKESSHTOO skelator@grayskull
@@ -44,7 +44,14 @@ end
 
 cookbook_file '/tmp/serial.conf' do
   owner 'root'
-  mode '00644'
+  mode 00644
+end
+
+file '/tmp/listfile' do
+  action :create
+  owner 'root'
+  mode 00644
+  content 'People to call: Susie,Lauren,Adam,George'
 end
 
 ##################################
@@ -80,4 +87,11 @@ end
 delete_lines 'Operation 6' do
   path '/tmp/dangerfile2'
   pattern '^#.*'
+end
+
+add_to_list 'Operation 7' do
+  path '/tmp/listfile'
+  pattern 'People to call: '
+  delim [',']
+  entry 'Bobby'
 end

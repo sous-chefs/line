@@ -2,7 +2,7 @@
 # Cookbook Name:: line
 # Library:: resource_replace_or_add
 #
-# Author:: Sean OMeara <someara@chef.io>                                  
+# Author:: Sean OMeara <someara@chef.io>
 # Copyright 2012-2013, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,42 +16,40 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#    
+#
 class Chef
   class Resource
     class ReplaceOrAdd < Chef::Resource
-      
-      def initialize(name, run_context=nil)
+      def initialize(name, run_context = nil)
         super
         @resource_name = :replace_or_add
         @action = :edit
         @allowed_actions.push(:edit)
       end
 
-      def path(arg=nil)
+      def path(arg = nil)
         set_or_return(
           :path,
           arg,
-          :kind_of => String
-          )
+          kind_of: String
+        )
       end
 
-      def pattern(arg=nil)
+      def pattern(arg = nil)
         set_or_return(
           :pattern,
           arg,
-          :kind_of => String
-          )
+          kind_of: String
+        )
       end
 
-      def line(arg=nil)
+      def line(arg = nil)
         set_or_return(
           :line,
           arg,
-          :kind_of => String
-          )
+          kind_of: String
+        )
       end
-
     end
   end
 end
