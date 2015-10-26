@@ -24,6 +24,7 @@ require 'tempfile'
 class Chef
   class Provider
     class ReplaceOrAdd < Chef::Provider
+      provides :replace_or_add
       def load_current_resource
       end
 
