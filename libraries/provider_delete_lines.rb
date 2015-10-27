@@ -25,7 +25,7 @@ require 'tempfile'
 class Chef
   class Provider
     class DeleteLines < Chef::Provider
-      provides :delete_lines
+      provides :delete_lines if respond_to?(:provides)
       def load_current_resource
       end
 
