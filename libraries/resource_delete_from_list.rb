@@ -22,7 +22,7 @@ class Chef
     class DeleteFromList < Chef::Resource
       def initialize(name, run_context = nil)
         super
-        @resource_name = :remove_from_list
+        @resource_name = :delete_from_list
         @action = :edit
         @allowed_actions.push(:edit, :nothing)
       end

@@ -24,6 +24,9 @@ require 'tempfile'
 class Chef
   class Provider
     class DeleteFromList < Chef::Provider
+
+      provides :delete_from_list if respond_to?(:provides)
+
       def load_current_resource
       end
 
