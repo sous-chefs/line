@@ -47,7 +47,7 @@ class Chef
               regexdelim << escape_regex(delim)
             end
 
-            f.lines.each do |line|
+            f.each_line do |line|
               if line =~ regex
                 case new_resource.delim.count
                 when 1

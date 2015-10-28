@@ -43,7 +43,7 @@ class Chef
 
             modified = false
 
-            f.lines.each do |line|
+            f.each_line do |line|
               if line =~ regex
                 found = true
                 if new_resource.delim.count == 1
