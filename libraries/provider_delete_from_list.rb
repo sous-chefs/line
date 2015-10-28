@@ -24,14 +24,13 @@ require 'tempfile'
 class Chef
   class Provider
     class DeleteFromList < Chef::Provider
-
       def load_current_resource
       end
 
       def action_edit
         regex = /#{new_resource.pattern}/
 
-        if ::File.exists?(new_resource.path)
+        if ::File.exist?(new_resource.path)
           begin
             f = ::File.open(new_resource.path, 'r+')
 
@@ -49,41 +48,41 @@ class Chef
             end
 
             f.lines.each do |line|
-              if line =~ regex then
+              if line =~ regex
                 case new_resource.delim.count
-                  when 1
-                    case line
-                      when /#{regexdelim[0]}\s*#{new_resource.entry}/
-                        line = line.sub(/#{regexdelim[0]}\s*#{new_resource.entry}/, '')
-                        line = line.chomp
-                        modified = true
-                      when /#{new_resource.entry}\s*#{regexdelim[0]}/
-                        line = line.sub(/#{new_resource.entry}\s*#{regexdelim[0]}/, '')
-                        line = line.chomp
-                        modified = true
-                    end
-                  when 2
-                    case line
-                      when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
-                        line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/, '')
-                        line = line.chomp
-                        modified = true
-                      when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
-                        line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}\s*#{regexdelim[0]}/, '')
-                        line = line.chomp
-                        modified = true
-                    end
-                  when 3
-                    case line
-                      when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
-                        line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/, '')
-                        line = line.chomp
-                        modified = true
-                      when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
-                        line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}\s*#{regexdelim[0]}/, '')
-                        line = line.chomp
-                        modified = true
-                    end
+                when 1
+                  case line
+                  when /#{regexdelim[0]}\s*#{new_resource.entry}/
+                    line = line.sub(/#{regexdelim[0]}\s*#{new_resource.entry}/, '')
+                    line = line.chomp
+                    modified = true
+                  when /#{new_resource.entry}\s*#{regexdelim[0]}/
+                    line = line.sub(/#{new_resource.entry}\s*#{regexdelim[0]}/, '')
+                    line = line.chomp
+                    modified = true
+                  end
+                when 2
+                  case line
+                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
+                    line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/, '')
+                    line = line.chomp
+                    modified = true
+                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
+                    line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}\s*#{regexdelim[0]}/, '')
+                    line = line.chomp
+                    modified = true
+                  end
+                when 3
+                  case line
+                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
+                    line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/, '')
+                    line = line.chomp
+                    modified = true
+                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
+                    line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}\s*#{regexdelim[0]}/, '')
+                    line = line.chomp
+                    modified = true
+                  end
                 end
               end
               temp_file.puts line
@@ -91,11 +90,11 @@ class Chef
 
             f.close
 
-            if modified then
+            if modified
               temp_file.rewind
-              FileUtils.copy_file(temp_file.path,new_resource.path)
-              FileUtils.chown(file_owner,file_group,new_resource.path)
-              FileUtils.chmod(file_mode,new_resource.path)
+              FileUtils.copy_file(temp_file.path, new_resource.path)
+              FileUtils.chown(file_owner, file_group, new_resource.path)
+              FileUtils.chmod(file_mode, new_resource.path)
               new_resource.updated_by_last_action(true)
             end
 
@@ -108,7 +107,6 @@ class Chef
 
       def nothing
       end
-
     end
   end
 end

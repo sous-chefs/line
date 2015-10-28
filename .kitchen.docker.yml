@@ -1,0 +1,15 @@
+settings:
+  parallel: true
+
+driver:
+  name: docker
+
+platforms:
+- name: ubuntu-15.10
+  driver:
+    image: ubuntu:15.10
+
+suites:
+- name: default
+  run_list: ["recipe[line_test::default]"]
+  attributes: {}

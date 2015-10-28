@@ -20,10 +20,10 @@
 
 def escape_string(string)
   pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
-  string.gsub(pattern){|match|"\\" + match}
+  string.gsub(pattern) { |match| '\\' + match }
 end
 
 def escape_regex(string)
   pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
-  string.gsub(pattern){|match| '\\' + match}
+  string.gsub(pattern) { |match| '\\' + match }
 end

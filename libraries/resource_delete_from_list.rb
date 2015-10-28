@@ -20,46 +20,44 @@
 class Chef
   class Resource
     class DeleteFromList < Chef::Resource
-
-      def initialize(name, run_context=nil)
+      def initialize(name, run_context = nil)
         super
         @resource_name = :remove_from_list
         @action = :edit
         @allowed_actions.push(:edit, :nothing)
       end
 
-      def path(arg=nil)
+      def path(arg = nil)
         set_or_return(
-        :path,
-        arg,
-        :kind_of => String
+          :path,
+          arg,
+          kind_of: String
         )
       end
 
-      def pattern(arg=nil)
+      def pattern(arg = nil)
         set_or_return(
-        :pattern,
-        arg,
-        :kind_of => String
+          :pattern,
+          arg,
+          kind_of: String
         )
       end
 
-      def delim(arg=nil)
+      def delim(arg = nil)
         set_or_return(
-        :delim,
-        arg,
-        :kind_of => Array
+          :delim,
+          arg,
+          kind_of: Array
         )
       end
 
-      def entry(arg=nil)
+      def entry(arg = nil)
         set_or_return(
-        :entry,
-        arg,
-        :kind_of => String
+          :entry,
+          arg,
+          kind_of: String
         )
       end
-
     end
   end
 end

@@ -6,7 +6,7 @@ require 'spec_helper'
 # He's just weird like the rest of us.
 
 describe 'line::tester' do
-  let(:chef_run) { ChefSpec::Runner.new.converge 'line::tester' }
+  let(:chef_run) { ChefSpec::SoloRunner.new.converge 'line::tester' }
 
   it 'creates dangerfile with HELLO as first word on a line' do
     expect(chef_run).to render_file('/tmp/dangerfile').with_content(/^HELLO.*/)
