@@ -19,6 +19,11 @@
 #
 
 def escape_string(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$)/
-  string.gsub(pattern) { |match| '\\' + match }
+  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
+  string.gsub(pattern){|match|"\\" + match}
+end
+
+def escape_regex(string)
+  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
+  string.gsub(pattern){|match| '\\' + match}
 end

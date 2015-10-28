@@ -20,6 +20,10 @@ describe 'line::tester' do
     expect(chef_run).to render_file('/tmp/dangerfile2').with_content(/^ssh.*/)
   end
 
+  it 'creates dangerfile3 with at least 1 line starting "my"' do
+    expect(chef_run).to render_file('/tmp/dangerfile3').with_content(/^my.*/)
+  end
+
   it 'creates serial.conf' do
     expect(chef_run).to render_file('/tmp/serial.conf')
   end
