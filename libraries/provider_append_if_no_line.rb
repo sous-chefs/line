@@ -21,6 +21,7 @@
 class Chef
   class Provider
     class AppendIfNoLine < Chef::Provider
+      provides :append_if_no_line if respond_to?(:provides)
       def load_current_resource
       end
 

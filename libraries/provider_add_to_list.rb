@@ -24,6 +24,7 @@ require 'tempfile'
 class Chef
   class Provider
     class AddToList < Chef::Provider
+      provides :add_to_list if respond_to?(:provides)
       def load_current_resource
       end
 
