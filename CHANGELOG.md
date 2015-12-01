@@ -1,6 +1,13 @@
 line Cookbook CHANGELOG
 ========================
 
+v0.6.3 (2015-10-27)
+--------------------
+- Fixing Ruby and Chef deprecation warnings
+- Cleaning up tests a bit
+- Adding support for source_url and issues_url
+- delete_from_list resource
+
 v0.6.2 (2015-07-15)
 --------------------
 - Catch lines missed by strict patterns
