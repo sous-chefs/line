@@ -58,7 +58,7 @@ class Chef
                     line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}#{new_resource.delim[1]}"
                     modified = true
                   end
-                            end
+                end
               end
               temp_file.puts line
             end
