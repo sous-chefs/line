@@ -172,3 +172,11 @@ end
 #   delim [", ", "[", "]"]
 #   entry "818"
 # end
+
+add_to_list 'Operation 19' do
+    path '/tmp/dangerfile3'
+    pattern 'my @net1918 ='
+    delim [', ']
+    ends_with ");"
+    entry '"127.0.0.0/8"'
+end
