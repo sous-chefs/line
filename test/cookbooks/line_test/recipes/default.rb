@@ -3,7 +3,7 @@
 # Recipe:: tester
 #
 # Author:: Sean OMeara <someara@chef.io>
-# Copyright 2012-2013, Chef Software, Inc.
+# Copyright 2012-2013, 2016 Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -181,6 +181,7 @@ add_to_list 'Operation 17' do
   entry 'Harry'
 end
 
+<<<<<<< HEAD:test/cookbooks/line_test/recipes/default.rb
 add_to_list 'Operation 18' do
   path '/tmp/dangerfile3'
   pattern 'People to call:'
