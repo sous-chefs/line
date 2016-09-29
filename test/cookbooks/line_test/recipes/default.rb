@@ -181,7 +181,6 @@ add_to_list 'Operation 17' do
   entry 'Harry'
 end
 
-<<<<<<< HEAD:test/cookbooks/line_test/recipes/default.rb
 add_to_list 'Operation 18' do
   path '/tmp/dangerfile3'
   pattern 'People to call:'
