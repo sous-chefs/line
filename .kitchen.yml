@@ -4,9 +4,9 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: nordrhel6
+- name: ubuntu-15.04
   driver_config:
-    box: nordrhel6
+    box: opscode-ubuntu-15.04
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-15.04_provisionerless.box
 
 suites:
