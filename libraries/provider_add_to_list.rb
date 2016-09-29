@@ -31,7 +31,8 @@ class Chef
       end
 
       def action_edit
-        regex = /#{new_resource.pattern}/
+        ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ""
+        regex = /#{new_resource.pattern}.*#{ends_with}/
 
         if ::File.exist?(new_resource.path)
           begin
@@ -45,20 +46,49 @@ class Chef
 
             modified = false
 
+            regexdelim = []
+            new_resource.delim.each do |delim|
+              regexdelim << escape_regex(delim)
+            end
+
             f.each_line do |line|
               if line =~ regex
                 found = true
-                if new_resource.delim.count == 1
-                  unless line =~ /(#{new_resource.delim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#{new_resource.delim[0]}|\n)/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
+                if new_resource.ends_with
+                  list_end = line.rindex(new_resource.ends_with)
+                  case new_resource.delim.count
+                  # problem with pattern = [  The [ is not accounted for in the regexs below.  We don't have a list start pattern like ends_with.
+                  when 1
+                    next if line =~ /(#{regexdelim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#regexdelim[0]|#{Regexp.escape(new_resource.ends_with)})/
+                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.entry}")
+                    modified = true
+                  when 2
+                    next if line =~ /#{regexdelim[1]}#{new_resource.entry}\s*#{regexdelim[1]}/
+                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}")
+                    modified = true
+                  when 3
+                    next if line =~ /#{regexdelim[1]}#{new_resource.entry}\s*#{regexdelim[2]}/
+                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}")
                     modified = true
                   end
                 else
-                  unless line =~ /#{new_resource.delim[0]}\s*#{new_resource.entry}\s*#{new_resource.delim[1]}/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}#{new_resource.delim[1]}"
+                  case new_resource.delim.count
+                  when 1
+                    next if line =~ /((#{regexdelim[0]})*|#{new_resource.pattern})\s*#{new_resource.entry}(#{regexdelim[0]}|\n)/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
+                    puts
+                    puts "LINE add #{line}"
+                    modified = true
+                  when 2
+                    next if line =~ /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}"
+                    modified = true
+                  when 3
+                    next if line =~ /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
+                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}"
                     modified = true
                   end
-                            end
+                end
               end
               temp_file.puts line
             end

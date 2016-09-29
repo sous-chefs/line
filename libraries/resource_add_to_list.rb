@@ -58,6 +58,15 @@ class Chef
           kind_of: String
         )
       end
+
+      def ends_with(arg = nil)
+        set_or_return(
+          :ends_with,
+          arg,
+          kind_of: String
+        )
+      end
+
     end
   end
 end

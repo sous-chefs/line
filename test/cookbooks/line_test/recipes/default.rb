@@ -32,6 +32,16 @@ COMMENT ME AND I STOP YELLING I PROMISE
 int main(void){ for i=0; i<100; i++ };'
 end
 
+file '/tmp/dangerfile1' do
+  action :create
+  owner 'root'
+  mode '00644'
+  content 'HI THERE I AM DANGERFILE
+HI THERE I AM DANGERFILE
+# UNCOMMENT ME
+int main(void){ for i=0; i<100; i++ };'
+end
+
 file '/tmp/dangerfile2' do
   action :create_if_missing
   owner 'root'
@@ -48,8 +58,10 @@ file '/tmp/dangerfile3' do
   mode '00666'
   content 'my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
 People to call: Joe, Bobby, Karen
-multi = ([310], [818], [425])'
+multi = ([310], [818], [425])
+DEFAULT_APPEND="resume=/dev/sda2 splash=silent crashkernel=256M-:128M showopts"'
 end
+
 cookbook_file '/tmp/serial.conf' do
   owner 'root'
   mode '00644'
@@ -81,94 +93,121 @@ replace_or_add 'Operation 4' do
 end
 
 delete_lines 'Operation 5' do
-  path '/tmp/dangerfile'
+  path '/tmp/dangerfile1'
   pattern '^HI.*'
 end
 
 delete_lines 'Operation 6' do
+  path '/tmp/dangerfile1'
+  pattern '^#.*'
+end
+
+delete_lines 'Operation 7' do
+  path '/tmp/dangerfile1'
+  pattern '^#.*'
+end
+
+delete_lines 'Operation 8' do
   path '/tmp/dangerfile2'
   pattern '^#.*'
 end
-delete_from_list 'Operation 7' do
-  path '/tmp/dangerfile3'
-  pattern 'my @net1918 ='
-  delim [', ', "\""]
-  entry '192.168.0.0/16'
-end
 
-delete_from_list 'Operation 8' do
+# Delete the first entry in a list with delimited entries
+delete_from_list 'Operation 9' do
   path '/tmp/dangerfile3'
   pattern 'my @net1918 ='
-  delim [', ', "\""]
+  delim [', ', '"']
   entry '10.0.0.0/8'
 end
 
-delete_from_list 'Operation 9' do
+# Delete the last entry in a list with delimited entries
+delete_from_list 'Operation 10' do
+  path '/tmp/dangerfile3'
+  pattern 'my @net1918 ='
+  delim [', ', '"']
+  entry '192.168.0.0/16'
+end
+
+# Delete the first entry in a list with delimited entries
+delete_from_list 'Operation 11' do
   path '/tmp/dangerfile3'
   pattern 'multi ='
   delim [', ', '[', ']']
   entry '310'
 end
 
-delete_from_list 'Operation 10' do
+# Delete the last entry in a list with delimited entries
+delete_from_list 'Operation 12' do
   path '/tmp/dangerfile3'
   pattern 'multi ='
   delim [', ', '[', ']']
   entry '425'
 end
 
-delete_from_list 'Operation 11' do
+delete_from_list 'Operation 13' do
   path '/tmp/dangerfile3'
   pattern 'People to call:'
   delim [', ']
   entry 'Joe'
 end
 
-delete_from_list 'Operation 12' do
+delete_from_list 'Operation 14' do
   path '/tmp/dangerfile3'
   pattern 'People to call:'
   delim [', ']
   entry 'Karen'
 end
 
-add_to_list 'Operation 13' do
+add_to_list 'Operation 15' do
   path '/tmp/dangerfile3'
   pattern 'my @net1918 ='
-  delim [', ', "\""]
+  delim [', ', '"']
+  ends_with ');'
   entry '33.33.33.0/24'
 end
 
-add_to_list 'Operation 14' do
+add_to_list 'Operation 16' do
+  path '/tmp/dangerfile3'
+  pattern 'my @net1918 ='
+  delim [', ', '"']
+  ends_with ');'
+  entry "172.16.0.0/12"
+end
+
+add_to_list 'Operation 17' do
   path '/tmp/dangerfile3'
   pattern 'People to call:'
   delim [', ']
   entry 'Harry'
 end
 
-# add_to_list 'Operation 15' do
-#   path '/tmp/dangerfile3'
-#   pattern 'multi '
-#   delim [", ", "[", "]"]
-#   entry "323"
-# end
+add_to_list 'Operation 18' do
+  path '/tmp/dangerfile3'
+  pattern 'People to call:'
+  delim [", "]
+  entry "Bobby"
+end
 
-# add_to_list 'Operation 16' do
-#   path '/tmp/dangerfile3'
-#   pattern 'my @net1918 ='
-#   delim [", ", "\""]
-#   entry "172.16.0.0/12"
-# end
+add_to_list 'Operation 19' do
+  path '/tmp/dangerfile3'
+  pattern 'multi '
+  delim [", ", "[", "]"]
+  ends_with ')'
+  entry "323"
+end
 
-# add_to_list 'Operation 17' do
-#   path '/tmp/dangerfile3'
-#   pattern 'People to call:'
-#   delim [", "]
-#   entry "Bobby"
-# end
+add_to_list 'Operation 20' do
+  path '/tmp/dangerfile3'
+  pattern 'multi '
+  delim [", ", "[", "]"]
+  ends_with ')'
+  entry "818"
+end
 
-# add_to_list 'Operation 18' do
-#   path '/tmp/dangerfile3'
-#   pattern 'multi '
-#   delim [", ", "[", "]"]
-#   entry "818"
-# end
+add_to_list 'Operation 21' do
+  path '/tmp/dangerfile3'
+  pattern 'DEFAULT_APPEND='
+  delim [' ']
+  ends_with '"'
+  entry 'addtogrub'
+end

@@ -56,33 +56,31 @@ class Chef
                 when 1
                   case line
                   when /#{regexdelim[0]}\s*#{new_resource.entry}/
-                    line = line.sub(/#{regexdelim[0]}\s*#{new_resource.entry}/, '')
+                    puts ""
+                    puts "LINE del pre #{line}"
+                    line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, '')
                     line = line.chomp
+                    puts ""
+                    puts "LINE del pst #{line}"
                     modified = true
                   when /#{new_resource.entry}\s*#{regexdelim[0]}/
-                    line = line.sub(/#{new_resource.entry}\s*#{regexdelim[0]}/, '')
+                    line = line.sub(/#{new_resource.entry}(#{regexdelim[0]})*/, '')
                     line = line.chomp
+                    puts ""
+                    puts "LINE del2 pst #{line}"
                     modified = true
                   end
                 when 2
                   case line
                   when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
-                    line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/, '')
-                    line = line.chomp
-                    modified = true
-                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
-                    line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}\s*#{regexdelim[0]}/, '')
+                    line = line.sub(/(#{regexdelim[0]})*\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}(#{regexdelim[0]})*/, '')
                     line = line.chomp
                     modified = true
                   end
                 when 3
                   case line
                   when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
-                    line = line.sub(/#{regexdelim[0]}\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/, '')
-                    line = line.chomp
-                    modified = true
-                  when /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
-                    line = line.sub(/#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}\s*#{regexdelim[0]}/, '')
+                    line = line.sub(/(#{regexdelim[0]})*\s*#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}(#{regexdelim[0]})*/, '')
                     line = line.chomp
                     modified = true
                   end

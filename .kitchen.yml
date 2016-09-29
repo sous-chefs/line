@@ -4,12 +4,14 @@ driver_config:
   require_chef_omnibus: true
 
 platforms:
-- name: ubuntu-15.04
+- name: nordrhel6
   driver_config:
-    box: opscode-ubuntu-15.04
+    box: nordrhel6
     box_url: https://opscode-vm.s3.amazonaws.com/vagrant/opscode_ubuntu-15.04_provisionerless.box
 
 suites:
 - name: default
-  run_list: ["recipe[line]"]
+  run_list:
+    - recipe[line]
+    - recipe[line_test]
   attributes: {}
