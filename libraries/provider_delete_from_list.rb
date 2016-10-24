@@ -24,7 +24,6 @@ require 'tempfile'
 class Chef
   class Provider
     class DeleteFromList < Chef::Provider
-
       provides :delete_from_list if respond_to?(:provides)
 
       def load_current_resource
@@ -56,18 +55,12 @@ class Chef
                 when 1
                   case line
                   when /#{regexdelim[0]}\s*#{new_resource.entry}/
-                    puts ""
-                    puts "LINE del pre #{line}"
                     line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, '')
                     line = line.chomp
-                    puts ""
-                    puts "LINE del pst #{line}"
                     modified = true
                   when /#{new_resource.entry}\s*#{regexdelim[0]}/
                     line = line.sub(/#{new_resource.entry}(#{regexdelim[0]})*/, '')
                     line = line.chomp
-                    puts ""
-                    puts "LINE del2 pst #{line}"
                     modified = true
                   end
                 when 2

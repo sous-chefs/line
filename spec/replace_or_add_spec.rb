@@ -261,7 +261,6 @@ describe 'replace_or_add lines in a missing file' do
       expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: false)
     end
   end
-
 end
 
 def file_replacement

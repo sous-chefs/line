@@ -24,14 +24,13 @@ require 'tempfile'
 class Chef
   class Provider
     class AddToList < Chef::Provider
-
       provides :add_to_list if respond_to?(:provides)
-      
+
       def load_current_resource
       end
 
       def action_edit
-        ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ""
+        ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ''
         regex = /#{new_resource.pattern}.*#{ends_with}/
 
         if ::File.exist?(new_resource.path)
@@ -56,36 +55,35 @@ class Chef
                 found = true
                 if new_resource.ends_with
                   list_end = line.rindex(new_resource.ends_with)
+                  seperator = line =~ /#{new_resource.pattern}.*\S.*#{ends_with}/ ? new_resource.delim[0] : ''
                   case new_resource.delim.count
-                  # problem with pattern = [  The [ is not accounted for in the regexs below.  We don't have a list start pattern like ends_with.
                   when 1
-                    next if line =~ /(#{regexdelim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#regexdelim[0]|#{Regexp.escape(new_resource.ends_with)})/
-                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.entry}")
+                    next if line =~ /(#{regexdelim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#regexdelim[0]|#{ends_with})/
+                    line = line.chomp.insert(list_end, "#{seperator}#{new_resource.entry}")
                     modified = true
                   when 2
                     next if line =~ /#{regexdelim[1]}#{new_resource.entry}\s*#{regexdelim[1]}/
-                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}")
+                    line = line.chomp.insert(list_end, "#{seperator}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}")
                     modified = true
                   when 3
                     next if line =~ /#{regexdelim[1]}#{new_resource.entry}\s*#{regexdelim[2]}/
-                    line = line.chomp.insert(list_end, "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}")
+                    line = line.chomp.insert(list_end, "#{seperator}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}")
                     modified = true
                   end
                 else
+                  seperator = line =~ /#{new_resource.pattern}.*\S.*$/ ? new_resource.delim[0] : ''
                   case new_resource.delim.count
                   when 1
                     next if line =~ /((#{regexdelim[0]})*|#{new_resource.pattern})\s*#{new_resource.entry}(#{regexdelim[0]}|\n)/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.entry}"
-                    puts
-                    puts "LINE add #{line}"
+                    line = line.chomp + "#{seperator}#{new_resource.entry}"
                     modified = true
                   when 2
                     next if line =~ /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[1]}/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}"
+                    line = line.chomp + "#{seperator}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[1]}"
                     modified = true
                   when 3
                     next if line =~ /#{regexdelim[1]}#{new_resource.entry}#{regexdelim[2]}/
-                    line = line.chomp + "#{new_resource.delim[0]}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}"
+                    line = line.chomp + "#{seperator}#{new_resource.delim[1]}#{new_resource.entry}#{new_resource.delim[2]}"
                     modified = true
                   end
                 end

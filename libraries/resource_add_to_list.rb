@@ -66,7 +66,6 @@ class Chef
           kind_of: String
         )
       end
-
     end
   end
 end

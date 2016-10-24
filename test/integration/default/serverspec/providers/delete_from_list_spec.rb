@@ -37,4 +37,10 @@ describe 'delete_from_list should remove' do
       its(:content) { should_not match(/Joe/) }
     end
   end
+
+  context 'the only delimited entry' do
+    describe file('/tmp/dangerfile3') do
+      its(:content) { should match(/last_delimited_list= \(\|single\|\)/) }
+    end
+  end
 end

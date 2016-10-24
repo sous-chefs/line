@@ -13,7 +13,7 @@ describe 'delete_lines should remove' do
       its(:content) { should_not match(/^#/) }
     end
   end
- 
+
   context 'the first line in the file when matched' do
     describe file('/tmp/dangerfile2') do
       its(:content) { should_not match(/^#/) }

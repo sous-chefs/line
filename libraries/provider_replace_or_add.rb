@@ -45,7 +45,6 @@ class Chef
             found = false
 
             f.each_line do |line|
-              puts "match #{line =~ regex} regex #{regex} line #{line}" if line =~ /disable/
               if line =~ regex || line.chomp == new_resource.line
                 found = true
                 unless line.chomp == new_resource.line
