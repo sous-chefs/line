@@ -89,5 +89,5 @@ More to follow.
 tester -  A recipe to exercise the resources
 
 # Author
-Author:: Sean OMeara (<someara@chef.io>)
+Author:: Sean OMeara (<sean@sean.io>)
 Contributor:: Antek S. Baranski (<antek.baranski@gmail.com>)
