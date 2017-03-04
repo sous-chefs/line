@@ -26,14 +26,14 @@ delete_lines "remove hash-comments from /some/file" do
   pattern "^#.*"
 end
 
-add_to_list "add entry to a list"
+add_to_list "add entry to a list" do
   path "/some/file"
   pattern "People to call: "
   delim [","]
   entry "Bobby"
 end
 
-delete_from_list "delete entry from a list"
+delete_from_list "delete entry from a list" do
   path "/some/file"
   pattern "People to call: "
   delim [","]
