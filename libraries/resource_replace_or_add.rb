@@ -50,6 +50,14 @@ class Chef
           kind_of: String
         )
       end
+
+      def replace_only(arg = nil)
+        set_or_return(
+          :replace_only,
+          arg,
+          kind_of: [TrueClass, FalseClass]
+        )
+      end
     end
   end
 end

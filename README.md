@@ -10,12 +10,12 @@ Add "depends 'line'" to your cookbook's metadata.rb to gain access to
 the resoures.
 
 ```ruby
-append_if_no_line "make sure a line is in dangerfile" do
-  path "/tmp/dangerfile"
+append_if_no_line "make sure a line is in some file" do
+  path "/some/file"
   line "HI THERE I AM STRING"
 end
 
-replace_or_add "spread the love" do
+replace_or_add "why hello" do
   path "/some/file"
   pattern "Why hello there.*"
   line "Why hello there, you beautiful person, you."
@@ -24,6 +24,13 @@ end
 delete_lines "remove hash-comments from /some/file" do
   path "/some/file"
   pattern "^#.*"
+end
+
+replace_or_add "change the love, don't add more" do
+  path "/some/file"
+  pattern "Why hello there.*"
+  line "Why hello there, you beautiful person, you."
+  replace_only true
 end
 
 add_to_list "add entry to a list" do

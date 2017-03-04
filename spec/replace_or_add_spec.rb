@@ -191,6 +191,34 @@ describe 'replace_or_add lines in an existing file' do
       end
     end
   end
+
+  context 'when replace_only is specified' do
+    describe 'when lines match' do
+      before { chef_run.converge('line_tests::replace_or_add_replace_only_match') }
+      it 'should change both lines' do
+        expect(@file_content.scan(/^Replace duplicate lines$/).size).to eq(2)
+      end
+      it 'should not add lines' do
+        expect(@file_content.lines.count).to eq(testfile_size)
+      end
+      it 'should flag the resource change' do
+        expect(chef_run).to edit_replace_or_add('replace_only').with(updated_by_last_action?: true)
+      end
+    end
+
+    describe 'when no lines match' do
+      before { chef_run.converge('line_tests::replace_or_add_replace_only_nomatch') }
+      it 'should change no lines' do
+        expect(@file_content.scan(/^Replace duplicate lines$/).size).to eq(0)
+      end
+      it 'should not add lines' do
+        expect(@file_content.lines.count).to eq(testfile_size)
+      end
+      it 'should not flag the resource change' do
+        expect(chef_run).to edit_replace_or_add('replace_only_no_match').with(updated_by_last_action?: false)
+      end
+    end
+  end
 end
 
 describe 'replace_or_add lines in a missing file' do
@@ -223,6 +251,17 @@ describe 'replace_or_add lines in a missing file' do
       expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: true)
     end
   end
+
+  context 'when replace_only is true' do
+    before { chef_run.converge('line_tests::replace_or_add_missing_02') }
+    it 'should not add a line' do
+      expect(@file_content.scan(/^add this line$/).size).to eq(0)
+    end
+    it 'should flag the resource change' do
+      expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: false)
+    end
+  end
+
 end
 
 def file_replacement
