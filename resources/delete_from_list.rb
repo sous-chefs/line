@@ -7,7 +7,6 @@ property :entry, String
 resource_name :delete_from_list
 
 action :edit do
-
   # require 'fileutils'
   # require 'tempfile'
 
