@@ -10,7 +10,7 @@ action :edit do
   regex = /#{new_resource.pattern}/
 
   begin
-    raise FileNotFound unless ::File.exist?(new_resource.path)
+    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
     f = ::File.open(new_resource.path, 'r+')
 

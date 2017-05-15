@@ -1,27 +1,4 @@
-#
-# Cookbook Name:: line
-# Recipe:: tester
-#
-# Author:: Sean OMeara <someara@chef.io>
-# Copyright 2012-2013, 2016 Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
-##################################
-# files to edit
-##################################
-
+# setup
 file '/tmp/dangerfile3' do
   action :create
   owner 'root'
@@ -41,56 +18,22 @@ wo3d_empty=
 wo3d_list=[first3],[second3]'
 end
 
-##################################
-
-# Delete the first entry in a list with delimited entries
-delete_from_list 'Operation 9' do
-  path '/tmp/dangerfile3'
-  pattern 'my @net1918 ='
-  delim [', ', '"']
-  entry '10.0.0.0/8'
-end
-
-# # Delete the last entry in a list with delimited entries
-delete_from_list 'Operation 10' do
-  path '/tmp/dangerfile3'
-  pattern 'my @net1918 ='
-  delim [', ', '"']
-  entry '192.168.0.0/16'
-end
-
-
-#
-# delete_from_list 'Operation 13' do
-#   path '/tmp/dangerfile3'
-#   pattern 'People to call:'
-#   delim [', ']
-#   entry 'Joe'
-# end
-#
-# delete_from_list 'Operation 14' do
-#   path '/tmp/dangerfile3'
-#   pattern 'People to call:'
-#   delim [', ']
-#   entry 'Karen'
-# end
-
 # add first entry. 1 delim, ends_with
-# add_to_list 'Operation 15' do
-#   path '/tmp/dangerfile3'
-#   pattern 'empty_list='
-#   delim [' ']
-#   entry 'newentry'
-# end
+add_to_list 'Add to list 1' do
+  path '/tmp/dangerfile3'
+  pattern 'empty_list='
+  delim [' ']
+  entry 'newentry'
+end
 
-# add an entry to a existing list. 1 delim, ends_with
-# add_to_list 'Operation 16' do
-#   path '/tmp/dangerfile3'
-#   pattern 'DEFAULT_APPEND='
-#   delim [' ']
-#   ends_with '"'
-#   entry 'showopts'
-# end
+# # add an entry to a existing list. 1 delim, ends_with
+add_to_list 'Operation 16' do
+  path '/tmp/dangerfile3'
+  pattern 'DEFAULT_APPEND='
+  delim [' ']
+  ends_with '"'
+  entry 'showopts'
+end
 #
 # # add an entry to a existing list. 1 delim, ends_with
 # add_to_list 'Operation 17' do

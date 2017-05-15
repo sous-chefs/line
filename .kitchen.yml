@@ -15,9 +15,9 @@ platforms:
 - name: ubuntu-15.04
 
 suites:
-- name: delete
+# - name: delete_from_list
+#   run_list:
+#     - recipe[test::delete_from_list]
+- name: add_to_list
   run_list:
-    # - recipe[line]
-    # - recipe[line_test]
-    - recipe[test]
-  attributes: {}
+    - recipe[test::add_to_list]

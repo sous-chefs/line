@@ -30,9 +30,15 @@ action :edit do
     end
 
     f.each_line do |line|
+      # Leave the line alone if it doesn't match the regex
+      temp_file.puts line unless line =~ regex
       next unless line =~ regex
-      if new_resource.ends_with
 
+      log "Impacted line: #{line}" do
+        level :debug
+      end
+
+      if new_resource.ends_with
         list_end = line.rindex(new_resource.ends_with)
         seperator = line =~ /#{new_resource.pattern}.*\S.*#{ends_with}/ ? new_resource.delim[0] : ''
         case new_resource.delim.count
@@ -67,6 +73,10 @@ action :edit do
         end
       end
       temp_file.puts line
+
+      log "New line: #{line}" do
+        level :debug
+      end
     end
 
     f.close unless f.nil?
