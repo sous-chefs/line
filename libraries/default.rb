@@ -24,6 +24,5 @@ def escape_string(string)
 end
 
 def escape_regex(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
-  string.gsub(pattern) { |match| '\\' + match }
+  return escape_string(string)
 end
