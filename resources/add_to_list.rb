@@ -12,7 +12,7 @@ action :edit do
   regex = /#{new_resource.pattern}.*#{ends_with}/
 
   begin
-    raise 'File Not Found' unless ::File.exist?(new_resource.path)
+    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
     f = ::File.open(new_resource.path, 'r+')
 
@@ -20,7 +20,7 @@ action :edit do
     file_group = f.lstat.gid
     file_mode = f.lstat.mode
 
-    temp_file = Tempfile.new('foo')
+    temp_file = ::Tempfile.new('foo')
 
     modified = false
 
@@ -76,7 +76,7 @@ action :edit do
       FileUtils.copy_file(temp_file.path, new_resource.path)
       FileUtils.chown(file_owner, file_group, new_resource.path)
       FileUtils.chmod(file_mode, new_resource.path)
-      new_resource.updated_by_last_action(true)
+      # new_resource.updated_by_last_action(true)
     end
     ensure
       temp_file.close unless f.nil?
@@ -84,9 +84,11 @@ action :edit do
   end
 end
 
-#   ensure
-#       temp_file.close unless f.nil?
-#       temp_file.unlink unless f.nil?
-#   end
-# end
-# end
+
+action_class.class_eval do
+
+  require 'fileutils'
+  require 'tempfile'
+
+  include Line::Helper
+end

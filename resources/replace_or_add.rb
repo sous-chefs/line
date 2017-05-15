@@ -45,7 +45,7 @@ action :edit do
         FileUtils.copy_file(temp_file.path, new_resource.path)
         FileUtils.chown(file_owner, file_group, new_resource.path)
         FileUtils.chmod(file_mode, new_resource.path)
-        new_resource.updated_by_last_action(true)
+        # new_resource.updated_by_last_action(true)
       end
 
     ensure
@@ -58,7 +58,7 @@ action :edit do
       nf = ::File.open(new_resource.path, 'w')
       unless new_resource.replace_only
         nf.puts new_resource.line
-        new_resource.updated_by_last_action(true)
+        # new_resource.updated_by_last_action(true)
       end
     rescue ENOENT
       Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
@@ -67,4 +67,13 @@ action :edit do
     end
 
   end # if ::File.exists?
+end
+
+
+action_class.class_eval do
+
+  require 'fileutils'
+  require 'tempfile'
+
+  include Line::Helper
 end

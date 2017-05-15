@@ -31,3 +31,7 @@ action :edit do
     end
   end
 end
+
+action_class.class_eval do
+  include Line::Helper
+end

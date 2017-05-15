@@ -7,9 +7,6 @@ property :entry, String
 resource_name :delete_from_list
 
 action :edit do
-  # require 'fileutils'
-  # require 'tempfile'
-
   regex = /#{new_resource.pattern}/
 
   begin
@@ -70,12 +67,21 @@ action :edit do
       FileUtils.copy_file(temp_file.path, new_resource.path)
       FileUtils.chown(file_owner, file_group, new_resource.path)
       FileUtils.chmod(file_mode, new_resource.path)
-      new_resource.updated_by_last_action(true)
+      # new_resource.updated_by_last_action(true)
     end
 
   ensure
     temp_file.close
     temp_file.unlink
   end
-  
+
+end
+
+
+action_class.class_eval do
+
+  require 'fileutils'
+  require 'tempfile'
+
+  include Line::Helper
 end

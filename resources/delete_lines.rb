@@ -34,7 +34,7 @@ action :edit do
         FileUtils.copy_file(temp_file.path, new_resource.path)
         FileUtils.chown(file_owner, file_group, new_resource.path)
         FileUtils.chmod(file_mode, new_resource.path)
-        new_resource.updated_by_last_action(true)
+        # new_resource.updated_by_last_action(true)
       end
 
     ensure
@@ -43,3 +43,9 @@ action :edit do
     end
   end # ::File.exists
 end # def action_edit
+
+
+action_class.class_eval do
+  require 'fileutils'
+  require 'tempfile'
+end
