@@ -121,52 +121,6 @@ delete_lines 'Operation 8' do
   pattern '^#.*'
 end
 
-# Delete the first entry in a list with delimited entries
-delete_from_list 'Operation 9' do
-  path '/tmp/dangerfile3'
-  pattern 'my @net1918 ='
-  delim [', ', '"']
-  entry '10.0.0.0/8'
-end
-
-# Delete the last entry in a list with delimited entries
-delete_from_list 'Operation 10' do
-  path '/tmp/dangerfile3'
-  pattern 'my @net1918 ='
-  delim [', ', '"']
-  entry '192.168.0.0/16'
-end
-
-# Delete the first entry in a list with delimited entries
-delete_from_list 'Operation 11' do
-  path '/tmp/dangerfile3'
-  pattern 'multi ='
-  delim [', ', '[', ']']
-  entry '310'
-end
-
-# Delete the last entry in a list with delimited entries
-delete_from_list 'Operation 12' do
-  path '/tmp/dangerfile3'
-  pattern 'multi ='
-  delim [', ', '[', ']']
-  entry '425'
-end
-
-delete_from_list 'Operation 13' do
-  path '/tmp/dangerfile3'
-  pattern 'People to call:'
-  delim [', ']
-  entry 'Joe'
-end
-
-delete_from_list 'Operation 14' do
-  path '/tmp/dangerfile3'
-  pattern 'People to call:'
-  delim [', ']
-  entry 'Karen'
-end
-
 # add first entry. 1 delim, ends_with
 add_to_list 'Operation 15' do
   path '/tmp/dangerfile3'
