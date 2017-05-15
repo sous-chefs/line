@@ -9,12 +9,15 @@ client_rb:
   treat_deprecation_warnings_as_errors: true
   resource_cloning: false
 
+verifier: inspec
+
 platforms:
 - name: ubuntu-15.04
 
 suites:
-- name: default
+- name: delete
   run_list:
-    - recipe[line]
-    - recipe[line_test]
+    # - recipe[line]
+    # - recipe[line_test]
+    - recipe[test]
   attributes: {}

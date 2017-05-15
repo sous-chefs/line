@@ -28,7 +28,14 @@ action :edit do
     end
 
     f.each_line do |line|
+      # Leave the line alone if it doesn't match the regex
+      temp_file.puts line unless line =~ regex
       next unless line =~ regex
+
+      log "Impacted line: #{line}" do
+        level :debug
+      end
+
       case new_resource.delim.count
       when 1
         case line
@@ -56,8 +63,12 @@ action :edit do
           modified = true
         end
       end
-      # end
+
       temp_file.puts line
+
+      log "New line: #{line}" do
+        level :debug
+      end
     end
 
     f.close
@@ -67,7 +78,7 @@ action :edit do
       FileUtils.copy_file(temp_file.path, new_resource.path)
       FileUtils.chown(file_owner, file_group, new_resource.path)
       FileUtils.chmod(file_mode, new_resource.path)
-      # new_resource.updated_by_last_action(true)
+      new_resource.updated_by_last_action(true)
     end
 
   ensure

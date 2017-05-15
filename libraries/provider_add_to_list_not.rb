@@ -89,9 +89,18 @@ class Chef
               end
             end
             temp_file.puts line
+
+            Chef::Log::Debug "#{temp_file}" 
+
           end
 
           f.close
+
+          log "#{line}" do
+            level :debug
+          end
+
+
 
           if modified
             temp_file.rewind
