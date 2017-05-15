@@ -27,32 +27,32 @@ add_to_list 'Add to list 1' do
 end
 
 # # add an entry to a existing list. 1 delim, ends_with
-add_to_list 'Operation 16' do
+add_to_list 'Add to DEFAULT_APPEND' do
   path '/tmp/dangerfile3'
   pattern 'DEFAULT_APPEND='
   delim [' ']
   ends_with '"'
   entry 'showopts'
 end
-#
-# # add an entry to a existing list. 1 delim, ends_with
-# add_to_list 'Operation 17' do
-#   path '/tmp/dangerfile3'
-#   pattern 'DEFAULT_APPEND='
-#   delim [' ']
-#   ends_with '"'
-#   entry 'addtogrub'
-# end
-#
-# # add first entry. 2 delim, ends_with
-# add_to_list 'Operation 18' do
-#   path '/tmp/dangerfile3'
-#   pattern Regexp.escape('empty_delimited_list=(')
-#   delim [', ', '"']
-#   ends_with ')'
-#   entry 'newentry'
-# end
-#
+
+# add an entry to a existing list. 1 delim, ends_with
+add_to_list 'Add to DEFAULT_APPEND again' do
+  path '/tmp/dangerfile3'
+  pattern 'DEFAULT_APPEND='
+  delim [' ']
+  ends_with '"'
+  entry 'addtogrub'
+end
+
+# add first entry. 2 delim, ends_with
+add_to_list 'Add to list using Regexp escaped input' do
+  path '/tmp/dangerfile3'
+  pattern Regexp.escape('empty_delimited_list=(')
+  delim [', ', '"']
+  ends_with ')'
+  entry 'newentry'
+end
+
 # # add existing entry. 2 delim, ends_with
 # add_to_list 'Operation 19' do
 #   path '/tmp/dangerfile3'
