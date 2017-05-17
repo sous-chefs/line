@@ -1,0 +1,48 @@
+driver:
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: current
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+
+- name: centos-7
+  driver:
+    image: centos:7
+    platform: rhel
+    pid_one_command: /usr/lib/systemd/systemd
+    intermediate_instructions:
+      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
+
+- name: ubuntu-16.04
+  driver:
+    image: ubuntu:16.04
+    pid_one_command: /bin/systemd
+    intermediate_instructions:
+      - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
+
+suites:
+- name: delete_from_list
+  run_list:
+    - recipe[test::delete_from_list]
+- name: add_to_list
+  run_list:
+    - recipe[test::add_to_list]
+- name: append_if_no_line
+  run_list:
+    - recipe[test::append_if_no_line]
+- name: delete_lines
+  run_list:
+    - recipe[test::delete_lines]
+- name: replace_or_add
+  run_list:
+    - recipe[test::replace_or_add]

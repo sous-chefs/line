@@ -1,21 +1,6 @@
-# setup
-file '/tmp/dangerfile3' do
-  action :create
+cookbook_file '/tmp/dangerfile3' do
   owner 'root'
-  mode '00666'
-  content 'my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
-People to call: Joe, Bobby, Karen
-multi = ([310], [818], [425])
-DEFAULT_APPEND="resume=/dev/sda2 splash=silent crashkernel=256M-:128M showopts"
-empty_list=
-empty_delimited_list=()
-empty_3delim=()
-last_list=
-last_delimited_list= (|single|)
-wo2d_empty=
-wo2d_list="first2","second2"
-wo3d_empty=
-wo3d_list=[first3],[second3]'
+  mode '00644'
 end
 
 # add first entry. 1 delim, ends_with

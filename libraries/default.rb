@@ -21,12 +21,12 @@
 module Line
   module Helper
     def escape_string(string)
-      pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
+      pattern = %r{(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])}
       string.gsub(pattern) { |match| '\\' + match }
     end
 
     def escape_regex(string)
-      return escape_string(string)
+      escape_string(string)
     end
   end
 end

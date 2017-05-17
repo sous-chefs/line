@@ -30,6 +30,11 @@ action :edit do
             modified = true
           end
         end
+
+        log "Impacted line: #{line}" do
+          level :debug
+        end
+
         temp_file.puts line
       end
 
@@ -69,9 +74,7 @@ action :edit do
   end # if ::File.exists?
 end
 
-
 action_class.class_eval do
-
   require 'fileutils'
   require 'tempfile'
 
