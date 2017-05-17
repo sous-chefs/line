@@ -88,15 +88,13 @@ action :edit do
       FileUtils.chmod(file_mode, new_resource.path)
       # new_resource.updated_by_last_action(true)
     end
-    ensure
-      temp_file.close unless f.nil?
-      temp_file.unlink unless f.nil?
+  ensure
+    temp_file.close unless f.nil?
+    temp_file.unlink unless f.nil?
   end
 end
 
-
 action_class.class_eval do
-
   require 'fileutils'
   require 'tempfile'
 
