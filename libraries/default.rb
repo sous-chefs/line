@@ -18,12 +18,15 @@
 # limitations under the License.
 #
 
-def escape_string(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
-  string.gsub(pattern) { |match| '\\' + match }
-end
+module Line
+  module Helper
+    def escape_string(string)
+      pattern = %r{(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])}
+      string.gsub(pattern) { |match| '\\' + match }
+    end
 
-def escape_regex(string)
-  pattern = /(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])/
-  string.gsub(pattern) { |match| '\\' + match }
+    def escape_regex(string)
+      escape_string(string)
+    end
+  end
 end
