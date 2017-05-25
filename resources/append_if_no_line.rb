@@ -17,7 +17,6 @@ action :edit do
 
       unless found
         f.puts new_resource.line
-        new_resource.updated_by_last_action(true)
       end
     ensure
       f.close

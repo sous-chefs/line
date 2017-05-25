@@ -35,7 +35,6 @@ action :edit do
       FileUtils.copy_file(temp_file.path, new_resource.path)
       FileUtils.chown(file_owner, file_group, new_resource.path)
       FileUtils.chmod(file_mode, new_resource.path)
-      # new_resource.updated_by_last_action(true)
     end
   ensure
     temp_file.close
