@@ -9,24 +9,28 @@ action :edit do
   regex = /^#{string}$/
 
   if ::File.exist?(new_resource.path)
-    begin
-      f = ::File.open(new_resource.path, 'r+')
+    converge_by "Updating file #{new_resource.path}" do
+      begin
+        f = ::File.open(new_resource.path, 'r+')
 
-      found = false
-      f.each_line { |line| found = true if line =~ regex }
+        found = false
+        f.each_line { |line| found = true if line =~ regex }
 
-      unless found
-        f.puts new_resource.line
+        unless found
+          f.puts new_resource.line
+        end
+      ensure
+        f.close
       end
-    ensure
-      f.close
     end
   else
-    begin
-      f = ::File.open(new_resource.path, 'w')
-      f.puts new_resource.line
-    ensure
-      f.close
+    converge_by "Updating file #{new_resource.path}" do
+      begin
+        f = ::File.open(new_resource.path, 'w')
+        f.puts new_resource.line
+      ensure
+        f.close
+      end
     end
   end
 end
