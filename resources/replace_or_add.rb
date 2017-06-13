@@ -31,10 +31,6 @@ action :edit do
           end
         end
 
-        log "Impacted line: #{line}" do
-          level :info
-        end
-
         temp_file.puts line
       end
 

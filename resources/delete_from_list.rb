@@ -32,10 +32,6 @@ action :edit do
       temp_file.puts line unless line =~ regex
       next unless line =~ regex
 
-      log "Impacted line: #{line}" do
-        level :info
-      end
-
       case new_resource.delim.count
       when 1
         case line
@@ -66,9 +62,7 @@ action :edit do
 
       temp_file.puts line
 
-      log "New line: #{line}" do
-        level :info
-      end
+      Chef::Log.info("New line: #{line}")
     end
 
     f.close
