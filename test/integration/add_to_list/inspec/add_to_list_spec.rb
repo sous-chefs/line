@@ -15,5 +15,5 @@ end
 
 # Add to an empty list
 describe file('/tmp/dangerfile3') do
-  its(:content) { should match(%r(empty_delimited_list=\(\"newentry\"\)) ) }
+  its(:content) { should match(/empty_delimited_list=\(\"newentry\"\)/) }
 end

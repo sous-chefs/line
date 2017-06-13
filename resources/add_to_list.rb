@@ -35,7 +35,7 @@ action :edit do
       next unless line =~ regex
 
       log "Impacted line: #{line}" do
-        level :debug
+        level :info
       end
 
       if new_resource.ends_with
@@ -75,19 +75,19 @@ action :edit do
       temp_file.puts line
 
       log "New line: #{line}" do
-        level :debug
+        level :info
       end
     end
 
     f.close unless f.nil?
 
     if modified
-      # converge_by "Updating file #{new_resource.path}" do
+      converge_by "Updating file #{new_resource.path}" do
         temp_file.rewind
         FileUtils.copy_file(temp_file.path, new_resource.path)
         FileUtils.chown(file_owner, file_group, new_resource.path)
         FileUtils.chmod(file_mode, new_resource.path)
-      # end
+      end
     end
   ensure
     temp_file.close unless f.nil?

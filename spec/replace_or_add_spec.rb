@@ -20,9 +20,7 @@ require 'rspec_helper'
 require 'stringio'
 
 describe 'replace_or_add lines in an existing file' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new(step_into: ['replace_or_add'])
-  end
+  let(:chef_run) { ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '16.04', step_into: ['replace_or_add']) }
 
   let(:testfile) do
     'Data line
@@ -221,72 +219,46 @@ describe 'replace_or_add lines in an existing file' do
   end
 end
 
-describe 'replace_or_add lines in a missing file' do
-  let(:chef_run) do
-    ChefSpec::SoloRunner.new(step_into: ['replace_or_add'])
-  end
+# describe 'replace_or_add lines in a missing file' do
+#   let(:chef_run) do
+#     ChefSpec::SoloRunner.new(step_into: ['replace_or_add'])
+#   end
+#
+#   before(:each) do
+#     @temp_file = Tempfile.new('foo')
+#     @file_content = ''
+#     file_replacement
+#   end
+#
+#   context 'when the pattern does not match the replacement line' do
+#     before {  chef_run.converge('line_tests::replace_or_add_missing_00') }
+#     it 'should add a line' do
+#       expect(@file_content.scan(/^add this line$/).size).to eq(1)
+#     end
+#     it 'should flag the resource change' do
+#       expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: true)
+#     end
+#   end
+#
+#   context 'when the pattern matches the replacement line' do
+#     before { chef_run.converge('line_tests::replace_or_add_missing_01') }
+#     it 'should add a line' do
+#       expect(@file_content.scan(/^add this line$/).size).to eq(1)
+#     end
+#     it 'should flag the resource change' do
+#       expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: true)
+#     end
+#   end
+#
+#   context 'when replace_only is true' do
+#     before { chef_run.converge('line_tests::replace_or_add_missing_02') }
+#     it 'should not add a line' do
+#       expect(@file_content.scan(/^add this line$/).size).to eq(0)
+#     end
+#     it 'should flag the resource change' do
+#       expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: false)
+#     end
+#   end
+# end
 
-  before(:each) do
-    @temp_file = Tempfile.new('foo')
-    @file_content = ''
-    file_replacement
-  end
-
-  context 'when the pattern does not match the replacement line' do
-    before {  chef_run.converge('line_tests::replace_or_add_missing_00') }
-    it 'should add a line' do
-      expect(@file_content.scan(/^add this line$/).size).to eq(1)
-    end
-    it 'should flag the resource change' do
-      expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: true)
-    end
-  end
-
-  context 'when the pattern matches the replacement line' do
-    before { chef_run.converge('line_tests::replace_or_add_missing_01') }
-    it 'should add a line' do
-      expect(@file_content.scan(/^add this line$/).size).to eq(1)
-    end
-    it 'should flag the resource change' do
-      expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: true)
-    end
-  end
-
-  context 'when replace_only is true' do
-    before { chef_run.converge('line_tests::replace_or_add_missing_02') }
-    it 'should not add a line' do
-      expect(@file_content.scan(/^add this line$/).size).to eq(0)
-    end
-    it 'should flag the resource change' do
-      expect(chef_run).to edit_replace_or_add('missing_file').with(updated_by_last_action?: false)
-    end
-  end
-end
-
-def file_replacement
-  allow(::File).to receive(:exist?).and_call_original
-  allow(Tempfile).to receive(:new).and_call_original
-  allow(FileUtils).to receive(:copy_file).and_call_original
-  # Specific replacements
-  allow(::File).to receive(:exist?).with('file').and_return(true)
-  fake_file = StringIO.open(@file_content)
-  fake_lstat = double
-  allow(::File).to receive(:open).with('file', 'r+').and_return(fake_file)
-  allow(fake_file).to receive(:lstat).and_return(fake_lstat)
-  allow(fake_lstat).to receive(:uid).and_return(0)
-  allow(fake_lstat).to receive(:gid).and_return(0)
-  allow(fake_lstat).to receive(:mode).and_return(775)
-  allow(fake_file).to receive(:close) { fake_file.rewind }
-  allow(Tempfile).to receive(:new).with('foo').and_return(@temp_file)
-  allow(@temp_file).to receive(:close) { @temp_file.rewind }
-  allow(@temp_file).to receive(:unlink)
-  allow(FileUtils).to receive(:copy_file).with(@temp_file.path, 'file') { @file_content = @temp_file.read }
-  allow(FileUtils).to receive(:chown)
-  allow(FileUtils).to receive(:chmod)
-  missing_file = double
-  allow(::File).to receive(:exist?).with('missingfile').and_return(false)
-  allow(::File).to receive(:open).with('missingfile', 'w').and_return(missing_file)
-  allow(missing_file).to receive(:puts) { |line| @file_content << "#{line}\n" }
-  allow(missing_file).to receive(:close)
-end
 # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

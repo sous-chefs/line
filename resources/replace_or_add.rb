@@ -32,7 +32,7 @@ action :edit do
         end
 
         log "Impacted line: #{line}" do
-          level :debug
+          level :info
         end
 
         temp_file.puts line
@@ -59,19 +59,17 @@ action :edit do
       temp_file.unlink
     end
   else
-
-    begin
-      nf = ::File.open(new_resource.path, 'w')
-      unless new_resource.replace_only
-        nf.puts new_resource.line
+    converge_by "Updating file #{new_resource.path}" do
+      begin
+        nf = ::File.open(new_resource.path, 'w')
+        nf.puts new_resource.line unless new_resource.replace_only
+      rescue ENOENT
+        Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
+      ensure
+        nf.close
       end
-    rescue ENOENT
-      Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-    ensure
-      nf.close
     end
-
-  end # if ::File.exists?
+  end
 end
 
 action_class.class_eval do

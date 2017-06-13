@@ -33,7 +33,7 @@ action :edit do
       next unless line =~ regex
 
       log "Impacted line: #{line}" do
-        level :debug
+        level :info
       end
 
       case new_resource.delim.count
@@ -67,7 +67,7 @@ action :edit do
       temp_file.puts line
 
       log "New line: #{line}" do
-        level :debug
+        level :info
       end
     end
 
