@@ -85,9 +85,6 @@ Works exactly the same way as `add_to_list`, see above.
 	        
 More to follow.
 
-# Recipes
-tester -  A recipe to exercise the resources
-
 # Author
 Author:: Sean OMeara (<sean@sean.io>)
 Contributor:: Antek S. Baranski (<antek.baranski@gmail.com>)
