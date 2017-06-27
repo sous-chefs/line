@@ -1,6 +1,6 @@
 # line Cookbook CHANGELOG
 
-## v1.0.0 (tbc)
+## v1.0.0 (2017-06-13)
 
 - Move cookbook to Sous-Chefs org
 - Move to using custom_resources
