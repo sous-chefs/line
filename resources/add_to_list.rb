@@ -34,10 +34,6 @@ action :edit do
       temp_file.puts line unless line =~ regex
       next unless line =~ regex
 
-      log "Impacted line: #{line}" do
-        level :debug
-      end
-
       if new_resource.ends_with
         list_end = line.rindex(new_resource.ends_with)
         seperator = line =~ /#{new_resource.pattern}.*\S.*#{ends_with}/ ? new_resource.delim[0] : ''
@@ -74,19 +70,18 @@ action :edit do
       end
       temp_file.puts line
 
-      log "New line: #{line}" do
-        level :debug
-      end
+      Chef::Log.info("New line: #{line}")
     end
 
     f.close unless f.nil?
 
     if modified
-      temp_file.rewind
-      FileUtils.copy_file(temp_file.path, new_resource.path)
-      FileUtils.chown(file_owner, file_group, new_resource.path)
-      FileUtils.chmod(file_mode, new_resource.path)
-      # new_resource.updated_by_last_action(true)
+      converge_by "Updating file #{new_resource.path}" do
+        temp_file.rewind
+        FileUtils.copy_file(temp_file.path, new_resource.path)
+        FileUtils.chown(file_owner, file_group, new_resource.path)
+        FileUtils.chmod(file_mode, new_resource.path)
+      end
     end
   ensure
     temp_file.close unless f.nil?

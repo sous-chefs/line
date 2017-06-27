@@ -31,11 +31,12 @@ action :edit do
     f.close
 
     if modified
-      temp_file.rewind
-      FileUtils.copy_file(temp_file.path, new_resource.path)
-      FileUtils.chown(file_owner, file_group, new_resource.path)
-      FileUtils.chmod(file_mode, new_resource.path)
-      # new_resource.updated_by_last_action(true)
+      converge_by "Updating file #{new_resource.path}" do
+        temp_file.rewind
+        FileUtils.copy_file(temp_file.path, new_resource.path)
+        FileUtils.chown(file_owner, file_group, new_resource.path)
+        FileUtils.chmod(file_mode, new_resource.path)
+      end
     end
   ensure
     temp_file.close

@@ -15,9 +15,12 @@ action :edit do
       found = false
       f.each_line { |line| found = true if line =~ regex }
 
+      f.puts new_resource.line if found
+
       unless found
-        f.puts new_resource.line
-        new_resource.updated_by_last_action(true)
+        converge_by "Updating file #{new_resource.path}" do
+          f.puts new_resource.line
+        end
       end
     ensure
       f.close
@@ -25,7 +28,9 @@ action :edit do
   else
     begin
       f = ::File.open(new_resource.path, 'w')
-      f.puts new_resource.line
+      converge_by "Updating file #{new_resource.path}" do
+        f.puts new_resource.line
+      end
     ensure
       f.close
     end

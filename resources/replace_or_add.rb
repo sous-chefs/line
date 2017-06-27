@@ -31,10 +31,6 @@ action :edit do
           end
         end
 
-        log "Impacted line: #{line}" do
-          level :debug
-        end
-
         temp_file.puts line
       end
 
@@ -46,11 +42,12 @@ action :edit do
       f.close
 
       if modified
-        temp_file.rewind
-        FileUtils.copy_file(temp_file.path, new_resource.path)
-        FileUtils.chown(file_owner, file_group, new_resource.path)
-        FileUtils.chmod(file_mode, new_resource.path)
-        # new_resource.updated_by_last_action(true)
+        converge_by "Updating file #{new_resource.path}" do
+          temp_file.rewind
+          FileUtils.copy_file(temp_file.path, new_resource.path)
+          FileUtils.chown(file_owner, file_group, new_resource.path)
+          FileUtils.chmod(file_mode, new_resource.path)
+        end
       end
 
     ensure
@@ -58,20 +55,17 @@ action :edit do
       temp_file.unlink
     end
   else
-
-    begin
-      nf = ::File.open(new_resource.path, 'w')
-      unless new_resource.replace_only
-        nf.puts new_resource.line
-        # new_resource.updated_by_last_action(true)
+    converge_by "Updating file #{new_resource.path}" do
+      begin
+        nf = ::File.open(new_resource.path, 'w')
+        nf.puts new_resource.line unless new_resource.replace_only
+      rescue ENOENT
+        Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
+      ensure
+        nf.close
       end
-    rescue ENOENT
-      Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-    ensure
-      nf.close
     end
-
-  end # if ::File.exists?
+  end
 end
 
 action_class.class_eval do

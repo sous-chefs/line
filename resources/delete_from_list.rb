@@ -32,10 +32,6 @@ action :edit do
       temp_file.puts line unless line =~ regex
       next unless line =~ regex
 
-      log "Impacted line: #{line}" do
-        level :debug
-      end
-
       case new_resource.delim.count
       when 1
         case line
@@ -66,19 +62,18 @@ action :edit do
 
       temp_file.puts line
 
-      log "New line: #{line}" do
-        level :debug
-      end
+      Chef::Log.info("New line: #{line}")
     end
 
     f.close
 
     if modified
-      temp_file.rewind
-      FileUtils.copy_file(temp_file.path, new_resource.path)
-      FileUtils.chown(file_owner, file_group, new_resource.path)
-      FileUtils.chmod(file_mode, new_resource.path)
-      new_resource.updated_by_last_action(true)
+      converge_by "Updating file #{new_resource.path}" do
+        temp_file.rewind
+        FileUtils.copy_file(temp_file.path, new_resource.path)
+        FileUtils.chown(file_owner, file_group, new_resource.path)
+        FileUtils.chmod(file_mode, new_resource.path)
+      end
     end
 
   ensure
