@@ -1,4 +1,5 @@
 # line cookbook
+[![Build Status](https://www.travis-ci.org/sous-chefs/line-cookbook.svg?branch=master)](https://www.travis-ci.org/sous-chefs/line-cookbook)
 
 # Motivation
 Quite often, the need arises to do line editing instead of managing an
