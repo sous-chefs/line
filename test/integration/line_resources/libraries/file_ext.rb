@@ -28,7 +28,7 @@ class FileExtResource < Inspec.resource(1)
 
   def size_lines
     if @file.exist?
-      fail "FileExt #{path} is not a file" unless @file.file?
+      raise "FileExt #{path} is not a file" unless @file.file?
     end
     @file.exist? ? @file.content.lines.count : 0
   end

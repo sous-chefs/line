@@ -10,4 +10,4 @@ supports:
   - os-family: unix
 depends:
   - name: line_resources
-    path: ../line_resources
+    path: test/integration/line_resources

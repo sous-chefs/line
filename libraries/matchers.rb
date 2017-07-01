@@ -4,7 +4,7 @@ if defined?(ChefSpec)
     append_if_no_line: [:edit],
     delete_from_list: [:edit],
     delete_lines: [:edit],
-    replace_or_add: [:edit]
+    replace_or_add: [:edit],
   }
 
   custom_resources.each do |resource, actions|

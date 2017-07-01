@@ -28,6 +28,6 @@ class MatchResource < Inspec.resource(1)
   end
 
   def count
-    @file.exist? ?  @file.content.scan(@pattern).size : 0
+    @file.exist? ? @file.content.scan(@pattern).size : 0
   end
 end
