@@ -1,0 +1,13 @@
+name: profile
+title: InSpec
+maintainer: Chef Software, Inc.
+copyright: Chef Software, Inc.
+copyright_email: support@chef.io
+license: Apache-2.0
+summary: Extends the file matcher
+version: 1.0.0
+supports:
+  - os-family: unix
+depends:
+  - name: line_resources
+    path: test/integration/line_resources

@@ -15,8 +15,6 @@ action :edit do
       found = false
       f.each_line { |line| found = true if line =~ regex }
 
-      f.puts new_resource.line if found
-
       unless found
         converge_by "Updating file #{new_resource.path}" do
           f.puts new_resource.line
