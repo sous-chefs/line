@@ -58,13 +58,13 @@ action :edit do
     converge_by "Updating file #{new_resource.path}" do
       begin
         nf = ::File.open(new_resource.path, 'w')
-        nf.puts new_resource.line unless new_resource.replace_only
+        nf.puts new_resource.line
       rescue ENOENT
         Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
       ensure
         nf.close
       end
-    end
+    end unless new_resource.replace_only
   end
 end
 
