@@ -3,7 +3,7 @@
 # Library:: default
 #
 # Author:: Sean OMeara <someara@chef.io>
-# Copyright 2012-2013, Chef Software, Inc.
+# Copyright 2012-2013, Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

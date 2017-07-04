@@ -23,7 +23,6 @@ suites:
     - recipe[test::add_to_list]
 - name: append_if_no_line
   run_list:
-    - recipe[test::resource_status]
     - recipe[test::append_if_no_line]
 - name: delete_lines
   run_list:
