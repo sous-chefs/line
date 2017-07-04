@@ -16,7 +16,7 @@ class FileExtResource < Inspec.resource(1)
     @file = inspec.backend.file(path)
   end
 
-  %w(size_lines match_count).each do |m|
+  %w(size_lines).each do |m|
     define_method m.to_sym do |*args|
       file_ext.method(m.to_sym).call(*args)
     end
