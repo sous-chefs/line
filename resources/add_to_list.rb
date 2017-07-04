@@ -1,4 +1,3 @@
-property :name, String, name_property: true
 property :path, String
 property :pattern, String
 property :delim, Array
