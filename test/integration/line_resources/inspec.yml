@@ -1,8 +1,8 @@
 name: line_resources
 title: InSpec 
-maintainer: Chef Software, Inc.
-copyright: Chef Software, Inc.
-copyright_email: support@chef.io
+maintainer: Sous Chefs
+copyright: Sous Chefs
+copyright_email: help@sous-chefs.org
 license: Apache-2.0
 summary: Custom inspec resources for the line cookbook
 version: 1.0.0
