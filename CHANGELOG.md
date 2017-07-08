@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v1.0.1 (2017-07-05)
+
+- Fix #53 `append_if_no_line` appends line always appends
+
 ## v1.0.0 (2017-06-13)
 
 - Move cookbook to Sous-Chefs org
