@@ -16,7 +16,7 @@ class FileExtResource < Inspec.resource(1)
     @file = inspec.backend.file(path)
   end
 
-  %w(size_lines match_count).each do |m|
+  %w(size_lines).each do |m|
     define_method m.to_sym do |*args|
       file_ext.method(m.to_sym).call(*args)
     end
@@ -27,9 +27,6 @@ class FileExtResource < Inspec.resource(1)
   end
 
   def size_lines
-    if @file.exist?
-      raise "FileExt #{path} is not a file" unless @file.file?
-    end
-    @file.exist? ? @file.content.lines.count : 0
+    @file.content ? @file.content.lines.count : 0
   end
 end
