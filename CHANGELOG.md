@@ -1,5 +1,14 @@
 # line Cookbook CHANGELOG
 
+## v1.0.2 (2017-07-07)
+
+- Fix #58 Add resource locator matchers
+- Fix #59 Add resource matcher tests
+- Make cookstyle 2.0.0 fixes
+- Delete the unused minitest files
+- Clean up the file_ext inspec resource
+- Allow a delimiter in the inspec file_ext::size_lines matcher
+
 ## v1.0.1 (2017-07-05)
 
 - Fix #53 `append_if_no_line` appends line always appends
