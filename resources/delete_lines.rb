@@ -6,8 +6,9 @@ resource_name :delete_lines
 action :edit do
   regex = /#{new_resource.pattern}/
 
+  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+
   begin
-    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
     f = ::File.open(new_resource.path, 'r+')
 
