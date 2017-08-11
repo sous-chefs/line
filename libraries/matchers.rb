@@ -9,6 +9,7 @@ if defined?(ChefSpec)
 
   custom_resources.each do |resource, actions|
     actions.each do |action|
+      ChefSpec.define_matcher resource
       define_method("#{action}_#{resource}") do |message|
         ChefSpec::Matchers::ResourceMatcher
           .new(resource.to_sym, action, message)

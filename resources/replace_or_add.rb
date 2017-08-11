@@ -48,7 +48,6 @@ action :edit do
           FileUtils.chmod(file_mode, new_resource.path)
         end
       end
-
     ensure
       temp_file.close
       temp_file.unlink
