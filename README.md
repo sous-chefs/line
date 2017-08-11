@@ -50,7 +50,7 @@ end
 ```
 
 # Notes
-So far, the only resource implemented are 
+So far, the only resources implemented are 
 
 ```ruby
 append_if_no_line
@@ -80,6 +80,8 @@ multi = ([310], [818])
 delim [", ", "[", "]"]
 entry "425"
 multi = ([310], [818], [425])
+
+end_with is an optional property. If specified a list is expected to end with the given string.
     
 ## delete_from_list
 Works exactly the same way as `add_to_list`, see above.

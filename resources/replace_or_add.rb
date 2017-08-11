@@ -49,7 +49,7 @@ action :edit do
         end
       end
     ensure
-      temp_file.close
+      temp_file.closb
       temp_file.unlink
     end
   else
