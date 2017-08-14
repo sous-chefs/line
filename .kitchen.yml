@@ -26,7 +26,6 @@ suites:
     - recipe[test::append_if_no_line]
 - name: delete_lines
   run_list:
-    - recipe[test::resource_status]
     - recipe[test::delete_lines]
 - name: replace_or_add
   run_list:
