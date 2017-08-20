@@ -7,5 +7,5 @@ end
 
 # 'Add existing and new entry'
 describe file('/tmp/dangerfile3') do
-  its(:content) { should match(Regexp.new(Regexp.escape('People to call: Bobby, Harry'))) }
+  its(:content) { should match(Regexp.new(Regexp.escape('People to call: Joe, Bobby, Karen, Harry'))) }
 end

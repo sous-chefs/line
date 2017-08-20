@@ -7,5 +7,5 @@ end
 
 # 'add existing entry and new entry to a list' do
 describe file('/tmp/dangerfile3') do
-  its(:content) { should match(Regexp.new(Regexp.escape('multi = ([818], [323])'))) }
+  its(:content) { should match(Regexp.new(Regexp.escape('multi = ([310], [323], [818])'))) }
 end
