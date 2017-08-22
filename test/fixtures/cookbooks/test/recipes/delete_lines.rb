@@ -27,3 +27,9 @@ delete_lines 'Operation 8' do
   path '/tmp/dangerfile2'
   pattern '^#.*'
 end
+
+delete_lines 'File does not exist' do
+  path '/tmp/nofilehere'
+  pattern '^#.*'
+  ignore_failure true
+end

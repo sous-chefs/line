@@ -1,7 +1,8 @@
 my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
 People to call: Joe, Bobby, Karen
-multi = ([310], [818], [425])
+multi = ([310], [323])
 DEFAULT_APPEND="resume=/dev/sda2 splash=silent crashkernel=256M-:128M showopts"
+DEFAULT_APPEND_EMPTY=""
 empty_list=
 empty_delimited_list=()
 empty_3delim=()
