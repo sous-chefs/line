@@ -11,7 +11,11 @@
 - Fix #59 Add resource matcher tests
 - Make cookstyle 2.0.0 fixes
 - Delete the unused minitest files
+<<<<<<< HEAD
 - Clean up the `file_ext` inspec resource
+=======
+- Clean up the file_ext inspec resource
+>>>>>>> Version 1.0.3
 
 ## v1.0.1 (2017-07-05)
 
