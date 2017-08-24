@@ -1,8 +1,9 @@
 # line Cookbook CHANGELOG
 
 ## v1.0.3 (2017-08-22)
-- Add edge case tests for add_to_list
-- Handle the delete_lines, add_to_list, and delete_from_list resources when a missing file is specified. 
+
+- Add edge case tests for `add_to_list`
+- Handle the `delete_lines`, `add_to_list`, and `delete_from_list` resources when a missing file is specified.
 
 ## v1.0.2 (2017-07-07)
 
@@ -10,7 +11,7 @@
 - Fix #59 Add resource matcher tests
 - Make cookstyle 2.0.0 fixes
 - Delete the unused minitest files
-- Clean up the file_ext inspec resource
+- Clean up the `file_ext` inspec resource
 
 ## v1.0.1 (2017-07-05)
 
