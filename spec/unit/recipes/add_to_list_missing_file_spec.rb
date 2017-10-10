@@ -17,7 +17,8 @@
 # limitations under the License.
 #
 
-require 'chefspec_helper'
+require 'chefspec'
+require 'chefspec/berkshelf'
 
 describe 'test::add_to_list_missing_file' do
   let(:chef_run) do

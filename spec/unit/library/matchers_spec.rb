@@ -17,8 +17,6 @@
 # limitations under the License.
 #
 
-require 'chefspec_helper'
-
 describe 'test::matchers' do
   let(:chef_run) do
     chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
