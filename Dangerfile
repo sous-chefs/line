@@ -13,6 +13,7 @@ def test_changes?
   tests.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
+  return false
 end
 
 fail 'Please provide a summary of your Pull Request.' if github.pr_body.length < 10
