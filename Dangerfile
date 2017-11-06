@@ -5,6 +5,7 @@ def code_changes?
   code.each do |location|
     return true unless git.modified_files.grep(/#{location}/).empty?
   end
+  return false
 end
 
 def test_changes?
