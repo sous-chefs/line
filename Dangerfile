@@ -1,3 +1,5 @@
+# Reference: http://danger.systems/reference.html
+
 def code_changes?
   code = %w[libraries attributes recipes resources]
   code.each do |location|
