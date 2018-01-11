@@ -39,4 +39,24 @@ delete_from_list 'Delete Operation 5' do
   delim [', ', '[', ']']
   entry '425'
 end
-#
+
+delete_from_list 'grub.conf - Remove rhgb' do
+  path '/tmp/dangerfile3'
+  pattern '^\\s*kernel .*'
+  delim [' ']
+  entry 'rhgb'
+end
+
+delete_from_list 'grub.conf - Remove quiet' do
+  path '/tmp/dangerfile3'
+  pattern '^\\s*kernel .*'
+  delim [' ']
+  entry 'quiet'
+end
+
+delete_from_list 'delimiter is 2 spaces' do
+  path '/tmp/dangerfile3'
+  pattern '^double  space'
+  delim ['  ']
+  entry 'separator'
+end
