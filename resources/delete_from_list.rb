@@ -8,9 +8,9 @@ resource_name :delete_from_list
 action :edit do
   regex = /#{new_resource.pattern}/
 
-  begin
-    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
+  begin
     f = ::File.open(new_resource.path, 'r+')
 
     file_owner = f.lstat.uid
@@ -35,8 +35,10 @@ action :edit do
       when 1
         case line
         when /#{regexdelim[0]}\s*#{new_resource.entry}/
-          line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, '')
+          replace_deleted = regexdelim[0] =~ /\s+/ ? regexdelim[0] : ''
+          line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, replace_deleted)
           line = line.chomp
+          line = line.rstrip if regexdelim[0] =~ /\s+/
           modified = true
         when /#{new_resource.entry}\s*#{regexdelim[0]}/
           line = line.sub(/#{new_resource.entry}(#{regexdelim[0]})*/, '')

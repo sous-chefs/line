@@ -16,19 +16,14 @@ platforms:
 
 - name: centos-7
   driver:
-    image: centos:7
+    image: dokken/centos-7
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
-    intermediate_instructions:
-      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools
 
 - name: ubuntu-16.04
   driver:
-    image: ubuntu:16.04
+    image: dokken/ubuntu-16.04
     pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install apt-transport-https lsb-release procps net-tools -y
 
 suites:
 - name: delete_from_list

@@ -1,13 +1,21 @@
 # line Cookbook CHANGELOG
 
+## v1.0.4 (2018-01-10)
+
+- Handle deleting items from a list using spaces as the delimeter
+
+## v1.0.3 (2017-08-22)
+
+- Add edge case tests for `add_to_list`
+- Handle the `delete_lines`, `add_to_list`, and `delete_from_list` resources when a missing file is specified.
+
 ## v1.0.2 (2017-07-07)
 
 - Fix #58 Add resource locator matchers
 - Fix #59 Add resource matcher tests
 - Make cookstyle 2.0.0 fixes
 - Delete the unused minitest files
-- Clean up the file_ext inspec resource
-- Allow a delimiter in the inspec file_ext::size_lines matcher
+- Clean up the `file_ext` inspec resource
 
 ## v1.0.1 (2017-07-05)
 

@@ -53,16 +53,18 @@ action :edit do
       temp_file.unlink
     end
   else
-    converge_by "Updating file #{new_resource.path}" do
-      begin
-        nf = ::File.open(new_resource.path, 'w')
-        nf.puts new_resource.line
-      rescue ENOENT
-        Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-      ensure
-        nf.close
+    unless new_resource.replace_only
+      converge_by "Updating file #{new_resource.path}" do
+        begin
+          nf = ::File.open(new_resource.path, 'w')
+          nf.puts new_resource.line
+        rescue ENOENT
+          Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
+        ensure
+          nf.close
+        end
       end
-    end unless new_resource.replace_only
+    end
   end
 end
 

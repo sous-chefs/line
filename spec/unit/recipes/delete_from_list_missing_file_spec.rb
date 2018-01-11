@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: line
-# Spec:: chefspec_helper
+# Spec:: delete_from_list_missing_file
 #
 # Copyright 2017 Sous Chefs
 #
@@ -19,4 +19,14 @@
 
 require 'chefspec'
 require 'chefspec/berkshelf'
-require_relative '../libraries/matchers'
+
+describe 'test::delete_from_list_missing_file' do
+  let(:chef_run) do
+    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04', step_into: ['delete_from_list'])
+    chef_run.converge(described_recipe)
+  end
+
+  it 'should throw error with a file not found message' do
+    expect { chef_run }.to raise_error(RuntimeError).with_message(%r{File \/tmp\/nofilehere not found})
+  end
+end

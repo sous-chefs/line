@@ -10,9 +10,9 @@ action :edit do
   ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ''
   regex = /#{new_resource.pattern}.*#{ends_with}/
 
-  begin
-    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
+  begin
     f = ::File.open(new_resource.path, 'r+')
 
     file_owner = f.lstat.uid

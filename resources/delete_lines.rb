@@ -6,9 +6,9 @@ resource_name :delete_lines
 action :edit do
   regex = /#{new_resource.pattern}/
 
-  begin
-    raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
+  begin
     f = ::File.open(new_resource.path, 'r+')
 
     file_owner = f.lstat.uid
