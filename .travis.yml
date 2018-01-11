@@ -1,5 +1,6 @@
 sudo: required
 dist: trusty
+cache: bundler
 
 addons:
   apt:
@@ -7,9 +8,6 @@ addons:
       - chef-stable-trusty
     packages:
       - chefdk
-
-# Don't `bundle install` which takes about 1.5 mins
-install: echo "skip bundle install"
 
 branches:
   only:
@@ -37,6 +35,7 @@ before_script:
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/cookstyle --version
   - /opt/chefdk/embedded/bin/foodcritic --version
+  - /opt/chefdk/embedded/bin/chef gem install danger
 
 script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
 
@@ -45,3 +44,6 @@ matrix:
     - script:
       - /opt/chefdk/bin/chef exec delivery local all
       env: UNIT_AND_LINT=1
+    - script:
+      - /opt/chefdk/bin/chef exec danger
+      env: DANGER
