@@ -21,3 +21,9 @@ control 'File should still contain' do
     its(:content) { should match(/last_delimited_list= \(\|single\|\)/) }
   end
 end
+
+describe file('/tmp/dangerfile3') do
+  its(:content) { should match(/reported$/) }
+  its(:content) { should match(/altform$/) }
+  its(:content) { should match(/double  space  entry  fin/) }
+end
