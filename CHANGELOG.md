@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v1.0.5 (2018-02-20)
+
+- Minor Testing updates
+
 ## v1.0.4 (2018-01-10)
 
 - Handle deleting items from a list using spaces as the delimeter
@@ -24,22 +28,22 @@
 ## v1.0.0 (2017-06-13)
 
 - Move cookbook to Sous-Chefs org
-- Move to using custom_resources
+- Move to using custom resources
 
 ## v0.6.3 (2015-10-27)
 
 - Fixing Ruby and Chef deprecation warnings
 - Cleaning up tests a bit
-- Adding support for source_url and issues_url
-- delete_from_list resource
+- Adding support for `source_url` and `issues_url`
+- `delete_from_list` resource
 
 ## v0.6.2 (2015-07-15)
 
 - Catch lines missed by strict patterns
-- Add rspec tests for the replace_or_add provider. The existing chefspec tests don't step into the provider code and so don't check the provider functionality.
+- Add rspec tests for the `replace_or_add` provider. The existing chefspec tests don't step into the provider code and so don't check the provider functionality.
 - Change the Gemfile to reflect the need for berkshelf 3, chefspec v4.2, rspec 3 for the tests.
-- Update provider_replace_or_add to handle cases where the pattern does not match the replacement line.
-- Fix notification problem where updated_by_last_action was set when nothing changed.
+- Update `provider_replace_or_add` to handle cases where the pattern does not match the replacement line.
+- Fix notification problem where `updated_by_last_action` was set when nothing changed.
 
 ## v0.6.1 (2015-02-24)
 
