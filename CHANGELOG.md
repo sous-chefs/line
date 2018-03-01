@@ -3,6 +3,7 @@
 ## v1.0.5 (2018-02-20)
 
 - Minor Testing updates
+- Remove custom matchers for ChefSpec. ChefDK 1 versions of ChefSpec will no longer work when unit testing against this cookbook.
 
 ## v1.0.4 (2018-01-10)
 
