@@ -27,6 +27,11 @@ delete_lines "remove hash-comments from /some/file" do
   pattern "^#.*"
 end
 
+delete_lines "remove hash-comments from /some/file with a regexp" do
+  path "/some/file"
+  pattern /^#.*/
+end
+
 replace_or_add "change the love, don't add more" do
   path "/some/file"
   pattern "Why hello there.*"
