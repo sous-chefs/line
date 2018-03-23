@@ -1,5 +1,7 @@
 # line Cookbook CHANGELOG
 
+## 1.0.6 (2018-03-23)
+
 - Add question mark to regular expression escape characters
 
 ## v1.0.5 (2018-02-20)
