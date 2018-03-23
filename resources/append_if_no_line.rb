@@ -7,30 +7,12 @@ action :edit do
   string = escape_string new_resource.line
   regex = /^#{string}$/
 
-  if ::File.exist?(new_resource.path)
-    begin
-      f = ::File.open(new_resource.path, 'r+')
+  current = ::File.readlines(new_resource.path)
+  current[-1] = current[-1].chomp + "\n"
 
-      found = false
-      f.each_line { |line| found = true if line =~ regex }
-
-      unless found
-        converge_by "Updating file #{new_resource.path}" do
-          f.puts new_resource.line
-        end
-      end
-    ensure
-      f.close
-    end
-  else
-    begin
-      f = ::File.open(new_resource.path, 'w')
-      converge_by "Updating file #{new_resource.path}" do
-        f.puts new_resource.line
-      end
-    ensure
-      f.close
-    end
+  file new_resource.path do
+    content ( current + [ new_resource.line + "\n" ] ).join
+    not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }
   end
 end
 
