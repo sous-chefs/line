@@ -13,3 +13,13 @@ append_if_no_line 'Operation redo' do
   path '/tmp/dangerfile'
   line 'HI THERE I AM STRING'
 end
+
+append_if_no_line 'with special chars' do
+  path '/tmp/dangerfile'
+  line 'AM I A STRING?+\'".*/-\(){}^$[]'
+end
+
+append_if_no_line 'with special chars redo' do
+  path '/tmp/dangerfile'
+  line 'AM I A STRING?+\'".*/-\(){}^$[]'
+end
