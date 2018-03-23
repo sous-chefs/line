@@ -11,7 +11,7 @@ action :edit do
   current[-1] = current[-1].chomp + "\n"
 
   file new_resource.path do
-    content ( current + [ new_resource.line + "\n" ] ).join
+    content((current + [new_resource.line + "\n"]).join)
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }
   end
 end

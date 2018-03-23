@@ -23,3 +23,21 @@ append_if_no_line 'with special chars redo' do
   path '/tmp/dangerfile'
   line 'AM I A STRING?+\'".*/-\(){}^$[]'
 end
+
+file '/tmp/file_without_linereturn' do
+  content 'no carriage return line'
+end
+
+append_if_no_line 'should go on its own line' do
+  path '/tmp/file_without_linereturn'
+  line 'SHOULD GO ON ITS OWN LINE'
+end
+
+file '/tmp/file_without_linereturn2' do
+  content 'no carriage return line'
+end
+
+append_if_no_line 'should not edit the file' do
+  path '/tmp/file_without_linereturn'
+  line 'no carriage return line'
+end
