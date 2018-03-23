@@ -7,7 +7,11 @@ control 'Append lines' do
     its(:count) { should eq 1 }
   end
 
+  describe matches('/tmp/dangerfile', 'AM I A STRING?+\'".*/-\(){}^$[]') do
+    its(:count) { should eq 1 }
+  end
+
   describe file_ext('/tmp/dangerfile') do
-    its(:size_lines) { should eq 5 }
+    its(:size_lines) { should eq 6 }
   end
 end

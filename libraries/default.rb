@@ -21,7 +21,7 @@
 module Line
   module Helper
     def escape_string(string)
-      pattern = %r{(\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])}
+      pattern = %r{(\?|\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])}
       string.gsub(pattern) { |match| '\\' + match }
     end
 
