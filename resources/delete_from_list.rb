@@ -23,7 +23,7 @@ action :edit do
 
     regexdelim = []
     new_resource.delim.each do |delim|
-      regexdelim << escape_string(delim)
+      regexdelim << Regexp.escape(delim)
     end
 
     f.each_line do |line|
@@ -85,9 +85,4 @@ end
 action_class.class_eval do
   require 'fileutils'
   require 'tempfile'
-
-  def escape_string(string)
-    pattern = %r{(\?|\+|\'|\"|\.|\*|\/|\-|\\|\(|\)|\{|\}|\^|\$|\[|\])}
-    string.gsub(pattern) { |match| '\\' + match }
-  end
 end
