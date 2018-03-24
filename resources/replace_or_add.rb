@@ -71,6 +71,4 @@ end
 action_class.class_eval do
   require 'fileutils'
   require 'tempfile'
-
-  include Line::Helper
 end
