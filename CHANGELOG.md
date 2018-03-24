@@ -1,11 +1,14 @@
 # line Cookbook CHANGELOG
 
+
 ## 1.0.7 (2018-03-23)
 
 - Rework `delete_lines` to use file provider subresource.
 - Support matching with regexps in addition to strings with `delete_lines`.
 - Rework `append_if_no_line` to use file provider subresource.
 - Fix edge conditions around files-with-no-trailing-CR being fed to `append_if_no_line`.
+- Remove library helpers.
+- Moves the `escape_string` method into the resources using it
 
 ## 1.0.6 (2018-03-23)
 
