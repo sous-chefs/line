@@ -53,7 +53,6 @@ action :edit do
     temp_file.close
     temp_file.unlink
   end
-
 end
 
 action_class.class_eval do
