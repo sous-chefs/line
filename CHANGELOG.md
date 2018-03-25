@@ -1,5 +1,23 @@
 # line Cookbook CHANGELOG
 
+## 1.0.7 (2018-03-23)
+
+- Rework `delete_lines` to use file provider subresource.
+- Support matching with regexps in addition to strings with `delete_lines`.
+- Rework `append_if_no_line` to use file provider subresource.
+- Fix edge conditions around files-with-no-trailing-CR being fed to `append_if_no_line`.
+- Remove library helpers.
+- Remove the escape_regexp and escape_string methods in favour of native Regexp.escape
+
+## 1.0.6 (2018-03-23)
+
+- Add question mark to regular expression escape characters
+
+## v1.0.5 (2018-02-20)
+
+- Minor Testing updates
+- Remove custom matchers for ChefSpec. ChefDK 1 versions of ChefSpec will no longer work when unit testing against this cookbook.
+
 ## v1.0.4 (2018-01-10)
 
 - Handle deleting items from a list using spaces as the delimeter
@@ -24,22 +42,22 @@
 ## v1.0.0 (2017-06-13)
 
 - Move cookbook to Sous-Chefs org
-- Move to using custom_resources
+- Move to using custom resources
 
 ## v0.6.3 (2015-10-27)
 
 - Fixing Ruby and Chef deprecation warnings
 - Cleaning up tests a bit
-- Adding support for source_url and issues_url
-- delete_from_list resource
+- Adding support for `source_url` and `issues_url`
+- `delete_from_list` resource
 
 ## v0.6.2 (2015-07-15)
 
 - Catch lines missed by strict patterns
-- Add rspec tests for the replace_or_add provider. The existing chefspec tests don't step into the provider code and so don't check the provider functionality.
+- Add rspec tests for the `replace_or_add` provider. The existing chefspec tests don't step into the provider code and so don't check the provider functionality.
 - Change the Gemfile to reflect the need for berkshelf 3, chefspec v4.2, rspec 3 for the tests.
-- Update provider_replace_or_add to handle cases where the pattern does not match the replacement line.
-- Fix notification problem where updated_by_last_action was set when nothing changed.
+- Update `provider_replace_or_add` to handle cases where the pattern does not match the replacement line.
+- Fix notification problem where `updated_by_last_action` was set when nothing changed.
 
 ## v0.6.1 (2015-02-24)
 

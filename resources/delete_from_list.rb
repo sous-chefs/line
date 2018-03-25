@@ -1,12 +1,12 @@
 property :path, String
-property :pattern, String
+property :pattern, [String, Regexp]
 property :delim, Array
 property :entry, String
 
 resource_name :delete_from_list
 
 action :edit do
-  regex = /#{new_resource.pattern}/
+  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
 
   raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
@@ -23,7 +23,7 @@ action :edit do
 
     regexdelim = []
     new_resource.delim.each do |delim|
-      regexdelim << escape_regex(delim)
+      regexdelim << Regexp.escape(delim)
     end
 
     f.each_line do |line|
@@ -35,7 +35,7 @@ action :edit do
       when 1
         case line
         when /#{regexdelim[0]}\s*#{new_resource.entry}/
-          replace_deleted = regexdelim[0] =~ /\s+/ ? regexdelim[0] : ''
+          replace_deleted = regexdelim[0] =~ /\s+/ ? new_resource.delim[0] : ''
           line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, replace_deleted)
           line = line.chomp
           line = line.rstrip if regexdelim[0] =~ /\s+/
@@ -85,6 +85,4 @@ end
 action_class.class_eval do
   require 'fileutils'
   require 'tempfile'
-
-  include Line::Helper
 end
