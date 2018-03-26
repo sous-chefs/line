@@ -60,3 +60,31 @@ delete_from_list 'delimiter is 2 spaces' do
   delim ['  ']
   entry 'separator'
 end
+
+delete_from_list 'delimiter is comma and space' do
+  path '/tmp/dangerfile3'
+  pattern '^list, comma-space'
+  delim [', ']
+  entry 'third'
+end
+
+delete_from_list 'delimiter is comma and space last entry' do
+  path '/tmp/dangerfile3'
+  pattern '^list, comma-space'
+  delim [', ']
+  entry 'fifth'
+end
+
+delete_from_list 'delimiter is space and comma' do
+  path '/tmp/dangerfile3'
+  pattern '^list ,space-comma'
+  delim [' ,']
+  entry 'third'
+end
+
+delete_from_list 'delimiter is space and comma last entry' do
+  path '/tmp/dangerfile3'
+  pattern '^list ,space-comma'
+  delim [' ,']
+  entry 'fifth'
+end

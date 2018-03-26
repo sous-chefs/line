@@ -35,10 +35,10 @@ action :edit do
       when 1
         case line
         when /#{regexdelim[0]}\s*#{new_resource.entry}/
-          replace_deleted = regexdelim[0] =~ /\s+/ ? new_resource.delim[0] : ''
-          line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, replace_deleted)
-          line = line.chomp
-          line = line.rstrip if regexdelim[0] =~ /\s+/
+          # remove the entry
+          line = line.sub(/(#{regexdelim[0]})*\s*#{new_resource.entry}(#{regexdelim[0]})*/, new_resource.delim[0])
+          # delete any trailing delimeters
+          line = line.sub(/\s*(#{regexdelim[0]})*\s*$/, '')
           modified = true
         when /#{new_resource.entry}\s*#{regexdelim[0]}/
           line = line.sub(/#{new_resource.entry}(#{regexdelim[0]})*/, '')

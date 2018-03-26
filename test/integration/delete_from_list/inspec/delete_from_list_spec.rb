@@ -25,5 +25,7 @@ end
 describe file('/tmp/dangerfile3') do
   its(:content) { should match(/reported$/) }
   its(:content) { should match(/altform$/) }
-  its(:content) { should match(/double  space  entry  fin/) }
+  its(:content) { should match(/double  space  entry  fin$/) }
+  its(:content) { should match(/^list, comma-space, fourth$/) }
+  its(:content) { should match(/^list ,space-comma ,fourth$/) }
 end
