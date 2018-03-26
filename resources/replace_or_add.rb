@@ -1,12 +1,12 @@
 property :path, String
-property :pattern, String
+property :pattern, [String, Regexp]
 property :line, String
 property :replace_only, [true, false]
 
 resource_name :replace_or_add
 
 action :edit do
-  regex = /#{new_resource.pattern}/
+  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
 
   if ::File.exist?(new_resource.path)
     begin
@@ -71,6 +71,4 @@ end
 action_class.class_eval do
   require 'fileutils'
   require 'tempfile'
-
-  include Line::Helper
 end

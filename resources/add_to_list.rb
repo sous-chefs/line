@@ -25,7 +25,7 @@ action :edit do
 
     regexdelim = []
     new_resource.delim.each do |delim|
-      regexdelim << escape_regex(delim)
+      regexdelim << Regexp.escape(delim)
     end
 
     f.each_line do |line|
@@ -91,6 +91,4 @@ end
 action_class.class_eval do
   require 'fileutils'
   require 'tempfile'
-
-  include Line::Helper
 end

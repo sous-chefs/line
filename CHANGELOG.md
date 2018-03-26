@@ -6,6 +6,8 @@
 - Support matching with regexps in addition to strings with `delete_lines`.
 - Rework `append_if_no_line` to use file provider subresource.
 - Fix edge conditions around files-with-no-trailing-CR being fed to `append_if_no_line`.
+- Remove library helpers.
+- Remove the escape_regexp and escape_string methods in favour of native Regexp.escape
 
 ## 1.0.6 (2018-03-23)
 

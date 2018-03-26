@@ -7,6 +7,8 @@ action :edit do
   string = Regexp.escape(new_resource.line)
   regex = /^#{string}$/
 
+  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+
   current = ::File.readlines(new_resource.path)
   # we match the regexp after doing this append for files without terminating CRs.  should
   # we instead match against the unchanged content?  we're basically saying "don't worry
