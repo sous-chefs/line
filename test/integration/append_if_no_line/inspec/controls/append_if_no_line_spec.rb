@@ -22,4 +22,8 @@ control 'Append lines' do
   describe file('/tmp/file_without_linereturn2') do
     its(:content) { should eql('no carriage return line') }
   end
+
+  describe file('/tmp/emptyfile') do
+    its(:content) { should eql("added line\n") }
+  end
 end
