@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v1.1.1 (2018-04-16)
+
+- Allow appending to an empty file
+
 ## v1.1.0 (2018-03-26)
 
 - Rework `delete_lines` to use file provider subresource.
