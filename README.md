@@ -52,6 +52,12 @@ delete_from_list "delete entry from a list" do
   delim [","]
   entry "Bobby"
 end
+
+delete_lines 'remove from nonexisting' do
+  path '/tmp/doesnotexist'
+  pattern /^#/
+  ignore_missing true
+end
 ```
 
 # Notes
@@ -90,9 +96,17 @@ end_with is an optional property. If specified a list is expected to end with th
     
 ## delete_from_list
 Works exactly the same way as `add_to_list`, see above.
+
+The property `ignore_missing` defines if operating on a non-existing file raises an error or not.
 	        
 More to follow.
 
+## delete_lines
+
+Removes lines based on a string or regex.
+
+The property `ignore_missing` defines if operating on a non-existing file raises an error or not.
+
 # Author
-Author:: Sean OMeara (<sean@sean.io>)
-Contributor:: Antek S. Baranski (<antek.baranski@gmail.com>)
+Author: Sean OMeara (<sean@sean.io>)  
+Contributor: Antek S. Baranski (<antek.baranski@gmail.com>)
