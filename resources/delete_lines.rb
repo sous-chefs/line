@@ -1,10 +1,13 @@
 property :path, String
 property :pattern, [String, Regexp]
+property :ignore_missing, [TrueClass, FalseClass], default: false
 
 resource_name :delete_lines
 
 action :edit do
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
+
+  return if !::File.exist?(new_resource.path) && new_resource.ignore_missing
 
   raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
