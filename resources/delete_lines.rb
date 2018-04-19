@@ -1,6 +1,6 @@
 property :path, String
 property :pattern, [String, Regexp]
-property :ignore_missing, [TrueClass, FalseClass], default: false
+property :ignore_missing, [true, false], default: false
 
 resource_name :delete_lines
 
