@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v1.2.0 (2018-04-18)
+
+- Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
+
 ## v1.1.1 (2018-04-16)
 
 - Allow appending to an empty file

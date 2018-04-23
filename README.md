@@ -52,9 +52,15 @@ delete_from_list "delete entry from a list" do
   delim [","]
   entry "Bobby"
 end
+
+delete_lines 'remove from nonexisting' do
+  path '/tmp/doesnotexist'
+  pattern /^#/
+  ignore_missing true
+end
 ```
 
-# Notes
+# Resource Notes
 So far, the only resources implemented are 
 
 ```ruby
@@ -65,8 +71,63 @@ add_to_list
 delete_from_list
 ```
 
-## add_to_list
-delim must be an array of 1, 2 or 3 multi-character elements.
+## Resource: append_if_no_line
+### Actions
+Action | Description 
+-------|------------
+edit | Append a line if it is missing.
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | File to update | String | Required, no default
+line | Line contents |  String | Required, no default
+
+## Resource: replace_or_add
+### Actions
+Action | Description 
+-------|------------
+edit | Replace lines that match the pattern. Append the line unless a source line matches the pattern.
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | File to update | String | Required, no default
+pattern | Regular expression to select lines | Regular expression or String | Required, no default
+line | Line contents |  String | Required, no default
+replace_only | Don't append only replace matching lines |  true or false | Required, no default
+
+## Resource: delete_lines
+### Actions
+Action | Description 
+-------|------------
+edit | Delete lines that match the pattern.
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | File to update | String | Required, no default
+pattern | Regular expression to select lines | Regular expression or String | Required, no default
+ignore_missing | Don't fail if the file is missing  |  true or false | Default is false
+### Notes
+Removes lines based on a string or regex.
+
+## Resource: add_to_list
+### Actions
+Action | Description 
+-------|------------
+edit | Add an item to a list
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | File to update |  String | Required, no default
+pattern | Regular expression to select lines | Regular expression or String | Required, no default
+delim | Delimiter entries | Array | Array of 1, 2 or 3 multi-character elements
+entry | Value to add | String | Required, No default
+ends_with | List ending |  String | No default
+
+### Notes
 If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and
 each entry will be followed by either the delimeter or a new line character:
 People to call: Joe, Bobby
@@ -88,11 +149,25 @@ multi = ([310], [818], [425])
 
 end_with is an optional property. If specified a list is expected to end with the given string.
     
-## delete_from_list
-Works exactly the same way as `add_to_list`, see above.
-	        
-More to follow.
+## Resource: delete_from_list
+### Actions
+Action | Description 
+-------|------------
+edit | Delete an item from a list
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | File to update |  String | Required, no default
+pattern | Regular expression to select lines | Regular expression or String | Required, no default
+delim | Delimiter entries | Array | Array of 1, 2 or 3 multi-character elements
+entry | Value to delete | String | Required, No default
+ends_with | List ending |  String | No default
+ignore_missing | Don't fail if the file is missing  |  true or false | Default is false
+### Notes
+Delimeters works exactly the same way as `add_to_list`, see above.
+
 
 # Author
-Author:: Sean OMeara (<sean@sean.io>)
-Contributor:: Antek S. Baranski (<antek.baranski@gmail.com>)
+Author: Sean OMeara (<sean@sean.io>)  
+Contributor: Antek S. Baranski (<antek.baranski@gmail.com>)

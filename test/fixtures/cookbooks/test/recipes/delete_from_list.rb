@@ -87,4 +87,5 @@ delete_from_list 'delimiter is space and comma last entry' do
   pattern '^list ,space-comma'
   delim [' ,']
   entry 'fifth'
+  ignore_missing true
 end
