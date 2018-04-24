@@ -1,9 +1,9 @@
 directory '/tmp'
 
-cookbook_file '/tmp/dangerfile' do
+template '/tmp/dangerfile' do
 end
 
-cookbook_file '/tmp/dangerfile2' do
+template '/tmp/dangerfile2' do
 end
 
 replace_or_add 'Operation 2' do

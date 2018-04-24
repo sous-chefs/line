@@ -1,6 +1,6 @@
 directory '/tmp'
 
-cookbook_file '/tmp/dangerfile3' do
+template '/tmp/dangerfile3' do
 end
 
 # test lists with an item seperator

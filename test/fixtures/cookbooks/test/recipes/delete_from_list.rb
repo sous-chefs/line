@@ -1,6 +1,6 @@
 directory '/tmp'
 
-cookbook_file '/tmp/dangerfile3' do
+template '/tmp/dangerfile3' do
 end
 
 # Delete the first entry in a list with delimited entries
