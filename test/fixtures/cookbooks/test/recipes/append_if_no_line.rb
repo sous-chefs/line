@@ -1,7 +1,17 @@
-cookbook_file '/tmp/dangerfile' do
-  owner 'root'
-  mode '00644'
-  :create_if_missing
+directory '/tmp'
+
+eol = (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) ? "\r\n" : "\n"
+danger_contents = "HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT ME YOU FOOL#{eol}COMMENT ME AND I STOP YELLING I PROMISE#{eol}"
+puts
+puts "EOL #{eol.unpack('H*')}"
+puts "DANGERCONTENTS #{danger_contents.unpack('H*')}"
+puts
+
+template '/tmp/dangerfile' do
+end
+
+file '/tmp/dangerfile2' do
+  content danger_contents
 end
 
 append_if_no_line 'Operation' do
@@ -31,10 +41,6 @@ end
 append_if_no_line 'should go on its own line' do
   path '/tmp/file_without_linereturn'
   line 'SHOULD GO ON ITS OWN LINE'
-end
-
-file '/tmp/file_without_linereturn2' do
-  content 'no carriage return line'
 end
 
 append_if_no_line 'should not edit the file' do

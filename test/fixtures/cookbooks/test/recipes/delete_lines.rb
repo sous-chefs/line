@@ -1,11 +1,9 @@
+directory '/tmp'
+
 cookbook_file '/tmp/dangerfile1' do
-  owner 'root'
-  mode '00644'
 end
 
 cookbook_file '/tmp/dangerfile2' do
-  owner 'root'
-  mode '00644'
 end
 
 # just dup the files for regexp tests
