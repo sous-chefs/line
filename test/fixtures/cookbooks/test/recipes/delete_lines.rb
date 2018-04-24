@@ -1,19 +1,19 @@
 directory '/tmp'
 
-cookbook_file '/tmp/dangerfile1' do
+template '/tmp/dangerfile1' do
 end
 
-cookbook_file '/tmp/dangerfile2' do
+template '/tmp/dangerfile2' do
 end
 
 # just dup the files for regexp tests
 
 file '/tmp/dangerfile1-regexp' do
-  content lazy { IO.read('/tmp/dangerfile1') }
+  content lazy { IO.binread('/tmp/dangerfile1') }
 end
 
 file '/tmp/dangerfile2-regexp' do
-  content lazy { IO.read('/tmp/dangerfile2') }
+  content lazy { IO.binread('/tmp/dangerfile2') }
 end
 
 # string tests
