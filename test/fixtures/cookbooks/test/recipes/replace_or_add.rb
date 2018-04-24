@@ -1,11 +1,9 @@
+directory '/tmp'
+
 cookbook_file '/tmp/dangerfile' do
-  owner 'root'
-  mode '00644'
 end
 
 cookbook_file '/tmp/dangerfile2' do
-  owner 'root'
-  mode '00644'
 end
 
 replace_or_add 'Operation 2' do

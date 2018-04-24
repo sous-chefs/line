@@ -1,6 +1,6 @@
+directory '/tmp'
+
 cookbook_file '/tmp/dangerfile3' do
-  owner 'root'
-  mode '00644'
 end
 
 # test lists with an item seperator
