@@ -2,10 +2,6 @@ directory '/tmp'
 
 eol = (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) ? "\r\n" : "\n"
 danger_contents = "HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT ME YOU FOOL#{eol}COMMENT ME AND I STOP YELLING I PROMISE#{eol}"
-puts
-puts "EOL #{eol.unpack('H*')}"
-puts "DANGERCONTENTS #{danger_contents.unpack('H*')}"
-puts
 
 template '/tmp/dangerfile' do
 end
