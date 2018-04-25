@@ -3,6 +3,8 @@ property :pattern, [String, Regexp]
 property :line, String
 property :replace_only, [true, false]
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
+property :sensitive, [true, false], default: true
+property :backup, [true, false], default: false
 
 resource_name :replace_or_add
 
@@ -38,6 +40,8 @@ action :edit do
       
   file new_resource.path do
     content new.join(eol)
+    backup new_resource.backup
+    sensitive new_resource.sensitive
     not_if { new == current }
   end
 end

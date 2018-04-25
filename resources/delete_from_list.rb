@@ -4,6 +4,8 @@ property :delim, Array
 property :entry, String
 property :ignore_missing, [true, false], default: false
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
+property :sensitive, [true, false], default: true
+property :backup, [true, false], default: false
 
 resource_name :delete_from_list
 
@@ -48,9 +50,11 @@ action :edit do
     Chef::Log.info("New line: #{line}")
   end
 
+  new[-1] += eol
   file new_resource.path do
-    new[-1] += eol
     content new.join(eol)
+    backup new_resource.backup
+    sensitive new_resource.sensitive
     not_if { new == current }
   end
 end
