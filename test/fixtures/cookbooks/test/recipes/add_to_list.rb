@@ -150,3 +150,13 @@ add_to_list 'Add to list using Regexp escaped input' do
   ends_with ')'
   entry 'newentry'
 end
+
+file '/tmp/emptyfile' do
+  content ''
+end
+add_to_list 'Empty files that are not changed should stay empty' do
+  path '/tmp/emptyfile'
+  pattern  'line='
+  delim [' ']
+  entry 'should_not_be_added'
+end
