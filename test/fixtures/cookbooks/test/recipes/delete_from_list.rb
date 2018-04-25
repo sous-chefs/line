@@ -89,3 +89,13 @@ delete_from_list 'delimiter is space and comma last entry' do
   entry 'fifth'
   ignore_missing true
 end
+
+file '/tmp/emptyfile' do
+  content ''
+end
+delete_from_list 'empty file should remain unchanged' do
+  path '/tmp/emptyfile'
+  pattern 'list='
+  delim [' ']
+  entry 'not_there'
+end

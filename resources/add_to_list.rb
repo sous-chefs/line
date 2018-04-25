@@ -18,7 +18,7 @@ action :edit do
 
   insert_list_entry
 
-  @new[-1] += eol unless @new[-1].to_s.size == 0
+  @new[-1] += eol unless @new[-1].to_s.empty?
   new = @new
   current = @current
 

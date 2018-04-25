@@ -60,3 +60,11 @@ delete_lines 'Operation 8' do
   pattern /^#.*/
   ignore_missing true
 end
+
+file '/tmp/emptyfile' do
+  content ''
+end
+delete_lines 'Empty file should not change' do
+  path '/tmp/emptyfile'
+  pattern /line/
+end

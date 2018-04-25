@@ -29,4 +29,10 @@ describe file('/tmp/dangerfile3') do
   its(:content) { should match(/double  space  entry  fin#{eol}/) }
   its(:content) { should match(/^list, comma-space, fourth#{eol}/) }
   its(:content) { should match(/^list ,space-comma ,fourth#{eol}/) }
+  its(:content) { should match(/^last line#{eol}/) }
+end
+
+describe file('/tmp/emptyfile') do
+  it { should exist }
+  its(:size) { should eq 0 }
 end

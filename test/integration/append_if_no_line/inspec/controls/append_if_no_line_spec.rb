@@ -14,14 +14,19 @@ control 'Append lines' do
   end
 
   describe file_ext('/tmp/dangerfile') do
-    its(:size_lines) { should eq 6 }
+    its(:size_lines) { should eq 7 }
   end
 
   describe file('/tmp/file_without_linereturn') do
     its(:content) { should eql("no carriage return line#{eol}SHOULD GO ON ITS OWN LINE#{eol}") }
   end
 
-  describe file('/tmp/emptyfile') do
+  describe file('/tmp/add_emptyfile') do
     its(:content) { should eql("added line#{eol}") }
+  end
+
+  # The last line has an eol
+  describe file('/tmp/dangerfile') do
+    its(:content) { should match(/^last line#{eol}/) }
   end
 end
