@@ -49,6 +49,7 @@ action :edit do
   end
 
   file new_resource.path do
+    new[-1] += eol
     content new.join(eol)
     not_if { new == current }
   end
