@@ -18,6 +18,7 @@ action :edit do
 
   insert_list_entry
 
+  @new[-1] += eol unless @new[-1].to_s.size == 0
   new = @new
   current = @current
 
