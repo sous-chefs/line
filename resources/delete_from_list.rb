@@ -50,7 +50,7 @@ action :edit do
     Chef::Log.info("New line: #{line}")
   end
 
-  new[-1] += eol
+  new[-1] += eol unless new[-1].to_s.empty?
   file new_resource.path do
     content new.join(eol)
     backup new_resource.backup

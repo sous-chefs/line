@@ -37,7 +37,9 @@ action :edit do
 
   # add
   new << new_resource.line unless found || new_resource.replace_only
-      
+
+  new[-1] += eol unless new[-1].to_s.empty?
+
   file new_resource.path do
     content new.join(eol)
     backup new_resource.backup

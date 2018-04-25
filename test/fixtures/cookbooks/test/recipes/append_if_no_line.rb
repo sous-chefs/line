@@ -44,9 +44,9 @@ append_if_no_line 'should not edit the file' do
   line 'no carriage return line'
 end
 
-file '/tmp/emptyfile'
+file '/tmp/add_emptyfile'
 
 append_if_no_line 'should add to empty file' do
-  path '/tmp/emptyfile'
+  path '/tmp/add_emptyfile'
   line 'added line'
 end

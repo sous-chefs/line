@@ -23,3 +23,8 @@ describe file('/tmp/dangerfile2-regexp') do
   its(:content) { should match(/ssh-dsa/) }
   its(:content) { should match(/ssh-rsa.*keepmetoo/) }
 end
+
+describe file('/tmp/emptyfile') do
+  it { should be_file }
+  its(:size) { should eq 0 }
+end

@@ -16,6 +16,7 @@ action :edit do
   current = ::File.binread(new_resource.path).split(eol)
 
   new = current.reject { |l| l =~ regex }
+  new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do
     content new.join(eol)
