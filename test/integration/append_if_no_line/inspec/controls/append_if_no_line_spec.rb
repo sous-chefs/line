@@ -29,4 +29,9 @@ control 'Append lines' do
   describe file('/tmp/dangerfile') do
     its(:content) { should match(/^last line#{eol}/) }
   end
+
+  # Create a missing file if ignore missing is specified
+  describe file('/tmp/add_missing') do
+    its(:content) { should match(/^added line#{eol}/) }
+  end
 end
