@@ -9,7 +9,7 @@ resources that will help you do this.
 # Limitations
 - The line resources processes the entire target file in memory. Trying to edit large files may fail.
 - The eol processing was only tested using \n and \r\n. Using other line endings very well may not work.
-- The end of line string used needs to match the actual end of line of the file.  \n and \r\n are used as the defaults but if they don't match the actual end of line on the file the results will be weird.
+- The end of line string used needs to match the actual end of line used in the file.  \n and \r\n are used as the defaults but if they don't match the actual end of line used in the file the results will be weird.
 - Adding a line implies there is a seperator on the previous line.  Adding a line differs from appending characters.
 
 # Usage

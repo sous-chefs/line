@@ -50,3 +50,9 @@ append_if_no_line 'should add to empty file' do
   path '/tmp/add_emptyfile'
   line 'added line'
 end
+
+append_if_no_line 'create missing file' do
+  path '/tmp/add_missing'
+  line 'added line'
+  ignore_missing true
+end

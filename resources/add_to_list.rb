@@ -13,14 +13,9 @@ action :edit do
   raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
   eol = new_resource.eol
-  @new = []
-  @current = ::File.binread(new_resource.path).split(eol)
-
-  insert_list_entry
-
-  @new[-1] += eol unless @new[-1].to_s.empty?
-  new = @new
-  current = @current
+  current = ::File.binread(new_resource.path).split(eol)
+  new = insert_list_entry(current)
+  new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do
     content new.join(eol)
@@ -31,11 +26,12 @@ action :edit do
 end
 
 action_class do
-  def insert_list_entry
+  def insert_list_entry(current)
+    new = []
     ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ''
     regex = /#{new_resource.pattern}.*#{ends_with}/
-    @current.each do |line|
-      @new << line
+    current.each do |line|
+      new << line
       line = line.dup
       next unless line =~ regex
       if new_resource.ends_with
@@ -67,8 +63,9 @@ action_class do
         end
       end
       Chef::Log.error("New line: #{line}")
-      @new[-1] = line
+      new[-1] = line
     end
+    new
   end
 
   def regexdelim
