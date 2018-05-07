@@ -37,7 +37,7 @@ test_script:
   - c:\opscode\chefdk\bin\cookstyle --version
   - c:\opscode\chefdk\bin\chef.bat exec foodcritic --version
   - c:\opscode\chefdk\bin\chef.bat exec delivery local all
-  - c:\opscode\chefdk\bin\chef.bat exec kitchen list
-  - c:\opscode\chefdk\bin\chef.bat exec kitchen verify
+  # - c:\opscode\chefdk\bin\chef.bat exec kitchen list
+  # - c:\opscode\chefdk\bin\chef.bat exec kitchen verify
 
 deploy: off
