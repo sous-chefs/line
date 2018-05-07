@@ -4,7 +4,6 @@ property :delim, Array
 property :entry, String
 property :ignore_missing, [true, false], default: false
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
-property :sensitive, [true, false], default: true
 property :backup, [true, false], default: false
 
 resource_name :delete_from_list
@@ -12,8 +11,9 @@ resource_name :delete_from_list
 action :edit do
   return if !::File.exist?(new_resource.path) && new_resource.ignore_missing
   raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
-  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
 
+  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []
   current = ::File.binread(new_resource.path).split(eol)
