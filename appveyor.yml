@@ -2,7 +2,7 @@
 environment:
   machine_user: vagrant
   machine_pass: vagrant
-  KITCHEN_YAML: C:\projects\line-cookbook\.kitchen.appveyor.yml
+  KITCHEN_LOCAL_YAML: C:\projects\line-cookbook\.kitchen.appveyor.yml
 
 branches:
   only:
@@ -39,6 +39,7 @@ test_script:
       foodcritic --version
       delivery local all
       ls
+      Get-ChildItem Env:KITCHEN_LOCAL_YAML
       kitchen diagnose all
 
 deploy: off
