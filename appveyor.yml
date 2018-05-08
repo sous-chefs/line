@@ -38,8 +38,6 @@ test_script:
       cookstyle --version
       foodcritic --version
       delivery local all
-      ls
-      Get-ChildItem Env:KITCHEN_LOCAL_YAML
-      kitchen diagnose all
+      kitchen verify 
 
 deploy: off
