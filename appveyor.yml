@@ -28,7 +28,8 @@ install:
   - ps: net localgroup administrators $env:machine_user /add
 
 build_script:
-  - ps: c:\opscode\chefdk\bin\chef.bat shell-init powershell | iex; cmd /c c:\opscode\chefdk\bin\chef.bat --version
+  - ps: c:\opscode\chefdk\bin\chef.bat shell-init powershell | iex; 
+  - c:\opscode\chefdk\bin\chef.bat --version
 
 test_script:
   - c:\opscode\chefdk\bin\cookstyle --version
