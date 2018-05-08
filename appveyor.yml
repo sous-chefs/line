@@ -34,9 +34,11 @@ build_script:
       chef --version
 
 test_script:
-  - cookstyle --version
-  - foodcritic --version
-  - delivery local all
-  - kitchen diagnose all
+  - ps: |
+      cookstyle --version
+      foodcritic --version
+      delivery local all
+      ls -la
+      kitchen diagnose all
 
 deploy: off
