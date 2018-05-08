@@ -30,6 +30,7 @@ install:
 build_script:
   - ps: c:\opscode\chefdk\bin\chef.bat shell-init powershell | iex; 
   - c:\opscode\chefdk\bin\chef.bat --version
+  - chef --version
 
 test_script:
   - c:\opscode\chefdk\bin\cookstyle --version
