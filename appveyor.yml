@@ -29,15 +29,12 @@ install:
 
 build_script:
   - ps: c:\opscode\chefdk\bin\chef.bat shell-init powershell | iex; 
-  - c:\opscode\chefdk\bin\chef.bat --version
   - chef --version
 
 test_script:
-  - c:\opscode\chefdk\bin\cookstyle --version
-  - c:\opscode\chefdk\bin\chef.bat exec foodcritic --version
-  - c:\opscode\chefdk\bin\chef.bat exec delivery local all
-  - ls c:\opscode\chefdk\bin
-  - ls -la
-    #- c:\opscode\chefdk\bin\chef.bat exec kitchen verify
+  - cookstyle --version
+  - foodcritic --version
+  - delivery local all
+  - kitchen diag
 
 deploy: off
