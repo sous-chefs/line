@@ -2,7 +2,7 @@
 environment:
   machine_user: vagrant
   machine_pass: vagrant
-  KITCHEN_YAML: kitchen.appveyor.yml
+  KITCHEN_YAML: .kitchen.appveyor.yml
 
 branches:
   only:
@@ -38,7 +38,7 @@ test_script:
       cookstyle --version
       foodcritic --version
       delivery local all
-      ls -la
+      ls
       kitchen diagnose all
 
 deploy: off
