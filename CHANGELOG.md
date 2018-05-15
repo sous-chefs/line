@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v1.3.0 (2018-05-15)
+
+- Add `ignore_leading_whitespace` and `ignore_trailing_whitespace` properties to the `append_if_no_line` resource.
+
 ## v1.2.0 (2018-04-18)
 
 - Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
