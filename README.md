@@ -3,7 +3,7 @@
 
 # Motivation
 Quite often, the need arises to do line editing instead of managing an
-entire file with a template resource. This cookbook supplies various 
+entire file with a template resource. This cookbook supplies various
 resources that will help you do this.
 
 # Usage
@@ -61,7 +61,7 @@ end
 ```
 
 # Resource Notes
-So far, the only resources implemented are 
+So far, the only resources implemented are
 
 ```ruby
 append_if_no_line
@@ -73,7 +73,7 @@ delete_from_list
 
 ## Resource: append_if_no_line
 ### Actions
-Action | Description 
+Action | Description
 -------|------------
 edit | Append a line if it is missing.
 
@@ -87,7 +87,7 @@ ignore_trailing_whitespace | Ignore trailing whitespace | true or false | false
 
 ## Resource: replace_or_add
 ### Actions
-Action | Description 
+Action | Description
 -------|------------
 edit | Replace lines that match the pattern. Append the line unless a source line matches the pattern.
 
@@ -101,7 +101,7 @@ replace_only | Don't append only replace matching lines |  true or false | Requi
 
 ## Resource: delete_lines
 ### Actions
-Action | Description 
+Action | Description
 -------|------------
 edit | Delete lines that match the pattern.
 
@@ -116,7 +116,7 @@ Removes lines based on a string or regex.
 
 ## Resource: add_to_list
 ### Actions
-Action | Description 
+Action | Description
 -------|------------
 edit | Add an item to a list
 
@@ -142,7 +142,7 @@ my @net1918 = ("10.0.0.0/8", "172.16.0.0/12");
 delim [", ", "\""]
 entry "192.168.0.0/16"
 my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
-    
+
 if three delimiters are given, the first is used as the list element delimiter, the second as the leading entry delimiter and the third as the trailing delimiter:
 multi = ([310], [818])
 delim [", ", "[", "]"]
@@ -150,10 +150,10 @@ entry "425"
 multi = ([310], [818], [425])
 
 end_with is an optional property. If specified a list is expected to end with the given string.
-    
+
 ## Resource: delete_from_list
 ### Actions
-Action | Description 
+Action | Description
 -------|------------
 edit | Delete an item from a list
 
@@ -171,5 +171,5 @@ Delimeters works exactly the same way as `add_to_list`, see above.
 
 
 # Author
-Author: Sean OMeara (<sean@sean.io>)  
+Author: Sean OMeara (<sean@sean.io>)
 Contributor: Antek S. Baranski (<antek.baranski@gmail.com>)
