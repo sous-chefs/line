@@ -82,6 +82,8 @@ Properties | Description | Type | Values and Default
 ----------|-------------|--------|--------
 path | File to update | String | Required, no default
 line | Line contents |  String | Required, no default
+ignore_leading_whitespace | Ignore leading whitespace | true or false | false
+ignore_trailing_whitespace | Ignore trailing whitespace | true or false | false
 
 ## Resource: replace_or_add
 ### Actions
