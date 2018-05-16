@@ -48,3 +48,34 @@ append_if_no_line 'should add to empty file' do
   path '/tmp/emptyfile'
   line 'added line'
 end
+
+file '/tmp/file_with_leading_whitespace' do
+  content " \t leading whitespace line\n"
+end
+
+append_if_no_line 'should not edit file with leading whitespace' do
+  path '/tmp/file_with_leading_whitespace'
+  line 'leading whitespace line'
+  ignore_leading_whitespace true
+end
+
+file '/tmp/file_with_trailing_whitespace' do
+  content "trailing whitespace line  \t\n"
+end
+
+append_if_no_line 'should not edit trailing whitespace file' do
+  path '/tmp/file_with_trailing_whitespace'
+  line 'trailing whitespace line'
+  ignore_trailing_whitespace true
+end
+
+file '/tmp/file_with_leading_and_trailing_whitespace' do
+  content "\t leading and trailing whitespace line  \t\n"
+end
+
+append_if_no_line 'should not edit file with leading and trailing whitespace' do
+  path '/tmp/file_with_leading_and_trailing_whitespace'
+  line 'leading and trailing whitespace line'
+  ignore_leading_whitespace true
+  ignore_trailing_whitespace true
+end

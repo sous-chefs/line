@@ -1,12 +1,11 @@
 property :path, String
 property :line, String
+property :ignore_leading_whitespace, [true, false], default: false
+property :ignore_trailing_whitespace, [true, false], default: false
 
 resource_name :append_if_no_line
 
 action :edit do
-  string = Regexp.escape(new_resource.line)
-  regex = /^#{string}$/
-
   raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
 
   current = ::File.readlines(new_resource.path)
@@ -19,5 +18,20 @@ action :edit do
   file new_resource.path do
     content((current + [new_resource.line + "\n"]).join)
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }
+  end
+end
+
+action_class do
+  def regex
+    string = Regexp.escape(new_resource.line)
+    if new_resource.ignore_leading_whitespace && new_resource.ignore_trailing_whitespace
+      /^\s*#{string}\s*$/
+    elsif new_resource.ignore_leading_whitespace
+      /^\s*#{string}$/
+    elsif new_resource.ignore_trailing_whitespace
+      /^#{string}\s*$/
+    else
+      /^#{string}$/
+    end
   end
 end

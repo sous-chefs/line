@@ -26,4 +26,16 @@ control 'Append lines' do
   describe file('/tmp/emptyfile') do
     its(:content) { should eql("added line\n") }
   end
+
+  describe file('/tmp/file_with_leading_whitespace') do
+    its(:content) { should eql(" \t leading whitespace line\n") }
+  end
+
+  describe file('/tmp/file_with_trailing_whitespace') do
+    its(:content) { should eql("trailing whitespace line  \t\n") }
+  end
+
+  describe file('/tmp/file_with_leading_and_trailing_whitespace') do
+    its(:content) { should eql("\t leading and trailing whitespace line  \t\n") }
+  end
 end
