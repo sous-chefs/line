@@ -12,17 +12,9 @@ action :edit do
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []
+  found = false
 
-  if ::File.exist?(new_resource.path)
-    current = ::File.binread(new_resource.path).split(eol)
-    found = false
-  else
-    current = []
-    unless new_resource.replace_only
-      found = true
-      new << new_resource.line
-    end
-  end
+  current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
 
   # replace
   current.each do |line|
@@ -37,6 +29,7 @@ action :edit do
   # add
   new << new_resource.line unless found || new_resource.replace_only
 
+  # Last line terminator
   new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do
