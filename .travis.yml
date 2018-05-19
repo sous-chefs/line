@@ -43,6 +43,3 @@ matrix:
     - script:
       - chef exec delivery local all
       env: UNIT_AND_LINT=1
-    - script:
-      - chef exec danger
-      env: DANGER
