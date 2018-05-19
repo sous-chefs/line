@@ -9,8 +9,15 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Install Danger
-        command: gem install danger
+          name: Install Danger
+          command: gem install danger
       - run:
-        name: Run Danger
-        command: danger
+          name: Run Danger
+          command: danger
+
+workflows:
+  version: 2
+  danger-flow:
+    jobs:
+      - build:
+          context: Danger
