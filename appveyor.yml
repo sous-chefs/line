@@ -8,11 +8,9 @@ branches:
   only:
     - master
 
-# Do not build on tags (GitHub only)
 skip_tags: true
-
-#faster cloning
 clone_depth: 1
+deploy: off
 
 # Install the latest nightly of ChefDK
 install:
@@ -38,6 +36,4 @@ test_script:
       cookstyle --version
       foodcritic --version
       delivery local all
-      kitchen verify 
-
-deploy: off
+      kitchen verify
