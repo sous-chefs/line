@@ -1,8 +1,8 @@
 # line Cookbook CHANGELOG
 
-## v2
+## v2.0.0 (2018-05-19)
 
-- Breaking change - Files are processed in memory instead of line by line
+- Breaking change - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed
 - Use template files instead of cookbook_file so that we get platform sensitive line endings written for testing.
 - Add windows support to add_to_list append_if_no_line delete_from_list delete_lines replace_or_add
 
