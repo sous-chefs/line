@@ -16,36 +16,24 @@
 #
 
 property :backup, [true, false], default: false
-property :eol, String
-property :ignore_missing, [true, false], default: true
-property :line, String
+property :eol
+property :filter, [Method, Proc, Array]
+property :filter_args, Array
 property :path, String
-property :pattern, [String, Regexp]
-property :replace_only, [true, false]
 
-resource_name :replace_or_add
+resource_name :filter_lines
 
 action :edit do
-  raise_not_found
-  sensitive_default
+  new_resource.sensitive = true unless property_is_set?(:sensitive)
   eol = default_eol
-  found = false
-  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   new = []
-  current = target_current_lines
 
-  # replace
-  current.each do |line|
-    line = line.dup
-    if line =~ regex || line == new_resource.line
-      found = true
-      line = new_resource.line unless line == new_resource.line
-    end
-    new << line
+  current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
+
+  # Proc or Method
+  if new_resource.filter.is_a?(Method) || new_resource.filter.is_a?(Proc)
+    new = new_resource.filter.call(current.dup, new_resource.filter_args)
   end
-
-  # add
-  new << new_resource.line unless found || new_resource.replace_only
 
   # Last line terminator
   new[-1] += eol unless new[-1].to_s.empty?
