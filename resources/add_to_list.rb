@@ -5,15 +5,17 @@ property :entry, String
 property :ends_with, String
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
 property :backup, [true, false], default: false
+property :ignore_missing, [true, false], default: true
 
 resource_name :add_to_list
 
 action :edit do
-  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+  file_exist = ::File.exist?(new_resource.path)
+  raise "File #{new_resource.path} not found" if !file_exist && !new_resource.ignore_missing
 
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   eol = new_resource.eol
-  current = ::File.binread(new_resource.path).split(eol)
+  current = file_exist ? ::File.binread(new_resource.path).split(eol) : []
   new = insert_list_entry(current)
   new[-1] += eol unless new[-1].to_s.empty?
 
