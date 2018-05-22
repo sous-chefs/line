@@ -2,15 +2,16 @@ property :path, String
 property :pattern, [String, Regexp]
 property :delim, Array
 property :entry, String
-property :ignore_missing, [true, false], default: false
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
 property :backup, [true, false], default: false
+property :ignore_missing, [true, false], default: true
 
 resource_name :delete_from_list
 
 action :edit do
-  return if !::File.exist?(new_resource.path) && new_resource.ignore_missing
-  raise "File #{new_resource.path} not found" unless ::File.exist?(new_resource.path)
+  file_exist = ::File.exist?(new_resource.path)
+  return if !file_exist && new_resource.ignore_missing
+  raise "File #{new_resource.path} not found" unless file_exist
 
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern

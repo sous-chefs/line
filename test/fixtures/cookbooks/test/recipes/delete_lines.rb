@@ -58,7 +58,6 @@ end
 delete_lines 'Operation 8' do
   path '/tmp/dangerfile2-regexp'
   pattern /^#.*/
-  ignore_missing true
 end
 
 file '/tmp/emptyfile' do

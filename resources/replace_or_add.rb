@@ -4,17 +4,20 @@ property :line, String
 property :replace_only, [true, false]
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
 property :backup, [true, false], default: false
+property :ignore_missing, [true, false], default: true
 
 resource_name :replace_or_add
 
 action :edit do
+  file_exist = ::File.exist?(new_resource.path)
+  raise "File #{new_resource.path} not found" if !file_exist && !new_resource.ignore_missing
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []
   found = false
 
-  current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
+  current = file_exist ? ::File.binread(new_resource.path).split(eol) : []
 
   # replace
   current.each do |line|
