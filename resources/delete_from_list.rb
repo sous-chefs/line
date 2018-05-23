@@ -59,7 +59,6 @@ action :edit do
 end
 
 action_class.class_eval do
-
   include Line::Helper
 
   def regexdelim

@@ -41,7 +41,6 @@ action :edit do
   end
 end
 
-
 action_class do
   include Line::Helper
 end
