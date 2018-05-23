@@ -1,7 +1,7 @@
 module Line
   module Helper
     def raise_not_found
-      raise "File #{new_resource.path} not found" if !target_file_exist? && !new_resource.ignore_missing
+      raise "File #{new_resource.path} not found" unless target_file_exist? || new_resource.ignore_missing
     end
 
     def target_current_lines
