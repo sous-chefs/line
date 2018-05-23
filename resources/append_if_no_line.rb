@@ -1,8 +1,8 @@
-property :path, String
-property :line, String
-property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
 property :backup, [true, false], default: false
+property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
 property :ignore_missing, [true, false], default: true
+property :line, String
+property :path, String
 
 resource_name :append_if_no_line
 

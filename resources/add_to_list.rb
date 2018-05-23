@@ -1,11 +1,11 @@
-property :path, String
-property :pattern, String
+property :backup, [true, false], default: false
 property :delim, Array
 property :entry, String
 property :ends_with, String
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
-property :backup, [true, false], default: false
 property :ignore_missing, [true, false], default: true
+property :path, String
+property :pattern, String
 
 resource_name :add_to_list
 

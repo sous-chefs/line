@@ -1,10 +1,10 @@
-property :path, String
-property :pattern, [String, Regexp]
+property :backup, [true, false], default: false
 property :delim, Array
 property :entry, String
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
-property :backup, [true, false], default: false
 property :ignore_missing, [true, false], default: true
+property :path, String
+property :pattern, [String, Regexp]
 
 resource_name :delete_from_list
 
@@ -12,8 +12,8 @@ action :edit do
   return if !target_file_exist? && new_resource.ignore_missing
   raise_not_found
   sensitive_default
-  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
+  regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   new = []
   current = target_current_lines
 
