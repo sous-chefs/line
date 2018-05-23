@@ -11,8 +11,7 @@ resource_name :delete_from_list
 action :edit do
   return if !target_file_exist? && new_resource.ignore_missing
   raise_not_found
-
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  sensitive_default
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []

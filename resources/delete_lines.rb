@@ -9,12 +9,15 @@ resource_name :delete_lines
 action :edit do
   return if !target_file_exist? && new_resource.ignore_missing
   raise_not_found
-
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  sensitive_default
   eol = new_resource.eol
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   current = target_current_lines
+
+  # remove lines
   new = current.reject { |l| l =~ regex }
+
+  # Last line terminator
   new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do

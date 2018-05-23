@@ -11,11 +11,14 @@ resource_name :add_to_list
 
 action :edit do
   raise_not_found
-
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  sensitive_default
   eol = new_resource.eol
   current = target_current_lines
+
+  # insert
   new = insert_list_entry(current)
+
+  # eol on last line
   new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do

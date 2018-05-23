@@ -8,8 +8,7 @@ resource_name :append_if_no_line
 
 action :edit do
   raise_not_found
-
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  sensitive_default
   eol = new_resource.eol
   string = Regexp.escape(new_resource.line)
   regex = /^#{string}$/
