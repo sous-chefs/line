@@ -22,7 +22,6 @@ suites:
   run_list:
     - recipe[test::resource_status]
     - recipe[test::add_to_list]
-    - recipe[test::add_to_list_missing_file]
 - name: append_if_no_line
   run_list:
     - recipe[test::resource_status]
@@ -31,12 +30,10 @@ suites:
   run_list:
     - recipe[test::resource_status]
     - recipe[test::delete_from_list]
-    - recipe[test::delete_from_list_missing_file]
 - name: delete_lines
   run_list:
     - recipe[test::resource_status]
     - recipe[test::delete_lines]
-    - recipe[test::delete_lines_missing_file]
 - name: replace_or_add
   run_list:
     - recipe[test::resource_status]
