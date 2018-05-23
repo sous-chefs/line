@@ -1,22 +1,24 @@
-property :path, String
-property :pattern, String
+property :backup, [true, false], default: false
 property :delim, Array
 property :entry, String
 property :ends_with, String
 property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
-property :backup, [true, false], default: false
 property :ignore_missing, [true, false], default: true
+property :path, String
+property :pattern, String
 
 resource_name :add_to_list
 
 action :edit do
-  file_exist = ::File.exist?(new_resource.path)
-  raise "File #{new_resource.path} not found" if !file_exist && !new_resource.ignore_missing
-
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  raise_not_found
+  sensitive_default
   eol = new_resource.eol
-  current = file_exist ? ::File.binread(new_resource.path).split(eol) : []
+  current = target_current_lines
+
+  # insert
   new = insert_list_entry(current)
+
+  # eol on last line
   new[-1] += eol unless new[-1].to_s.empty?
 
   file new_resource.path do
@@ -28,6 +30,8 @@ action :edit do
 end
 
 action_class do
+  include Line::Helper
+
   def insert_list_entry(current)
     new = []
     ends_with = new_resource.ends_with ? Regexp.escape(new_resource.ends_with) : ''
