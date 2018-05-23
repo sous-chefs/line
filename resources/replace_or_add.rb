@@ -9,15 +9,14 @@ property :ignore_missing, [true, false], default: true
 resource_name :replace_or_add
 
 action :edit do
-  file_exist = ::File.exist?(new_resource.path)
-  raise "File #{new_resource.path} not found" if !file_exist && !new_resource.ignore_missing
+  raise_not_found
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []
   found = false
 
-  current = file_exist ? ::File.binread(new_resource.path).split(eol) : []
+  current = target_current_lines
 
   # replace
   current.each do |line|
@@ -41,4 +40,9 @@ action :edit do
     sensitive new_resource.sensitive
     not_if { new == current }
   end
+end
+
+
+action_class do
+  include Line::Helper
 end

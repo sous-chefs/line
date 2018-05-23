@@ -7,14 +7,13 @@ property :ignore_missing, [true, false], default: true
 resource_name :append_if_no_line
 
 action :edit do
-  file_exist = ::File.exist?(new_resource.path)
-  raise "File #{new_resource.path} not found" if !file_exist && !new_resource.ignore_missing
+  raise_not_found
 
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   eol = new_resource.eol
   string = Regexp.escape(new_resource.line)
   regex = /^#{string}$/
-  current = file_exist ? ::File.binread(new_resource.path).split(eol) : []
+  current = target_current_lines
 
   file new_resource.path do
     content((current + [new_resource.line + eol]).join(eol))
@@ -22,4 +21,8 @@ action :edit do
     sensitive new_resource.sensitive
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }
   end
+end
+
+action_class do
+  include Line::Helper
 end

@@ -9,15 +9,14 @@ property :ignore_missing, [true, false], default: true
 resource_name :delete_from_list
 
 action :edit do
-  file_exist = ::File.exist?(new_resource.path)
-  return if !file_exist && new_resource.ignore_missing
-  raise "File #{new_resource.path} not found" unless file_exist
+  return if !target_file_exist? && new_resource.ignore_missing
+  raise_not_found
 
   new_resource.sensitive = true unless property_is_set?(:sensitive)
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   eol = new_resource.eol
   new = []
-  current = ::File.binread(new_resource.path).split(eol)
+  current = target_current_lines
 
   current.each do |line|
     line = line.dup
@@ -61,6 +60,9 @@ action :edit do
 end
 
 action_class.class_eval do
+
+  include Line::Helper
+
   def regexdelim
     @regexdelim || escape_delims
   end
