@@ -10,6 +10,7 @@
 - Create helper methods for some common resource functions.
 - Drop the OS helpers in favor os using platform_family?
 
+
 ## v1.2.0 (2018-04-18)
 
 - Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
