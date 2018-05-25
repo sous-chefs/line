@@ -1,74 +1,46 @@
+property :backup, [true, false], default: false
+property :eol, String, default: Line::OS.unix? ? "\n" : "\r\n"
+property :ignore_missing, [true, false], default: true
+property :line, String
 property :path, String
 property :pattern, [String, Regexp]
-property :line, String
 property :replace_only, [true, false]
 
 resource_name :replace_or_add
 
 action :edit do
+  raise_not_found
+  sensitive_default
+  eol = new_resource.eol
+  found = false
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
+  new = []
+  current = target_current_lines
 
-  if ::File.exist?(new_resource.path)
-    begin
-      f = ::File.open(new_resource.path, 'r+')
-
-      file_owner = f.lstat.uid
-      file_group = f.lstat.gid
-      file_mode = f.lstat.mode
-
-      temp_file = Tempfile.new('foo')
-
-      modified = false
-      found = false
-
-      f.each_line do |line|
-        if line =~ regex || line.chomp == new_resource.line
-          found = true
-          unless line.chomp == new_resource.line
-            line = new_resource.line
-            modified = true
-          end
-        end
-
-        temp_file.puts line
-      end
-
-      unless found || new_resource.replace_only # "add"!
-        temp_file.puts new_resource.line
-        modified = true
-      end
-
-      f.close
-
-      if modified
-        converge_by "Updating file #{new_resource.path}" do
-          temp_file.rewind
-          FileUtils.copy_file(temp_file.path, new_resource.path)
-          FileUtils.chown(file_owner, file_group, new_resource.path)
-          FileUtils.chmod(file_mode, new_resource.path)
-        end
-      end
-    ensure
-      temp_file.close
-      temp_file.unlink
+  # replace
+  current.each do |line|
+    line = line.dup
+    if line =~ regex || line == new_resource.line
+      found = true
+      line = new_resource.line unless line == new_resource.line
     end
-  else
-    unless new_resource.replace_only
-      converge_by "Updating file #{new_resource.path}" do
-        begin
-          nf = ::File.open(new_resource.path, 'w')
-          nf.puts new_resource.line
-        rescue ENOENT
-          Chef::Log.info('ERROR: Containing directory does not exist for #{nf.class}')
-        ensure
-          nf.close
-        end
-      end
-    end
+    new << line
+  end
+
+  # add
+  new << new_resource.line unless found || new_resource.replace_only
+
+  # Last line terminator
+  new[-1] += eol unless new[-1].to_s.empty?
+
+  file new_resource.path do
+    content new.join(eol)
+    backup new_resource.backup
+    sensitive new_resource.sensitive
+    not_if { new == current }
   end
 end
 
-action_class.class_eval do
-  require 'fileutils'
-  require 'tempfile'
+action_class do
+  include Line::Helper
 end

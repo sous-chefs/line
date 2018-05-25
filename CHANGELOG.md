@@ -1,5 +1,14 @@
 # line Cookbook CHANGELOG
 
+## v2.0.0 (2018-05-19)
+
+- Breaking change - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed
+- Use template files instead of cookbook_file so that we get platform sensitive line endings written for testing.
+- Add windows support to add_to_list append_if_no_line delete_from_list delete_lines replace_or_add
+- Make the processing of missing target files consistent. Add the ignore_missing property to the resources to allow a missing file to raise an error. 
+- Clean up the order of some boiler plate code.
+- Create helper methods for some common resource functions.
+
 ## v1.2.0 (2018-04-18)
 
 - Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
