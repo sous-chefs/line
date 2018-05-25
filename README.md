@@ -100,7 +100,7 @@ backup | Backup before changing |  Boolean | default false
 
 ### Notes
 This resource is intended to match the whole line __exactly__. That means
-if the file contains ```this is my line ``` (trailing whitespace) and you've
+if the file contains <code>this is my line </code> (trailing whitespace) and you've
 specified `line "this is my line"`, another line will be added. You may
 want to use `replace_or_add` instead, depending on your use case.
 
