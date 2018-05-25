@@ -83,6 +83,12 @@ Properties | Description | Type | Values and Default
 path | File to update | String | Required, no default
 line | Line contents |  String | Required, no default
 
+### Notes
+This resource is intended to match the whole line __exactly__. That means
+if the file contains ```this is my line ``` (trailing whitespace) and you've
+specified `line "this is my line"`, another line will be added. You may
+want to use `replace_or_add` instead, depending on your use case.
+
 ## Resource: replace_or_add
 ### Actions
 Action | Description 
