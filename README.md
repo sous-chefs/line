@@ -173,7 +173,7 @@ backup         | Backup before changing             | Boolean                   
 
 ### Notes
 
-If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and each entry will be followed by either the delimeter or a new line character: People to call: Joe, Bobby delim [","] entry 'Karen' People to call: Joe, Bobby, Karen
+If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and each entry will be followed by either the delimiter or a new line character: People to call: Joe, Bobby delim [","] entry 'Karen' People to call: Joe, Bobby, Karen
 
 If two delimiters are given, the first is used as the list element delimiter and the second as entry delimiters: my @net1918 = ("10.0.0.0/8", "172.16.0.0/12"); delim [", ", "\""] entry "192.168.0.0/16" my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
 
@@ -204,9 +204,11 @@ backup         | Backup before changing             | Boolean                   
 
 ### Notes
 
-Delimeters works exactly the same way as `add_to_list`, see above.
+Delimiters works exactly the same way as `add_to_list`, see above.
 
 # Author
 
-Author: Sean OMeara ([sean@sean.io](mailto:sean@sean.io))<br>
-Contributor: Antek S. Baranski ([antek.baranski@gmail.com](mailto:antek.baranski@gmail.com))
+- Contributor: Mark Gibbons
+- Contributor: Dan Webb
+- Contributor: Sean OMeara
+- Contributor: Antek S. Baranski

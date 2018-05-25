@@ -2,31 +2,31 @@
 
 ## v2.0.0 (2018-05-19)
 
-- Breaking change - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed
-- Use template files instead of cookbook_file so that we get platform sensitive line endings written for testing.
-- Add windows support to add_to_list append_if_no_line delete_from_list delete_lines replace_or_add
-- Make the processing of missing target files consistent. Add the ignore_missing property to the resources to allow a missing file to raise an error. 
+- _Breaking change_ - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed.
+- _Breaking change_ - Drop Chef 12 support
+- Use template files instead of `cookbook_file` so that we get platform sensitive line endings written for testing.
+- Add windows support to `add_to_list`, `append_if_no_line`, `delete_from_list`, `delete_lines`, `replace_or_add`.
+- Make the processing of missing target files consistent. Add the `ignore_missing` property to the resources to allow a missing file to raise an error.
 - Clean up the order of some boiler plate code.
 - Create helper methods for some common resource functions.
-- Drop the OS helpers in favor os using platform_family?
-
+- Drop the OS helpers in favour os using `platform_family?`.
 
 ## v1.2.0 (2018-04-18)
 
-- Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
+- Add the ignore_missing option to the `delete_lines` and `delete_from_list`. Don't raise an error if the target file is missing.
 
 ## v1.1.1 (2018-04-16)
 
-- Allow appending to an empty file
+- Allow appending to an empty file.
 
 ## v1.1.0 (2018-03-26)
 
-- Rework `delete_lines` to use file provider subresource.
+- Rework `delete_lines` to use file provider sub-resource.
 - Support matching with regexps in addition to strings with `delete_lines`.
-- Rework `append_if_no_line` to use file provider subresource.
-- Fix edge conditions around files-with-no-trailing-CR being fed to `append_if_no_line`.
+- Rework `append_if_no_line` to use file provider sub-resource.
+- Fix edge conditions around `files-with-no-trailing-CR` being fed to `append_if_no_line`.
 - Remove library helpers.
-- Remove the escape_regexp and escape_string methods in favour of native Regexp.escape
+- Remove the `escape_regexp` and escape_string methods in favour of native `Regexp.escape`
 
 ## v1.0.6 (2018-03-23)
 
