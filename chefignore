@@ -50,3 +50,9 @@ cookbooks/*
 
 # Vagrant
 .vagrant
+
+# Meta documentation
+CONTRIBUTING.md
+.github.*.md
+TESTING.md
+Dangerfile
