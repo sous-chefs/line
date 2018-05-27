@@ -5,12 +5,12 @@
 # Change duplicate lines
 #
 
-template '/tmp/duplicate' do
-  source 'text_file.erb'
+cookbook_file '/tmp/duplicate' do
+  source 'text_file'
 end
 
-template '/tmp/duplicate_replace_only' do
-  source 'text_file.erb'
+cookbook_file '/tmp/duplicate_replace_only' do
+  source 'text_file'
 end
 
 replace_or_add 'duplicate' do

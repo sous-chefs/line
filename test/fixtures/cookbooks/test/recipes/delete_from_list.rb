@@ -1,6 +1,6 @@
-directory '/tmp'
-
-template '/tmp/dangerfile3' do
+cookbook_file '/tmp/dangerfile3' do
+  owner 'root'
+  mode '00644'
 end
 
 # Delete the first entry in a list with delimited entries
@@ -87,15 +87,4 @@ delete_from_list 'delimiter is space and comma last entry' do
   pattern '^list ,space-comma'
   delim [' ,']
   entry 'fifth'
-  ignore_missing true
-end
-
-file '/tmp/emptyfile' do
-  content ''
-end
-delete_from_list 'empty file should remain unchanged' do
-  path '/tmp/emptyfile'
-  pattern 'list='
-  delim [' ']
-  entry 'not_there'
 end

@@ -1,19 +1,21 @@
-directory '/tmp'
-
-template '/tmp/dangerfile1' do
+cookbook_file '/tmp/dangerfile1' do
+  owner 'root'
+  mode '00644'
 end
 
-template '/tmp/dangerfile2' do
+cookbook_file '/tmp/dangerfile2' do
+  owner 'root'
+  mode '00644'
 end
 
 # just dup the files for regexp tests
 
 file '/tmp/dangerfile1-regexp' do
-  content lazy { IO.binread('/tmp/dangerfile1') }
+  content lazy { IO.read('/tmp/dangerfile1') }
 end
 
 file '/tmp/dangerfile2-regexp' do
-  content lazy { IO.binread('/tmp/dangerfile2') }
+  content lazy { IO.read('/tmp/dangerfile2') }
 end
 
 # string tests
@@ -58,13 +60,4 @@ end
 delete_lines 'Operation 8' do
   path '/tmp/dangerfile2-regexp'
   pattern /^#.*/
-  ignore_missing true
-end
-
-file '/tmp/emptyfile' do
-  content ''
-end
-delete_lines 'Empty file should not change' do
-  path '/tmp/emptyfile'
-  pattern /line/
 end

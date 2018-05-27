@@ -1,14 +1,8 @@
 # line Cookbook CHANGELOG
 
-## v
+## v1.2.1 (2018-05-26)
 
-- Breaking change - Files are processed in memory instead of line by line
-- Use template files instead of cookbook_file so that we get platform sensitive line endings written for testing.
-- Add windows support to add_to_list append_if_no_line delete_from_list delete_lines replace_or_add
-
-## v1.2.0 (2018-04-18)
-
-- Add the ignore_missing option to the delete_lines and delete_from_list. Don't raise an error if the target file is missing.
+- V 1.2.0 of the line cookbook was published on supermarket by mistake. Version 1.2.1 reverts back to the 1.1.1 code.  Version 2.0.0 remains the current version of the line cookbook.
 
 ## v1.1.1 (2018-04-16)
 
