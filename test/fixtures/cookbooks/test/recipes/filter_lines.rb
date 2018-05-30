@@ -59,7 +59,7 @@ filter_lines 'Insert lines last match' do
   filter_args [match_pattern, insert_lines, :last]
 end
 
-filter_lines 'Insert lines before match 2nd try' do
+filter_lines 'Insert lines before match redo' do
   path '/tmp/before'
   sensitive false
   filter filters.method(:before)
@@ -80,7 +80,7 @@ filter_lines 'Insert lines after match' do
   filter_args [match_pattern, insert_lines]
 end
 
-filter_lines 'Insert lines after match 2nd try' do
+filter_lines 'Insert lines after match redo' do
   path '/tmp/after'
   sensitive false
   filter filters.method(:after)
@@ -109,6 +109,72 @@ filter_lines 'Insert lines after last match' do
   sensitive false
   filter filters.method(:after)
   filter_args [match_pattern, insert_lines, :last]
+end
+
+# =====================
+
+template '/tmp/replace' do
+  source 'dangerfile.erb'
+  sensitive true
+end
+
+filter_lines 'Replace the matched line' do
+  path '/tmp/replace'
+  filter filters.method(:replace)
+  filter_args [match_pattern, insert_lines]
+end
+
+filter_lines 'Replace the matched line redo' do
+  path '/tmp/replace'
+  filter filters.method(:replace)
+  filter_args [match_pattern, insert_lines]
+end
+
+# =====================
+
+template '/tmp/multiple_filters' do
+  source 'dangerfile.erb'
+  sensitive true
+end
+
+filter_lines 'Multiple before and after match' do
+  path '/tmp/multiple_filters'
+  sensitive false
+  filters(
+    [
+      # insert lines before the last match
+      { code: filters.method(:before),
+        args: [match_pattern, insert_lines, :last],
+      },
+      # insert lines after the last match
+      { code: filters.method(:after),
+        args: [match_pattern, insert_lines, :last],
+      },
+      # delete comment lines
+      { code: proc { |current| current.select { |line| line !~ /^#/ } },
+      },
+    ]
+  )
+end
+
+filter_lines 'Multiple before and after match redo' do
+  path '/tmp/multiple_filters'
+  sensitive false
+  filters(
+    [
+      # insert lines before the last match
+      { code: filters.method(:before),
+        args: [match_pattern, insert_lines, :last],
+      },
+      # insert lines after the last match
+      { code: filters.method(:after),
+        args: [match_pattern, insert_lines, :last],
+      },
+      # delete comment lines
+      { code: proc { |current| current.select { |line| line !~ /^#/ } },
+      },
+    ]
+  )
 end
 
 # =====================

@@ -206,6 +206,35 @@ backup         | Backup before changing             | Boolean                   
 
 Delimiters works exactly the same way as `add_to_list`, see above.
 
+## Resource: filter_list
+### Actions
+Action | Description 
+-------|------------
+edit | Use a proc 
+
+### Properties
+Properties | Description | Type | Values and Default
+----------|-------------|--------|--------
+path | String |  Path to file | Required, no default
+filters | Array |  Proc or Method | no default
+filter | Code to run against the input file |  Proc or Method |  no default
+filter_args | Regular expression to select lines | Regular expression or String |  no default
+ignore_missing | Don't fail if the file is missing  |  true or false | Default is true
+eol | Alternate line end characters |  String | default \n on unix, \r\n on windows
+backup | Backup before changing |  Boolean | default false
+
+### Notes
+The filter_lines resource passes the contents of the path file in an array of lines to a Proc or Method
+filter. The filter should return an array of lines. The output array will be written to the file.
+
+### Filters
+Built in filters may also be used.  
+Filter | Description | Arguments 
+-------|-------------|----------
+:after | Insert lines after a matching line | Pattern to match | Array of lines to insert | :each,first, or :last to select the matching lines
+:before | Insert lines before a matching line | Pattern to match | Array of lines to insert | :each, first, or :last to select the matching lines
+:replace | Replace matching lines | Pattern to match | Array of lines to insert
+    
 # Author
 
 - Contributor: Mark Gibbons
