@@ -1,26 +1,54 @@
 # Filters to massage files
+
+# upcoming filters
+#  in_stanza - make sure key and value are in a stanza
+
 module Line
   class Filter
     def before(current, args)
-      # Insert a set of lines immediately before each match of the pattern - seems like this has limited usefulness.  Comments and blank like would screw it up.
+      # Insert a set of lines before a match of the pattern.
+      # Inserts only the missing lines
+      # Lines are missing if not between matches of the pattern
+      # Inserts do not care about the order of the lines
+      #   :first insert any lines not found (start -> match line) before the first match
+      #   :last insert any lines not found (match.last -1 -> match.last line) before the last match
+      #   :each insert any lines not found (start -> match & match -1 -> match line) before each match
       # current is an array of lines
       # args[0] is a pattern to match a line
       # args[1] is an array of lines to insert before the matched lines
-      # args[2] match instance, flatten, first, last, (anywhere before)
-      # TODO all of the lines are there anywhere before, order doesn't matter
-      # TODO all of the lines are there ignore comments
+      # args[2] match instance, each, first, last
+      #
+      # returns array with inserted lines
       match_pattern = args[0]
       insert_array = args[1]
-      select_match = args[2] || :flatten
-      select_match = :flatten if select_match.to_s == 'each'
+      select_match = args[2] || :each
 
       # find lines matching the pattern
       matches = []
       current.each_index { |i| matches << i if current[i] =~ match_pattern }
 
-      [matches.send(select_match.to_s)].flatten.each do |match|
-        next if lines_match(current, match, insert_array, :before)
-        current[match] = Replacement.new(current[match], insert_array, :before)
+      case select_match
+      when :each
+        previous = 0
+        matches.each do |match|
+          insert_lines = missing_lines_between(current, previous, match, insert_array)
+          current[match] = Replacement.new(current[match], insert_lines, :before)
+          previous = match + 1
+        end
+      when :first
+        if matches.any?
+          previous = 0
+          match = matches.first
+          insert_lines = missing_lines_between(current, previous, match, insert_array)
+          current[match] = Replacement.new(current[match], insert_lines, :before)
+        end
+      when :last
+        if matches.any?
+          previous = matches[-2] || 0
+          match = matches.last
+          insert_lines = missing_lines_between(current, previous, match, insert_array)
+          current[match] = Replacement.new(current[match], insert_lines, :before)
+        end
       end
       expand(current)
     end
@@ -30,71 +58,71 @@ module Line
       # current is an array of lines
       # args[0] is a pattern to match a line
       # args[1] is an array of lines to insert after the matched lines
-      # args[2] match instance, each => flatten, first, last, (anywhere after)
-      # TODO all of the lines are there anywhere after, order doesn't matter
+      # args[2] match instance, each, first, last
+      #
+      # returns array with inserted lines
       match_pattern = args[0]
       insert_array = args[1]
-      select_match = args[2] || :flatten
-      select_match = :flatten if select_match.to_s == 'each'
+      select_match = args[2] || :each
 
       # find matching lines  (match object, line #, insert match, insert direction)
       matches = []
       current.each_index { |i| matches << i if current[i] =~ match_pattern }
 
-      [matches.send(select_match.to_s)].flatten.each do |match|
-        next if lines_match(current, match, insert_array, :after)
-        current[match] = Replacement.new(current[match], insert_array, :after)
+      case select_match
+      when :each
+        matches.each_index do |i|
+          next_match = matches[i + 1] || current.size
+          insert_lines = missing_lines_between(current, matches[i], next_match, insert_array)
+          current[matches[i]] = Replacement.new(current[matches[i]], insert_lines, :after)
+        end
+      when :first
+        if matches.any?
+          next_match = matches[2] || current.size
+          match = matches.first
+          insert_lines = missing_lines_between(current, match, next_match, insert_array)
+          current[match] = Replacement.new(current[match], insert_lines, :after)
+        end
+      when :last
+        if matches.any?
+          next_match = current.size
+          match = matches.last
+          insert_lines = missing_lines_between(current, match, next_match, insert_array)
+          current[match] = Replacement.new(current[match], insert_lines, :after)
+        end
       end
       expand(current)
     end
 
-  def augeas(current, args)
-  # https://github.com/nhuff/chef-augeas
-  end
+    def replace(current, args)
+      # Replace each instance of a pattern line with a  set of lines
+      # current is an array of lines
+      # args[0] is a pattern to match a line
+      # args[1] is an array of lines to replace the matched lines
+      #
+      # returns array with inserted lines
+      match_pattern = args[0]
+      insert_lines = args[1]
 
-  def in_stanza(current, args)
-    # [a1]
-    #   lines in the a1 stanza
-    # [a2]
-    # args[0] stanza matching pattern
-    # args[1] stanza to select, if not there it will be created
-    # args[3] pattern to match
-    # args[4] line to replace or add to the stanza
-    # args[5] match instance, each, first, last
-    #
-    # Find the matches
-    # Select the matches
-    # For each match
-    #     Find next stanza or EOF
-    #     Bounds on the stanza lines
-    #     line matches pattern?
-    #     yes - next match
-  end
+      # find matching lines  (match object, line #, insert match, insert direction)
+      matches = []
+      current.each_index { |i| matches << i if current[i] =~ match_pattern }
 
-    def lines_match(lines, start, ia, direction)
-      case direction
-      when :before
-        is = ia.size
-        # check to see if enough lines before to match
-        false
-        if start - is > -1
-          # compare to see if the inserted lines are already there
-          (0..(is - 1)).each do |j|
-            next if lines[start - is + j] == ia[j]
-            break
-          end
-        end
-      when :after
-        is = ia.size
-        # check to see if enough lines after to match
-        if start + is <= lines.size
-          # compare to see if the inserted lines are already there
-          (0..(is - 1)).each do |j|
-            next if lines[start + j +1] == ia[j]
-            break
-          end
-        end
+      matches.each do |match|
+        current[match] = Replacement.new(current[match], insert_lines, :replace)
       end
+      expand(current)
+    end
+
+    def missing_lines_between(current, start, match, ia)
+      # find lines in ia that are between the start and end of the lines array
+      ib = ia.dup
+      lines = current.slice(start, match - start)
+      lines.each do |line|
+        match_line = ib.index(line)
+        ib[match_line] = nil if match_line
+      end
+      ib.compact
     end
 
     def expand(lines)
@@ -124,8 +152,21 @@ module Line
         [@additional].unshift(@original)
       when :before
         [@additional].push(@original)
+      when :replace
+        [@additional]
       else
         [@original]
+      end
+    end
+
+    def add(lines, direction)
+      case direction
+      when :after
+        @additional.push(lines)
+      when :before
+        @additional.push(@original)
+      when :replace
+        @additional = lines
       end
     end
   end
