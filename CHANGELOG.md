@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v2.0.1 (2018-06-01)
+
+- Tested on chef 12.13.37.  Fix error caused by using the sensitive attribute.  Sensitive true will be use for chef 12.
+
 ## v2.0.0 (2018-05-19)
 
 - _Breaking change_ - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed.
