@@ -3,11 +3,10 @@
 module Line
   class Filter
     def stanza(current, args)
-      # Does not work at all yet
-      # Assumes stanzas are named uniquely and contiguous
+      # Assumes stanzas are named uniquely across the file and contiguous
       # Stanza starts with ^[<name>]$
       # Stanza ends with next stanza or EOF
-      # Each occurance of an attribute in a stanza will be set to the new requested value
+      # Sets one instance of a key in a stanza to a new value TODO: set last found
       # Example
       # [a1]
       #   att1 = value1
@@ -53,27 +52,24 @@ module Line
       si = stanza_names[stanza_name] + 1
       while si < current.size && current[si] !~ @stanza_pattern
         md = /\s*(?<key>[\w.-_%@]*)\s*=\s*(?<value>.*)\s*/.match(current[si])
-        settings[md[:key]] = { value: md[:value], location: si } if md
+        settings[md[:key].to_sym] = { value: md[:value], location: si } if md
         si += 1
       end
-      puts "SETTINGS #{settings}"
       settings
     end
 
     def diff_settings(stanza_settings, settings)
       diff_values = {}
       settings.each do |s_key, s_value|
-        value = s_value unless stanza_settings[s_key] && stanza_settings[s_key][:value] == s_key
-        location = stanza_settings[s_key] ? stanza_settings[s_key][:location] : nil
-        diff_values[s_key] = { value: value, location: location }
+        value = s_value unless stanza_settings[s_key.to_sym] && stanza_settings[s_key.to_sym][:value] == s_key
+        location = stanza_settings[s_key.to_sym] ? stanza_settings[s_key.to_sym][:location] : nil
+        diff_values[s_key.to_sym] = { value: value, location: location }
       end
       diff_values
     end
 
     def update_stanza(current, stanza_names, stanza_name, settings)
-      puts "SETTINGS #{settings}"
       settings.each do |keyname, attrs|
-        puts "LOC #{attrs[:location]}"
         if attrs[:location].nil?
           if current[stanza_names[stanza_name]].class == Line::Replacement
             current[stanza_names[stanza_name]].add(["  #{keyname} = #{attrs[:value]}"], :after)
@@ -81,7 +77,6 @@ module Line
             current[stanza_names[stanza_name]] = Replacement.new(current[stanza_names[stanza_name]], ["  #{keyname} = #{attrs[:value]}"], :after)
           end
         else
-          puts "Replace line"
           current[attrs[:location]] = Replacement.new(current[attrs[:location]], ["  #{keyname} = #{attrs[:value]}"], :replace)
         end
       end
