@@ -12,8 +12,6 @@ addons:
 branches:
   only:
     - master
-    - chef-13
-    - chef-12
 
 services: docker
 
