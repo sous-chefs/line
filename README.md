@@ -19,6 +19,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
   - `delete_from_list` do nothing, the list was not found which implies there is nothing to delete
   - `delete_lines` do nothing, the line isn't there which implies there is nothing to delete
   - `replace_or_add` create file, add the line
+- Chef client version 13 or greater is expected. Some limited testing on Chef client 12 has been done and the cookbook seems to work. PRs for chef 12 support will be considered.
 
 # Usage
 

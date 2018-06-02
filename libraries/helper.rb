@@ -12,7 +12,7 @@ module Line
     def sensitive_default
       new_resource.sensitive = true unless property_is_set?(:sensitive)
     rescue ArgumentError
-      # chef 12 raise ArgumentError checking property_is_set?
+      # chef 12 raises ArgumentError checking property_is_set?
       new_resource.sensitive = true
     end
 

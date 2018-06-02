@@ -2,7 +2,7 @@
 
 ## v2.0.1 (2018-06-01)
 
-- Tested on chef 12.13.37.  Fix error caused by using the sensitive attribute.  Sensitive true will be use for chef 12.
+- Tested on chef 12.13.37.  Fix error caused by using the sensitive attribute.  Sensitive true will always be used for chef 12.
 
 ## v2.0.0 (2018-05-19)
 
