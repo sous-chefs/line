@@ -25,7 +25,6 @@ If you need help writing tests, please ask on the Sous Chef channel of the Chef 
 ### Github Pull Request Testing Check List
 
 - [ ] Circleci runs Dangerfile tests
-  *  Test kitchen on ubuntu linux versions
 - [ ] Appveyor tests
   *  Test kitchen on Windows 2012r2
 - [ ] Travis tests

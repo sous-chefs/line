@@ -24,10 +24,6 @@ module Line
 
       start_line = first_matches.first
       end_line = second_matches.last
-      puts
-      puts "START #{start_line}"
-      puts "END #{end_line}"
-      puts
       if start_line && end_line && start_line <= end_line
         insert_lines = missing_lines_between(current, start_line, end_line, insert_array)
         current[start_line] = Replacement.new(current[start_line], insert_lines, :after)
