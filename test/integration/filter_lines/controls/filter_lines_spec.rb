@@ -80,6 +80,15 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
     its('size_lines') { should eq 9 }
   end
 
+  describe file('/tmp/stanza') do
+    its(:content) { should match(/lowercase-names = false/) }
+    its(:content) { should match(/addme = option/) }
+    its(:content) { should match(/mscldap-timeout = 5/) }
+  end
+  describe file_ext('/tmp/stanza') do
+    its('size_lines') { should eq 26 }
+  end
+
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Insert lines before match redo.*n/) }
   end
@@ -94,5 +103,9 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
 
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Replace the matched line redo.*n/) }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Change stanza values redo.*n/) }
   end
 end

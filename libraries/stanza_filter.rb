@@ -1,5 +1,4 @@
-# Filters to massage files
-
+# Filter insert or change keys in files formatted as stanzas
 module Line
   class Filter
     def stanza(current, args)
@@ -18,7 +17,9 @@ module Line
       # args[1] {keys, values} to replace or add to the stanza
       # Comment lines will be ignored
       #
-      @stanza_pattern = /^\[(?<name>[\w.-_%@]*)\]\s*/ # deal with comments on stanza line
+      # TODO - validate the stanza and key names
+      #        if the names don't match stanza pattern the insert will repeat with every run
+      @stanza_pattern = /^\[(?<name>[\w.\-_%@]*)\]\s*/ # deal with comments on stanza line
       # set up tests for valid stanza lines
       stanza_name = args[0]
       settings = args[1] # A hash of keywords and values
@@ -47,11 +48,10 @@ module Line
     end
 
     def parse_stanza(current, stanza_names, stanza_name)
-      # return a hash with keys and values
       settings = {}
       si = stanza_names[stanza_name] + 1
       while si < current.size && current[si] !~ @stanza_pattern
-        md = /\s*(?<key>[\w.-_%@]*)\s*=\s*(?<value>.*)\s*/.match(current[si])
+        md = /\s*(?<key>[\w.\-_%@]*)\s*=\s*(?<value>.*)\s*/.match(current[si])
         settings[md[:key].to_sym] = { value: md[:value], location: si } if md
         si += 1
       end
@@ -72,15 +72,19 @@ module Line
       settings.each do |keyname, attrs|
         if attrs[:location].nil?
           if current[stanza_names[stanza_name]].class == Line::Replacement
-            current[stanza_names[stanza_name]].add(["  #{keyname} = #{attrs[:value]}"], :after)
+            current[stanza_names[stanza_name]].add(rep_value(keyname, attrs[:value]), :after)
           else
-            current[stanza_names[stanza_name]] = Replacement.new(current[stanza_names[stanza_name]], ["  #{keyname} = #{attrs[:value]}"], :after)
+            current[stanza_names[stanza_name]] = Replacement.new(current[stanza_names[stanza_name]], rep_value(keyname, attrs[:value]), :after)
           end
         else
-          current[attrs[:location]] = Replacement.new(current[attrs[:location]], ["  #{keyname} = #{attrs[:value]}"], :replace)
+          current[attrs[:location]] = Replacement.new(current[attrs[:location]], rep_value(keyname, attrs[:value]), :replace)
         end
       end
       current
+    end
+
+    def rep_value(key, value)
+      ["  #{key} = #{value}"]
     end
   end
 end

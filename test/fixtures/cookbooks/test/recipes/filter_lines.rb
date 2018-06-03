@@ -130,8 +130,42 @@ filter_lines 'Replace the matched line redo' do
   filter_args [match_pattern, insert_lines]
 end
 
-# =====================
+# ==================== stanza filter =================
+template '/tmp/stanza' do
+  source 'stanza.erb'
+end
 
+filter_lines 'Change stanza values' do
+  path '/tmp/stanza'
+  sensitive false
+  filters(
+    [
+      { code: filters.method(:stanza),
+        args: [ 'libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
+      },
+      { code: filters.method(:stanza),
+        args: [ 'nss_vas', { 'lowercase-names' => false, addme: 'option' }],
+      },
+    ]
+  )
+end
+
+filter_lines 'Change stanza values redo' do
+  path '/tmp/stanza'
+  sensitive false
+  filters(
+    [
+      { code: filters.method(:stanza),
+        args: [ 'libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
+      },
+      { code: filters.method(:stanza),
+        args: [ 'nss_vas', { 'lowercase-names' => false, addme: 'option' }],
+      },
+    ]
+  )
+end
+
+# =====================
 template '/tmp/multiple_filters' do
   source 'dangerfile.erb'
   sensitive true
