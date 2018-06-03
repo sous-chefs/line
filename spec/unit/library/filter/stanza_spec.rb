@@ -18,6 +18,10 @@ describe 'stanza method' do
       '  key3.1 = val1',
       '[head4]',
     ]
+    @chkregex = [
+      '[name.-_%@]',
+      '  name.-_%@ = val1',
+    ]
   end
 
   it 'should add stanza to an empty array' do
@@ -60,4 +64,9 @@ describe 'stanza method' do
     expect(@filt.stanza(@current.dup, ['head3', { 'key3.1' => 'replace1', newkey: 'insertvalue' }])).to eq(out_array)
   end
 
+  it 'should find names with all the characters in the key pattern' do
+    out_array = @chkregex.dup
+    out_array[1] = '  name.-_%@ = replace1'
+    expect(@filt.stanza(@chkregex.dup, ['name.-_%@', { 'name.-_%@' => 'replace1' }])).to eq(out_array)
+  end
 end
