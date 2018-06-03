@@ -66,6 +66,25 @@ filter_lines 'Insert lines before match redo' do
   filter_args [match_pattern, insert_lines]
 end
 
+# ==================== between filter =================
+template '/tmp/between' do
+  source 'dangerfile3.erb'
+end
+
+filter_lines 'Change lines between matches' do
+  path '/tmp/between'
+  sensitive false
+  filter filters.method(:between)
+  filter_args [ /^empty/, /last_list/, ['add line']]
+end
+
+filter_lines 'Change lines between matches redo' do
+  path '/tmp/between'
+  sensitive false
+  filter filters.method(:between)
+  filter_args [ /$empty/, /last_list/, ['add line']]
+end
+
 # ==================== after filter =================
 
 template '/tmp/after' do
@@ -166,6 +185,7 @@ filter_lines 'Change stanza values redo' do
 end
 
 # =====================
+
 template '/tmp/multiple_filters' do
   source 'dangerfile.erb'
   sensitive true
