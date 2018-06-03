@@ -15,6 +15,30 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
     its(:content) { should match(/^enil tsal#{eol}/) }
   end
 
+  describe file('/tmp/after') do
+    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}line1#{eol}line2#{eol}line3#{eol}# UN/m) }
+    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}line1#{eol}line2#{eol}line3#{eol}int/m) }
+  end
+  describe file_ext('/tmp/after') do
+    its('size_lines') { should eq 11 }
+  end
+
+  describe file('/tmp/after_first') do
+    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}line1#{eol}line2#{eol}line3#{eol}# UN/m) }
+    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}int/m) }
+  end
+  describe file_ext('/tmp/after_last') do
+    its('size_lines') { should eq 8 }
+  end
+
+  describe file('/tmp/after_last') do
+    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT/m) }
+    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}line1#{eol}line2#{eol}line3#{eol}int/m) }
+  end
+  describe file_ext('/tmp/after_last') do
+    its('size_lines') { should eq 8 }
+  end
+
   describe file('/tmp/before') do
     its(:content) { should match(/line1#{eol}line2#{eol}line3#{eol}HELLO THERE/m) }
     its(:content) { should match(/line1#{eol}line2#{eol}line3#{eol}COMMENT ME/m) }
@@ -47,28 +71,11 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
     its('size_lines') { should eq 21 }
   end
 
-  describe file('/tmp/after') do
-    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}line1#{eol}line2#{eol}line3#{eol}# UN/m) }
-    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}line1#{eol}line2#{eol}line3#{eol}int/m) }
+  describe file('/tmp/comment') do
+    its(:content) { should match(/# last_list/) }
   end
-  describe file_ext('/tmp/after') do
-    its('size_lines') { should eq 11 }
-  end
-
-  describe file('/tmp/after_first') do
-    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}line1#{eol}line2#{eol}line3#{eol}# UN/m) }
-    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}int/m) }
-  end
-  describe file_ext('/tmp/after_last') do
-    its('size_lines') { should eq 8 }
-  end
-
-  describe file('/tmp/after_last') do
-    its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT/m) }
-    its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}line1#{eol}line2#{eol}line3#{eol}int/m) }
-  end
-  describe file_ext('/tmp/after_last') do
-    its('size_lines') { should eq 8 }
+  describe file_ext('/tmp/comment') do
+    its('size_lines') { should eq 20 }
   end
 
   describe file('/tmp/multiple_filters') do
@@ -97,6 +104,13 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
     its('size_lines') { should eq 26 }
   end
 
+  describe file('/tmp/substitute') do
+    its(:content) { should match(/start_list/) }
+  end
+  describe file_ext('/tmp/substitute') do
+    its('size_lines') { should eq 20 }
+  end
+
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Insert lines before match redo.*n/) }
   end
@@ -119,5 +133,9 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
 
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Change lines between matches redo.*n/) }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Substitute string for matching pattern redo.*n/) }
   end
 end

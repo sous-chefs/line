@@ -8,19 +8,29 @@ module Line
       # args[1] is an array of lines to replace the matched lines
       #
       # returns array with inserted lines
-      match_pattern = args[0]
-      insert_lines = args[1]
-      # TODO protect against match pattern matching any of the insert_lines
-      # Will insert with every run
+      #
+      # Errors: If the match pattern matches one of the lines to insert
+      # the replacement will happen on every converge which can cause
+      # the file to grow
+      @match_pattern = args[0]
+      @insert_lines = args[1]
+      @force = args[2] || false
+      verify_insert_lines
 
-      # find matching lines  (match object, line #, insert match, insert direction)
       matches = []
-      current.each_index { |i| matches << i if current[i] =~ match_pattern }
+      current.each_index { |i| matches << i if current[i] =~ @match_pattern }
 
       matches.each do |match|
-        current[match] = Replacement.new(current[match], insert_lines, :replace)
+        current[match] = Replacement.new(current[match], @insert_lines, :replace)
       end
+
       expand(current)
+    end
+
+    def verify_insert_lines
+      @insert_lines.each do |line|
+        raise ArgumentError, 'Warning - Replacement line should not match the replace pattern' if line =~ @match_pattern && !@force
+      end
     end
   end
 end

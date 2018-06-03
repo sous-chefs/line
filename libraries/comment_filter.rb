@@ -13,7 +13,7 @@ module Line
 
       # find lines matching the pattern
       current.each_index do |i|
-        if current[i] =~ match_pattern 
+        if current[i] =~ match_pattern
           next if commented?(current[i])
           current[i] = mark_as_comment(current[i])
         end
