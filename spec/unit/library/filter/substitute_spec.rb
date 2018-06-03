@@ -58,23 +58,22 @@ describe 'substitute method' do
     out_lines[1] = 'line2 nonsense'
     expect(@filt.substitute(@current, [/^line2/, 'nonsense', /stuff/i])).to eq(out_lines)
   end
- 
+
   it 'should match all lines and use the substitute pattern' do
     out_lines = @current
     out_lines[5] = 'line2 serious'
     expect(@filt.substitute(@current, [/^/, 'serious', /funny/i])).to eq(out_lines)
   end
- 
+
   it 'should error in case of continuing changes' do
     out_lines = @current
     out_lines[9] = 'c2 plus'
-    expect{@filt.substitute(@current, [/c2/, 'c2 plus'])}.to raise_error(ArgumentError)
+    expect { @filt.substitute(@current, [/c2/, 'c2 plus']) }.to raise_error(ArgumentError)
   end
- 
+
   it 'should allow force in case of continuing changes' do
     out_lines = @current
     out_lines[9] = 'c2 plus'
-    expect(@filt.substitute(@current, [/c2/, 'c2 plus',nil ,true])).to eq(out_lines)
+    expect(@filt.substitute(@current, [/c2/, 'c2 plus', nil, true])).to eq(out_lines)
   end
-
 end

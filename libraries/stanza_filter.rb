@@ -17,12 +17,11 @@ module Line
       # args[1] {keys, values} to replace or add to the stanza
       # Comment lines will be ignored
       #
-      # TODO - validate the stanza and key names
-      #        if the names don't match stanza pattern the insert will repeat with every run
-      @stanza_pattern = /^\[(?<name>[\w.\-_%@]*)\]\s*/ # deal with comments on stanza line
-      # set up tests for valid stanza lines
-      stanza_name = args[0]
-      settings = args[1] # A hash of keywords and values
+      @stanza_name = args[0]
+      @settings = args[1] # A hash of keywords and values
+
+      verify_stanza_name
+      verify_keys
 
       stanza_names = find_stanzas(current)
       add_stanza(current, stanza_names, stanza_name) unless stanza_names[stanza_name]
@@ -35,9 +34,9 @@ module Line
     def find_stanzas(current)
       stanza_names = {}
       current.each_index do |i|
-        md = @stanza_pattern.match(current[i])
+        md = stanza_regex.match(current[i])
         next unless md
-        stanza_names[md[:name]] = i # There might be multiple stanza with the same name
+        stanza_names[md[:name]] = i # TODO: There might be multiple stanzas with the same name
       end
       stanza_names
     end
@@ -51,7 +50,7 @@ module Line
       settings = {}
       si = stanza_names[stanza_name] + 1
       while si < current.size && current[si] !~ @stanza_pattern
-        md = /\s*(?<key>[\w.\-_%@]*)\s*=\s*(?<value>.*)\s*/.match(current[si])
+        md = key_regex.match(current[si])
         settings[md[:key].to_sym] = { value: md[:value], location: si } if md
         si += 1
       end
@@ -85,6 +84,30 @@ module Line
 
     def rep_value(key, value)
       ["  #{key} = #{value}"]
+    end
+
+    def key_regex
+      /\s*(?<key>#{name_pattern})\s*=\s*(?<value>.*)\s*/
+    end
+
+    def name_pattern
+      '[\w.\-_%@]*'
+    end
+
+    def stanza_regex
+      /^\[(?<name>#{name_pattern})\]\s*/ # deal with comments on stanza line
+    end
+
+    def verify_keys
+      # unless the key names match the pattern the stanza will be inserted during each converge
+      @settings.each_key do |key|
+        raise ArgumentError, "Invalid key value #{key}" unless key =~ key_regex
+      end
+    end
+
+    def verify_stanza_name
+      # unless the new stanza name matches the pattern the stanza will be inserted during each converge
+      raise ArgumentError, "Invalid stanza name #{@stanza_name}" unless @stanza_name =~ stanza_regex
     end
   end
 end

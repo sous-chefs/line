@@ -1,21 +1,8 @@
 directory '/tmp'
 
+# ==================== Inline proc filters =================
+
 template '/tmp/dangerfile' do
-end
-
-template '/tmp/before' do
-  source 'dangerfile.erb'
-  sensitive true
-end
-
-template '/tmp/before_first' do
-  source 'dangerfile.erb'
-  sensitive true
-end
-
-template '/tmp/before_last' do
-  source 'dangerfile.erb'
-  sensitive true
 end
 
 filter_lines 'Do nothing' do
@@ -32,11 +19,66 @@ filter_lines 'Reverse line text' do
   filter proc { |current| current.map(&:reverse) }
 end
 
+# ==================== after filter =================
+
 filters = Line::Filter.new
 insert_lines = %w(line1 line2 line3)
 match_pattern = /^COMMENT ME|^HELLO/
 
+# ==================== after filter =================
+
+template '/tmp/after' do
+  source 'dangerfile.erb'
+end
+
+filter_lines 'Insert lines after match' do
+  path '/tmp/after'
+  filter filters.method(:after)
+  filter_args [match_pattern, insert_lines]
+end
+
+filter_lines 'Insert lines after match redo' do
+  path '/tmp/after'
+  filter filters.method(:after)
+  filter_args [match_pattern, insert_lines]
+end
+
+template '/tmp/after_first' do
+  source 'dangerfile.erb'
+end
+
+filter_lines 'Insert lines after first match' do
+  path '/tmp/after_first'
+  filter filters.method(:after)
+  filter_args [match_pattern, insert_lines, :first]
+end
+
+template '/tmp/after_last' do
+  source 'dangerfile.erb'
+end
+
+filter_lines 'Insert lines after last match' do
+  path '/tmp/after_last'
+  filter filters.method(:after)
+  filter_args [match_pattern, insert_lines, :last]
+end
+
 # ==================== before filter =================
+
+template '/tmp/before' do
+  source 'dangerfile.erb'
+  sensitive true
+end
+
+template '/tmp/before_first' do
+  source 'dangerfile.erb'
+  sensitive true
+end
+
+template '/tmp/before_last' do
+  source 'dangerfile.erb'
+  sensitive true
+end
 
 filter_lines 'Insert lines before match' do
   path '/tmp/before'
@@ -85,52 +127,26 @@ filter_lines 'Change lines between matches redo' do
   filter_args [ /$empty/, /last_list/, ['add line']]
 end
 
-# ==================== after filter =================
-
-template '/tmp/after' do
-  source 'dangerfile.erb'
-  sensitive true
+# ==================== comment filter =================
+template '/tmp/comment' do
+  source 'dangerfile3.erb'
 end
 
-filter_lines 'Insert lines after match' do
-  path '/tmp/after'
+filter_lines 'Change matching lines to comments' do
+  path '/tmp/comment'
   sensitive false
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines]
+  filter filters.method(:comment)
+  filter_args [/last_list/]
 end
 
-filter_lines 'Insert lines after match redo' do
-  path '/tmp/after'
+filter_lines 'Change matching lines to comments redo' do
+  path '/tmp/comment'
   sensitive false
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines]
+  filter filters.method(:comment)
+  filter_args [/last_list/]
 end
 
-template '/tmp/after_first' do
-  source 'dangerfile.erb'
-  sensitive true
-end
-
-filter_lines 'Insert lines after first match' do
-  path '/tmp/after_first'
-  sensitive false
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines, :first]
-end
-
-template '/tmp/after_last' do
-  source 'dangerfile.erb'
-  sensitive true
-end
-
-filter_lines 'Insert lines after last match' do
-  path '/tmp/after_last'
-  sensitive false
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines, :last]
-end
-
-# =====================
+# ==================== replace filter =================
 
 template '/tmp/replace' do
   source 'dangerfile.erb'
@@ -171,7 +187,6 @@ end
 
 filter_lines 'Change stanza values redo' do
   path '/tmp/stanza'
-  sensitive false
   filters(
     [
       { code: filters.method(:stanza),
@@ -184,7 +199,24 @@ filter_lines 'Change stanza values redo' do
   )
 end
 
-# =====================
+# ==================== substitute filter =================
+template '/tmp/substitute' do
+  source 'dangerfile3.erb'
+end
+
+filter_lines 'Substitute string for matching pattern' do
+  path '/tmp/substitute'
+  filter filters.method(:substitute)
+  filter_args [/last_list/, 'start_list']
+end
+
+filter_lines 'Substitute string for matching pattern redo' do
+  path '/tmp/substitute'
+  filter filters.method(:substitute)
+  filter_args [/last_list/, 'start_list']
+end
+
+# ==================== Multiple filters =================
 
 template '/tmp/multiple_filters' do
   source 'dangerfile.erb'
