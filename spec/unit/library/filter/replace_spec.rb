@@ -61,6 +61,11 @@ describe 'replace method' do
   end
 
   it 'should not raise error if the pattern matchs the replacement lines, force the change' do
-    expect { @filt.replace(@current, [@pattern_c1, ['c1 match', 'c2'], true]) }.to_not raise_error(ArgumentError)
+    out_lines = @current.dup
+    @current = %w(line3 line2 line1 c1 line3 line2 c1 line1 c1 c2)
+    out_lines[3] = 'c1 match'
+    out_lines[6] = 'c1 match'
+    out_lines[8] = 'c1 match'
+    expect(@filt.replace(@current, [@pattern_c1, ['c1 match'], true])).to eq(out_lines)
   end
 end

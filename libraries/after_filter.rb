@@ -26,9 +26,9 @@ module Line
       # args[2] match instance, each, first, last
       #
       # returns array with inserted lines
-      match_pattern = args[0]
-      insert_array = args[1]
-      select_match = args[2] || :each
+      match_pattern = verify_kind(args[0], Regexp)
+      insert_array = verify_kind(args[1], Array)
+      select_match = verify_one_of(args[2], [NilClass, :each, 'each', :first, 'first', :last, 'last']) || :each
 
       # find matching lines  (match object, line #, insert match, insert direction)
       matches = []

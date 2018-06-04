@@ -29,9 +29,9 @@ module Line
       # Errors: If the match pattern matches one of the lines to insert
       # the replacement will happen on every converge which can cause
       # the file to grow
-      @match_pattern = args[0]
-      @insert_lines = args[1]
-      @force = args[2] || false
+      @match_pattern = verify_kind(args[0], Regexp)
+      @insert_lines = verify_kind(args[1], [Array])
+      @force = verify_kind(args[2], [TrueClass, FalseClass, NilClass]) || false
       verify_insert_lines
 
       matches = []

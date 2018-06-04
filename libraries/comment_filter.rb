@@ -24,9 +24,9 @@ module Line
       # args[2] match instance, each, first, last
       #
       # returns array with inserted lines
-      match_pattern = args[0]
-      @comment_str = args[1] || '#'
-      @comment_space = args[2] || ' '
+      match_pattern = verify_kind(args[0], Regexp)
+      @comment_str = verify_kind(args[1], [String, NilClass]) || '#'
+      @comment_space = verify_kind(args[2], [String, NilClass]) || ' '
 
       # find lines matching the pattern
       current.each_index do |i|
