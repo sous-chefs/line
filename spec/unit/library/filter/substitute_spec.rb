@@ -1,3 +1,20 @@
+#
+# Copyright 2018 Sous Chefs
+#
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
 require 'rspec_helper'
 include Line
 
@@ -75,5 +92,14 @@ describe 'substitute method' do
     out_lines = @current
     out_lines[9] = 'c2 plus'
     expect(@filt.substitute(@current, [/c2/, 'c2 plus', nil, true])).to eq(out_lines)
+  end
+
+  it 'should use a hash to substitute multiple values' do
+    out_lines = @current
+    @current = ['line3', 'line2 Stuff', 'line1', 'c1', 'line3', 'line2 funny', '# c1', 'line1', 'c1', 'c2']
+    out_lines[3] = 'd1'
+    out_lines[8] = 'd1'
+    out_lines[9] = 'd2'
+    expect(@filt.substitute(@current, [/^c[12]/, {'c1' => 'd1', 'c2' => 'd2'}, nil, true])).to eq(out_lines)
   end
 end
