@@ -37,6 +37,16 @@ module Line
       end
       new_lines.flatten # add the lines better so we don't need this
     end
+
+    def verify_kind(value, kinds)
+      raise ArgumentError, "Wrong class #{value} with class #{value.class} should be one of #{kinds}" unless [kinds].flatten.include?(value.class)
+      value
+    end
+
+    def verify_one_of(value, allowed)
+      raise ArgumentError, "Wrong value #{value} should be one of #{allowed}" unless [allowed].flatten.include?(value)
+      value
+    end
   end
 
   class Replacement

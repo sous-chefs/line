@@ -30,10 +30,10 @@ module Line
       # error condition - If the substitute string will match a line after replacement
       #  it is possible for the file size to increase after every converge. Use force
       # to ignore the possible error.
-      match_pattern = args[0]
-      substitute_str = args[1] # String or Hash
-      sub_pattern = args[2] || match_pattern
-      force = args[3] | false
+      match_pattern = verify_kind(args[0], Regexp)
+      substitute_str = verify_kind(args[1], [NilClass, String, Hash]) # String or Hash
+      sub_pattern = verify_kind(args[2], [NilClass, Regexp]) || match_pattern
+      force = verify_kind(args[3], [NilClass, TrueClass, FalseClass]) | false
 
       # find lines matching the pattern, then substitute
       current.each_index do |i|

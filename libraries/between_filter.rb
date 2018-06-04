@@ -27,9 +27,9 @@ module Line
       #
       # returns array with inserted lines
       # Does the order of matches matter?
-      first_pattern = args[0]
-      second_pattern = args[1]
-      insert_array = args[2]
+      first_pattern = verify_kind(args[0], Regexp)
+      second_pattern = verify_kind(args[1], Regexp)
+      insert_array = verify_kind(args[2], Array)
 
       # find matching lines  (match object, line #, insert match, insert direction)
       first_matches = []

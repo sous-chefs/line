@@ -34,17 +34,17 @@ module Line
       # args[1] {keys, values} to replace or add to the stanza
       # Comment lines will be ignored
       #
-      @stanza_name = args[0]
-      @settings = args[1] # A hash of keywords and values
+      @stanza_name = verify_kind(args[0], String)
+      @settings = verify_kind(args[1], Hash) # A hash of keywords and values
 
       verify_stanza_name
       verify_keys
 
       stanza_names = find_stanzas(current)
-      add_stanza(current, stanza_names, stanza_name) unless stanza_names[stanza_name]
-      stanza_settings = parse_stanza(current, stanza_names, stanza_name)
-      new_settings = diff_settings(stanza_settings, settings)
-      current = update_stanza(current, stanza_names, stanza_name, new_settings)
+      add_stanza(current, stanza_names, @stanza_name) unless stanza_names[@stanza_name]
+      stanza_settings = parse_stanza(current, stanza_names, @stanza_name)
+      new_settings = diff_settings(stanza_settings, @settings)
+      current = update_stanza(current, stanza_names, @stanza_name, new_settings)
       expand(current)
     end
 
@@ -107,6 +107,10 @@ module Line
       /\s*(?<key>#{name_pattern})\s*=\s*(?<value>.*)\s*/
     end
 
+    def key_value_regex
+      /(?<key>#{name_pattern})/
+    end
+
     def name_pattern
       '[\w.\-_%@]*'
     end
@@ -118,13 +122,13 @@ module Line
     def verify_keys
       # unless the key names match the pattern the stanza will be inserted during each converge
       @settings.each_key do |key|
-        raise ArgumentError, "Invalid key value #{key}" unless key =~ key_regex
+        raise ArgumentError, "Invalid key value #{key}" unless key =~ key_value_regex
       end
     end
 
     def verify_stanza_name
       # unless the new stanza name matches the pattern the stanza will be inserted during each converge
-      raise ArgumentError, "Invalid stanza name #{@stanza_name}" unless @stanza_name =~ stanza_regex
+      raise ArgumentError, "Invalid stanza name #{@stanza_name}, should match #{stanza_regex}" unless @stanza_name =~ key_value_regex
     end
   end
 end

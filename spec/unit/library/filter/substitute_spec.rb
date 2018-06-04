@@ -100,6 +100,6 @@ describe 'substitute method' do
     out_lines[3] = 'd1'
     out_lines[8] = 'd1'
     out_lines[9] = 'd2'
-    expect(@filt.substitute(@current, [/^c[12]/, {'c1' => 'd1', 'c2' => 'd2'}, nil, true])).to eq(out_lines)
+    expect(@filt.substitute(@current, [/^c[12]/, { 'c1' => 'd1', 'c2' => 'd2' }, nil, true])).to eq(out_lines)
   end
 end
