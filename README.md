@@ -273,16 +273,15 @@ The filter_lines resource passes the contents of the path file in an array of li
 filter. The filter should return an array of lines. The output array will be written to the file or passed to the next filter.
 
 ### Filters
-Built in filters.  
-Filter | Description | Arguments 
--------|-------------|----------
-:after | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | :each,first, or :last to select the matching lines
-:before | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, first, or :last to select the matching lines
-:between | Insert lines between two matches | Start pattern to match | End pattern | Lines to insert
-:comment | Mark lines as commented | Pattern to match | Comment string, defaults to #| Comment spacing, defaults to ' '
-:replace | Replace matching lines | Pattern to match | String or Array of lines to insert
-:stanza | Replace or insert key values in a stanza |  Stanza name | Hash of keys with values
-:substitue | Substitute value for pattern | Line match pattern | replacement string | Substitute pattern, defaults to line match pattern | Force repeating change
+Built in Filter | Description | Arguments 
+----------------|-------------|----------
+ :after | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | :each,first, or :last to select the matching lines
+ :before | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, first, or :last to select the matching lines
+ :between | Insert lines between two matches | Start pattern to match | End pattern | Lines to insert
+ :comment | Mark lines as commented | Pattern to match | Comment string, defaults to # | Comment spacing, defaults to ' '
+ :replace | Replace matching lines | Pattern to match | String or Array of lines to insert
+ :stanza | Replace or insert key values in a stanza |  Stanza name | Hash of keys with values
+ :substitue | Substitute value for pattern | Line match pattern | replacement string | Substitute pattern, defaults to line match pattern | Force repeating change
     
 # Author
 
