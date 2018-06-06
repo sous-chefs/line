@@ -23,13 +23,13 @@ module Line
       # current is an array of lines
       # args[0] is a pattern. Insert lines after this pattern
       # args[1] is a pattern. Insert lines before this pattern
-      # args[2] is an array of lines to insert after the matched lines
+      # args[2] is a string or an array of lines to insert after the matched lines
       #
       # returns array with inserted lines
       # Does the order of matches matter?
       first_pattern = verify_kind(args[0], Regexp)
       second_pattern = verify_kind(args[1], Regexp)
-      insert_array = verify_kind(args[2], Array)
+      insert_array = [verify_kind(args[2], [Array, String])].flatten
 
       # find matching lines  (match object, line #, insert match, insert direction)
       first_matches = []

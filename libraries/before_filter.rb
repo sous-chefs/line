@@ -28,12 +28,12 @@ module Line
       #   :each insert any lines not found (start -> match & match -1 -> match line) before each match
       # current is an array of lines
       # args[0] is a pattern to match a line
-      # args[1] is an array of lines to insert before the matched lines
+      # args[1] is a string or an array of lines to insert before the matched lines
       # args[2] match instance, each, first, last
       #
       # returns array with inserted lines
       match_pattern = verify_kind(args[0], Regexp)
-      insert_array = verify_kind(args[1], Array)
+      insert_array = [verify_kind(args[1], [Array, String])].flatten
       select_match = verify_one_of(args[2], [nil, :each, 'each', :first, 'first', :last, 'last']) || :each
 
       # find lines matching the pattern
