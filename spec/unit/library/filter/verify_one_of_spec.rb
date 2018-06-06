@@ -18,13 +18,24 @@
 require 'rspec_helper'
 include Line
 
-describe 'missing_lines_between method' do
+describe 'verify_one_of method' do
   before(:each) do
     @filt = Line::Filter.new
   end
 
-  # missing_lines_between(current, start, match, ia)
-  # it 'should not change if no lines match' do
-  #  expect(@filt.missing_lines_between([], [@pattern_c1])).to eq([])
-  # end
+  it 'should match and return the original' do
+    expect(@filt.verify_one_of('a', 'a')).to eq('a')
+  end
+
+  it 'should match and return the original string' do
+    expect(@filt.verify_one_of('a', ['a', :a])).to eq('a')
+  end
+
+  it 'should match and return the original symbol' do
+    expect(@filt.verify_one_of(:a, ['a', :a])).to eq(:a)
+  end
+
+  it 'should differentiate between strings and symbols' do
+    expect { @filt.verify_one_of(:a, ['a']) }.to raise_error(ArgumentError)
+  end
 end
