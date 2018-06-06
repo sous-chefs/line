@@ -32,6 +32,7 @@ template '/tmp/after' do
 end
 
 filter_lines 'Insert lines after match' do
+  sensitive false
   path '/tmp/after'
   filter filters.method(:after)
   filter_args [match_pattern, insert_lines]
