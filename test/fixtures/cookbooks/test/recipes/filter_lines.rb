@@ -117,14 +117,14 @@ filter_lines 'Change lines between matches' do
   path '/tmp/between'
   sensitive false
   filter filters.method(:between)
-  filter_args [ /^empty/, /last_list/, ['add line']]
+  filter_args [/^empty/, /last_list/, ['add line']]
 end
 
 filter_lines 'Change lines between matches redo' do
   path '/tmp/between'
   sensitive false
   filter filters.method(:between)
-  filter_args [ /$empty/, /last_list/, ['add line']]
+  filter_args [/$empty/, /last_list/, ['add line']]
 end
 
 # ==================== comment filter =================
@@ -176,10 +176,10 @@ filter_lines 'Change stanza values' do
   filters(
     [
       { code: filters.method(:stanza),
-        args: [ 'libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
+        args: ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
       },
       { code: filters.method(:stanza),
-        args: [ 'nss_vas', { 'lowercase-names' => false, addme: 'option' }],
+        args: ['nss_vas', { 'lowercase-names' => false, addme: 'option' }],
       },
     ]
   )
@@ -190,10 +190,10 @@ filter_lines 'Change stanza values redo' do
   filters(
     [
       { code: filters.method(:stanza),
-        args: [ 'libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
+        args: ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
       },
       { code: filters.method(:stanza),
-        args: [ 'nss_vas', { 'lowercase-names' => false, addme: 'option' }],
+        args: ['nss_vas', { 'lowercase-names' => false, addme: 'option' }],
       },
     ]
   )
