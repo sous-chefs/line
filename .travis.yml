@@ -24,6 +24,8 @@ env:
 - INSTANCE=delete-from-list-ubuntu-1604
 - INSTANCE=delete-lines-centos-7
 - INSTANCE=delete-lines-ubuntu-1604
+- INSTANCE=filter-lines-centos-7
+- INSTANCE=filter-lines-ubuntu-1604
 - INSTANCE=replace-or-add-centos-7
 - INSTANCE=replace-or-add-ubuntu-1604
 
