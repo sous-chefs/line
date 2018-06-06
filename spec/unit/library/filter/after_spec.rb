@@ -94,7 +94,7 @@ describe 'after method' do
     expect(@filt.after(@solo_middle, [@pattern_c1, @ia, :first])).to eq(%w(linef c1 line1 line2 line3 lineg))
   end
 
-  it 'should insert after match of a middle line - last' do
-    expect(@filt.after(@solo_middle, [@pattern_c1, @ia, :last])).to eq(%w(linef c1 line1 line2 line3 lineg))
+  it 'should insert a string' do
+    expect(@filt.after(@solo_middle, [@pattern_c1, 'string1', :last])).to eq(%w(linef c1 string1 lineg))
   end
 end

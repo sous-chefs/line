@@ -68,4 +68,8 @@ describe 'replace method' do
     out_lines[8] = 'c1 match'
     expect(@filt.replace(@current, [@pattern_c1, ['c1 match'], true])).to eq(out_lines)
   end
+
+  it 'should replace with a string' do
+    expect(@filt.replace(@solo_middle, [@pattern_c1, 'string1'])).to eq(%w(linef string1 lineg))
+  end
 end

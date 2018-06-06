@@ -22,7 +22,8 @@ module Line
       # Replace each instance of a pattern line with a  set of lines
       # current is an array of lines
       # args[0] is a pattern to match a line
-      # args[1] is an array of lines to replace the matched lines
+      # args[1] is a string or an array of lines to replace the matched lines
+      # args[2] Force to allow the change even though it will probably break something
       #
       # returns array with inserted lines
       #
@@ -30,7 +31,7 @@ module Line
       # the replacement will happen on every converge which can cause
       # the file to grow
       @match_pattern = verify_kind(args[0], Regexp)
-      @insert_lines = verify_kind(args[1], [Array])
+      @insert_lines = [verify_kind(args[1], [Array, String])].flatten
       @force = verify_kind(args[2], [TrueClass, FalseClass, NilClass]) || false
       verify_insert_lines
 

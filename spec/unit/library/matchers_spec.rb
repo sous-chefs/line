@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-describe 'test::matchers' do
+describe 'spectest::matchers' do
   let(:chef_run) do
     chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
     chef_run.converge(described_recipe)

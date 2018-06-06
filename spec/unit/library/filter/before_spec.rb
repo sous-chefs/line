@@ -97,4 +97,8 @@ describe 'before method' do
   it 'should insert before match of a middle line - last' do
     expect(@filt.before(@solo_middle, [@pattern_c1, @ia, :last])).to eq(%w(linef line1 line2 line3 c1 lineg))
   end
+
+  it 'should insert a string' do
+    expect(@filt.before(@solo_middle, [@pattern_c1, 'string1', :last])).to eq(%w(linef string1 c1 lineg))
+  end
 end
