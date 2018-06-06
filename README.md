@@ -242,7 +242,6 @@ path           | File to update                     | String                    
 pattern        | Regular expression to select lines | Regular expression or String | Required, no default
 delim          | Delimiter entries                  | Array                        | Array of 1, 2 or 3 multi-character elements
 entry          | Value to delete                    | String                       | Required, No default
-ends_with      | List ending                        | String                       | No default
 ignore_missing | Don't fail if the file is missing  | true or false                | Default is true
 eol            | Alternate line end characters      | String                       | default `\n` on unix, `\r\n` on windows
 backup         | Backup before changing             | Boolean                      | default false
