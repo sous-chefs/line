@@ -35,7 +35,7 @@ describe 'between method' do
   it 'should insert missing lines between first and last match of c1 and c2' do
     expect(@filt.between(@current, [@pattern_c1, @pattern_c2, @ia])).to eq(@after)
   end
- 
+
   it 'should insert a single line between first and last match of c1 and c2' do
     expect(@filt.between(@current, [@pattern_c1, @pattern_c2, 'string1'])).to eq(%w(line3 line2 line1 c1 string1 c2 c1 line1 c1 c2))
   end
