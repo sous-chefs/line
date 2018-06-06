@@ -19,20 +19,51 @@ require 'rspec_helper'
 include Line
 
 describe 'expand method' do
-  filt = Line::Filter.new
-  it 'should not change empty input' do
-    expect(filt.expand([])).to eq([])
+  before(:each) do
+    @filt = Line::Filter.new
   end
-  it 'should not change a set of only lines' do
-    expect(filt.expand(%w(a b))).to eq(%w(a b))
+
+  it 'An empty array should retun an empty array' do
+    expect(@filt.expand([])).to eq([])
   end
-  it 'should insert lines after' do
-    expect(filt.expand(['a', Replacement.new('b', %w(c d), :after)])).to eq(%w(a b c d))
+
+  it 'An array with just lines should return the same array' do
+    expect(@filt.expand([1, 2, 3, 4])).to eq([1, 2, 3, 4])
   end
-  it 'should insert lines before' do
-    expect(filt.expand(['a', Replacement.new('b', %w(c d), :before)])).to eq(%w(a c d b))
+
+  it 'An array with a replacement line should add lines at the replacement point - first, before' do
+    expect(@filt.expand([Replacement.new('1', %w(a b c), :before), '2', '3', '4'])).to eq(%w(a b c 1 2 3 4))
   end
-  it 'should replace line' do
-    expect(filt.expand(['a', Replacement.new('b', %w(c d), :replace)])).to eq(%w(a c d))
+
+  it 'An array with a replacement line should add lines at the replacement point - first, after' do
+    expect(@filt.expand([Replacement.new('1', %w(a b c), :after), '2', '3', '4'])).to eq(%w(1 a b c 2 3 4))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - first, replace' do
+    expect(@filt.expand([Replacement.new('1', %w(a b c), :replace), '2', '3', '4'])).to eq(%w(a b c 2 3 4))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - last, before' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :before)])).to eq(%w(1 2 3 a b c 4))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - last, after' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :after)])).to eq(%w(1 2 3 4 a b c))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - last, replace' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :replace)])).to eq(%w(1 2 3 a b c))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - middle, before' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :before), '5'])).to eq(%w(1 2 3 a b c 4 5))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - middle, after' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :after), '5'])).to eq(%w(1 2 3 4 a b c 5))
+  end
+
+  it 'An array with a replacement line should add lines at the replacement point - middle, replace' do
+    expect(@filt.expand(['1', '2', '3', Replacement.new('4', %w(a b c), :replace), '5'])).to eq(%w(1 2 3 a b c 5))
   end
 end

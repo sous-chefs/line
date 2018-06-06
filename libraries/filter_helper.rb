@@ -19,7 +19,7 @@
 module Line
   class Filter
     def missing_lines_between(current, start, match, ia)
-      # find lines in ia that are between the start and end of the lines array
+      # find lines in ia that are between the start and match lines of the lines array
       ib = ia.dup
       lines = current.slice(start, match - start)
       lines.each do |line|
@@ -44,7 +44,7 @@ module Line
     end
 
     def verify_one_of(value, allowed)
-      raise ArgumentError, "Wrong value #{value} should be one of #{allowed}" unless [allowed].flatten.include?(value)
+      raise ArgumentError, "Value #{value} should be one of #{allowed}" unless [allowed].flatten.include?(value)
       value
     end
   end

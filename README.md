@@ -19,6 +19,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
   - `delete_from_list` do nothing, the list was not found which implies there is nothing to delete
   - `delete_lines` do nothing, the line isn't there which implies there is nothing to delete
   - `replace_or_add` create file, add the line
+- Chef 12 support is incomplete, some testing of version 2 has been done and the resources pass the integration tests.  One known feature that does not work is the chef spec matchers.  The matchers were removed because they are automatically generated in chef 13.
 
 # Usage
 
@@ -72,18 +73,62 @@ delete_lines 'remove from nonexisting' do
   pattern /^#/
   ignore_missing true
 end
+
+filter_lines 'Shift lines' do
+  path '/some/file'
+  filter proc { |current| current.map(|line| "       #{line}") }
+end
+
+filters = Line::Filter.new
+insert_lines = %w(line1 line2 line3)
+match_pattern = /^COMMENT ME|^HELLO/
+filter_lines 'Insert lines after match' do
+  path '/some/file'
+  filter filters.method(:after)
+  filter_args [match_pattern, insert_lines]
+end
+
+filter_lines 'Multiple before and after match' do
+  path '/some/file'
+  sensitive false
+  filters(
+    [
+      # insert lines before the last match
+      { code: filters.method(:before),
+        args: [match_pattern, insert_lines, :last],
+      },
+      # insert lines after the first match
+      { code: filters.method(:after),
+        args: [match_pattern, insert_lines, :first],
+      },
+      # delete comment lines
+      { code: proc { |current| current.select { |line| line !~ /^#/ } },
+      },
+    ]
+  )
+end
 ```
 
 # Resource Notes
 
-So far, the only resources implemented are
+The resources implemented are:
 
 ```ruby
-append_if_no_line
-replace_or_add
-delete_lines
-add_to_list
-delete_from_list
+append_if_no_line - Add a missing line
+replace_or_add    - Replace a line that matches a pattern or add a missing line
+delete_lines      - Delete an item from a list
+add_to_list       - Add an item to a list
+delete_from_list  - Delete lines that match a pattern
+filter_lines      - Supply a proc or use a sample filter
+  Sample filters:
+  after      - Insert lines before a match
+  before     - Insert lines after a match
+  between    - Insert lines between matches
+  comment    - Turn lines into comments
+  replace    - Replace a matched line with multiple lines
+  stanza     - Set keys in a stanza
+  substitute - Find line that matches a pattern, replace text that matches another pattern
+  
 ```
 
 ## Resource: append_if_no_line
