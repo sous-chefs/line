@@ -40,22 +40,22 @@ end
 
 # regexp tests
 
-delete_lines 'Operation 5' do
+delete_lines 'Operation 5 regexp' do
   path '/tmp/dangerfile1-regexp'
   pattern /^HI.*/
 end
 
-delete_lines 'Operation 6' do
+delete_lines 'Operation 6 regexp' do
   path '/tmp/dangerfile1-regexp'
   pattern /^#.*/
 end
 
-delete_lines 'Operation 7' do
+delete_lines 'Operation 7 regexp' do
   path '/tmp/dangerfile1-regexp'
   pattern /^#.*/
 end
 
-delete_lines 'Operation 8' do
+delete_lines 'Operation 8 regexp' do
   path '/tmp/dangerfile2-regexp'
   pattern /^#.*/
 end

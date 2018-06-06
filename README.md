@@ -19,7 +19,8 @@ Quite often, the need arises to do line editing instead of managing an entire fi
   - `delete_from_list` do nothing, the list was not found which implies there is nothing to delete
   - `delete_lines` do nothing, the line isn't there which implies there is nothing to delete
   - `replace_or_add` create file, add the line
-- Chef 12 support is incomplete, some testing of version 2 has been done and the resources pass the integration tests.  One known feature that does not work is the chef spec matchers.  The matchers were removed because they are automatically generated in chef 13.
+- Chef 12 support is incomplete, some testing of line version 2 has been done on chef 12 and the resources pass the integration tests.  One known feature that does not work is the chef spec matchers.  The matchers were removed because they are automatically generated in chef 13.
+- PRs for chef 12 support will be considered.
 
 # Usage
 
