@@ -7,7 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '2.1.0'
 source_url       'https://github.com/sous-chefs/line-cookbook'
 issues_url       'https://github.com/sous-chefs/line-cookbook/issues'
-chef_version     '>= 13'
+chef_version     '>= 12.13.37'
 
 %w(debian ubuntu centos redhat scientific oracle amazon windows).each do |os|
   supports os
