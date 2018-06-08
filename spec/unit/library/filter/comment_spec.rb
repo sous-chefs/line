@@ -35,14 +35,14 @@ describe 'comment method' do
   end
 
   it 'should comment each match of c1' do
-    out_lines = @current.dup
+    out_lines = @current.map { |line| line }
     out_lines[3] = '# c1'
     out_lines[8] = '# c1'
     expect(@filt.comment(@current, [@pattern_c1])).to eq(out_lines)
   end
 
   it 'should comment each match of c1 and c2' do
-    out_lines = @current.dup
+    out_lines = @current.map { |line| line }
     out_lines[3] = '# c1'
     out_lines[8] = '# c1'
     out_lines[9] = '# c2'
@@ -50,19 +50,19 @@ describe 'comment method' do
   end
 
   it 'should comment the first line' do
-    out_lines = @solo_start
+    out_lines = @solo_start.map { |line| line }
     out_lines[0] = '# c1'
     expect(@filt.comment(@solo_start, [@pattern_c1])).to eq(out_lines)
   end
 
   it 'should comment the middle line' do
-    out_lines = @solo_middle
+    out_lines = @solo_middle.map { |line| line }
     out_lines[1] = '# c1'
     expect(@filt.comment(@solo_middle, [@pattern_c1])).to eq(out_lines)
   end
 
   it 'should comment the end line' do
-    out_lines = @solo_end
+    out_lines = @solo_end.map { |line| line }
     out_lines[3] = '# c1'
     expect(@filt.comment(@solo_end, [@pattern_c1])).to eq(out_lines)
   end

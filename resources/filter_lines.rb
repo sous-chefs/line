@@ -32,7 +32,7 @@ action :edit do
   eol = default_eol
 
   current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
-  new = current.dup
+  new = current.clone
 
   # Proc or Method
   if new_resource.filter.is_a?(Method) || new_resource.filter.is_a?(Proc)
@@ -49,9 +49,9 @@ action :edit do
     end
   end
 
-  # Last line terminator
+  # eol on last line
   new[-1] += eol unless new[-1].to_s.empty?
-  # did this get screwed up?
+  current[-1] += eol unless current[-1].to_s.empty?
 
   file new_resource.path do
     content new.join(eol)

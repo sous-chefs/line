@@ -37,6 +37,7 @@ action :edit do
 
   # eol on last line
   new[-1] += eol unless new[-1].to_s.empty?
+  current[-1] += eol unless current[-1].to_s.empty?
 
   file new_resource.path do
     content new.join(eol)

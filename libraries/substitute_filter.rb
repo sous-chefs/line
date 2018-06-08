@@ -36,11 +36,12 @@ module Line
       force = verify_kind(args[3], [NilClass, TrueClass, FalseClass]) | false
 
       # find lines matching the pattern, then substitute
-      current.each_index do |i|
-        current[i].gsub!(sub_pattern, substitute_str) if current[i] =~ match_pattern
-        raise ArgumentError, "Warning - The line at offset #{i} with contents #{current[i]} will match each chef run" if current[i] =~ sub_pattern && !force
+      new_lines = current.map do |line|
+        new_line = line =~ match_pattern ? line.gsub(sub_pattern, substitute_str) : line
+        raise ArgumentError, "Warning - The line with contents #{line} will match each chef run" if new_line =~ sub_pattern && !force
+        new_line
       end
-      current
+      new_lines
     end
   end
 end
