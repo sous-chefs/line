@@ -52,38 +52,38 @@ describe 'stanza method' do
   end
 
   it 'should add stanza to an existing array' do
-    out_array = @current.dup
-    ip = out_array.size
-    out_array[ip] = '[newstanza]'
-    out_array[ip + 1] = '  key1 = value1'
-    out_array[ip + 2] = '  key2 = value2'
-    expect(@filt.stanza(@current.dup, ['newstanza', { key1: 'value1', key2: 'value2' }])).to eq(out_array)
+    out_lines = @current.map { |line| line }
+    ip = out_lines.size
+    out_lines[ip] = '[newstanza]'
+    out_lines[ip + 1] = '  key1 = value1'
+    out_lines[ip + 2] = '  key2 = value2'
+    expect(@filt.stanza(@current, ['newstanza', { key1: 'value1', key2: 'value2' }])).to eq(out_lines)
   end
 
   it 'should replace values in a stanza' do
-    out_array = @current.dup
-    out_array[2] = '  key1 = replace1'
-    expect(@filt.stanza(@current.dup, ['head1', { key1: 'replace1' }])).to eq(out_array)
+    out_lines = @current.map { |line| line }
+    out_lines[2] = '  key1 = replace1'
+    expect(@filt.stanza(@current, ['head1', { key1: 'replace1' }])).to eq(out_lines)
   end
 
   it 'should replace multiple values in a stanza' do
-    out_array = @current.dup
-    out_array[6] = '  key2 = replace2'
-    out_array[7] = '  key3 = replace3'
-    expect(@filt.stanza(@current.dup, ['head2', { key2: 'replace2', key3: 'replace3' }])).to eq(out_array)
+    out_lines = @current.map { |line| line }
+    out_lines[6] = '  key2 = replace2'
+    out_lines[7] = '  key3 = replace3'
+    expect(@filt.stanza(@current, ['head2', { key2: 'replace2', key3: 'replace3' }])).to eq(out_lines)
   end
 
   it 'should replace and add values in a stanza' do
-    out_array = @current.dup
-    out_array[9] = '  newkey = insertvalue'
-    out_array[10] = '  key3.1 = replace1'
-    out_array[11] = '[head4]'
-    expect(@filt.stanza(@current.dup, ['head3', { 'key3.1' => 'replace1', newkey: 'insertvalue' }])).to eq(out_array)
+    out_lines = @current.map { |line| line }
+    out_lines[9] = '  newkey = insertvalue'
+    out_lines[10] = '  key3.1 = replace1'
+    out_lines[11] = '[head4]'
+    expect(@filt.stanza(@current, ['head3', { 'key3.1' => 'replace1', newkey: 'insertvalue' }])).to eq(out_lines)
   end
 
   it 'should find names with all the characters in the key pattern' do
-    out_array = @chkregex.dup
-    out_array[1] = '  name.-_%@ = replace1'
-    expect(@filt.stanza(@chkregex.dup, ['name.-_%@', { 'name.-_%@' => 'replace1' }])).to eq(out_array)
+    out_lines = @chkregex.map { |line| line }
+    out_lines[1] = '  name.-_%@ = replace1'
+    expect(@filt.stanza(@chkregex, ['name.-_%@', { 'name.-_%@' => 'replace1' }])).to eq(out_lines)
   end
 end

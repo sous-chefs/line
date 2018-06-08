@@ -47,8 +47,9 @@ action :edit do
   # add
   new << new_resource.line unless found || new_resource.replace_only
 
-  # Last line terminator
+  # eol on last line
   new[-1] += eol unless new[-1].to_s.empty?
+  current[-1] += eol unless current[-1].to_s.empty?
 
   file new_resource.path do
     content new.join(eol)

@@ -23,6 +23,11 @@ delete_lines 'Operation 5' do
   pattern '^HI.*'
 end
 
+delete_lines 'Operation 5 redo' do
+  path '/tmp/dangerfile1'
+  pattern '^HI.*'
+end
+
 delete_lines 'Operation 6' do
   path '/tmp/dangerfile1'
   pattern '^#.*'
@@ -45,6 +50,11 @@ delete_lines 'Operation 5 regexp' do
   pattern /^HI.*/
 end
 
+delete_lines 'Operation 5 regexp redo' do
+  path '/tmp/dangerfile1-regexp'
+  pattern /^HI.*/
+end
+
 delete_lines 'Operation 6 regexp' do
   path '/tmp/dangerfile1-regexp'
   pattern /^#.*/
@@ -56,6 +66,11 @@ delete_lines 'Operation 7 regexp' do
 end
 
 delete_lines 'Operation 8 regexp' do
+  path '/tmp/dangerfile2-regexp'
+  pattern /^#.*/
+end
+
+delete_lines 'Operation 8 regexp redo' do
   path '/tmp/dangerfile2-regexp'
   pattern /^#.*/
 end
