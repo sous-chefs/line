@@ -285,9 +285,9 @@ Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
  :stanza | Replace or insert key values in a stanza |  Stanza name | Hash of keys with values
  :substitue | Substitute value for pattern | Line match pattern | replacement string | Substitute pattern, defaults to line match pattern | Force repeating change
 
-### Other cookbooks for line processing
-poise-line
-chef-augeas
+### Other cookbooks for line processing available via [Supermarket](https://supermarket.chef.io)
+[poise-file](https://supermarket.chef.io/cookbooks/poise-file) - Advanced file management
+[augeas](https://supermarket.chef.io/cookbooks/augeas) - [Augeas](http://augeas.net) support for editting many configuration file formats
     
 # Author
 
