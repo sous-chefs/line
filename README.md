@@ -266,14 +266,15 @@ The built in filters are usable examples of what can be done with a filter, plea
 The built in filters all take an array of positional arguments.
 
 ### Filter Grammer
-* filters ::= filter | [<filter>, ...]
-* filter ::= <code> | { <code> => <args> }
-* args ::= <String> | <Array>
-* code ::= <Symbol> | <Method> | <Proc>
-* Symbol ::= :after | :before | :between | :comment | :replace | :stanza | :substitute and are translated to methods in Line::Filter
-* Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array) and returns an array
-* Proc ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array) and returns an array
-*
+````
+filters ::= filter | [<filter>, ...]
+filter ::= <code> | { <code> => <args> }
+args ::= <String> | <Array>
+code ::= <Symbol> | <Method> | <Proc>
+Symbol ::= :after | :before | :between | :comment | :replace | :stanza | :substitute and are translated to methods in Line::Filter
+Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array) and returns an array
+Proc ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array) and returns an array
+````
 
 ### Filters
 Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
@@ -287,8 +288,8 @@ Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
  :substitue | Substitute value for pattern | Line match pattern | replacement string | Substitute pattern, defaults to line match pattern | Force repeating change
 
 ### Other cookbooks for line processing available via [Supermarket](https://supermarket.chef.io)
-[poise-file](https://supermarket.chef.io/cookbooks/poise-file) - Advanced file management
-[augeas](https://supermarket.chef.io/cookbooks/augeas) - [Augeas](http://augeas.net) support for editting many configuration file formats
+- [poise-file](https://supermarket.chef.io/cookbooks/poise-file) - Advanced file management
+- [augeas](https://supermarket.chef.io/cookbooks/augeas) - [Augeas](http://augeas.net) support for editting many configuration file formats
     
 # Author
 
