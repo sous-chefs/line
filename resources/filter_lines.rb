@@ -39,7 +39,7 @@ action :edit do
   #  new = new_resource.filter.call(new, new_resource.filter_args)
   # end
 
-  # Filters - grammer
+  # Filters - grammar
   #
   # filters ::= filter | [<filter>, ...]
   # filter ::= <code> | { <code> => <args> }

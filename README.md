@@ -265,7 +265,7 @@ filter. The filter should return an array of lines. The output array will be wri
 The built in filters are usable examples of what can be done with a filter, please write your own when you have specific needs.
 The built in filters all take an array of positional arguments.
 
-### Filter Grammer
+### Filter Grammar
 ````
 filters ::= filter | [<filter>, ...]
 filter ::= <code> | { <code> => <args> }
