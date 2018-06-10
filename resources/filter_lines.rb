@@ -16,11 +16,11 @@
 #
 
 property :path, String
-property :filters, [Array]
+property :filters, [Array, Hash, Method, Proc], required: true
 # Array of filters and argument arrays
 # [ {code: proc or method, args: [] } ]
-property :filter, [Method, Proc, Array]
-property :filter_args, Array
+# property :filter, [Method, Proc, Array]
+# property :filter_args, Array
 property :ignore_missing, [true, false], default: true
 property :backup, [true, false], default: false
 property :eol
@@ -32,26 +32,39 @@ action :edit do
   eol = default_eol
 
   current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
-  new = current.clone
+  @new = current.clone
 
   # Proc or Method
-  if new_resource.filter.is_a?(Method) || new_resource.filter.is_a?(Proc)
-    new = new_resource.filter.call(new, new_resource.filter_args)
-  end
+  # if new_resource.filter.is_a?(Method) || new_resource.filter.is_a?(Proc)
+  #  new = new_resource.filter.call(new, new_resource.filter_args)
+  # end
 
-  # Filters
-  #   { code: proc or method , args: [] }
-  if new_resource.filters
+  # Filters - grammer
+  #
+  # filters ::= filter | [<filter>, ...]
+  # filter ::= <code> | { <code> => <args> }
+  # args ::= <String> | <Array>
+  # code ::= <Symbol> | <Method> | <Proc>
+  # Symbol ::= :after | :before | :between | :comment | :replace | :stanza | :substitute
+  # Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array) and returns an array
+  # Proc ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array) and returns an array
+  #
+  # Symbols will be translated to a method in Line::Filter
+  case new_resource.filters
+  when Array
     new_resource.filters.each do |filter|
-      if filter[:code].is_a?(Method) || filter[:code].is_a?(Proc)
-        new = filter[:code].call(new, filter[:args])
-      end
+      apply_filter(filter)
     end
+  when NilClass
+    false
+  else
+    apply_filter(new_resource.filters)
   end
 
   # eol on last line
-  new[-1] += eol unless new[-1].to_s.empty?
+  @new[-1] += eol unless @new[-1].to_s.empty?
   current[-1] += eol unless current[-1].to_s.empty?
+  new = @new
 
   file new_resource.path do
     content new.join(eol)

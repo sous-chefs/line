@@ -17,9 +17,39 @@
 
 module Line
   module Helper
+    # filter ::= <code> | { <code> => <args> }
+    # args ::= <String> | <Array>
+    # code ::= <Symbol> | <Method> | <Proc>
+    # Symbol ::= :after | :before | :between | :comment | :replace | :stan
+
+    def apply_filter(filter)
+      case filter
+      when Hash
+        filter.each do |code, args|
+          invoke_filter(code, args)
+        end
+      else
+        invoke_filter(filter, nil)
+      end
+    end
+
     def default_eol
       new_resource.eol = platform_family?('windows') ? "\r\n" : "\n" unless property_is_set?(:eol)
       new_resource.eol
+    end
+
+    def filter_method(code)
+      raise ArgumentError, "Unknown filter, #{code}, specified" unless filters.public_methods.include?(code)
+      filters.method(code)
+    end
+
+    def filters
+      @filters ||= Line::Filter.new
+    end
+
+    def invoke_filter(code, args)
+      code = filter_method(code) if code.is_a?(Symbol)
+      @new = code.call(@new, args) if code.is_a?(Method) || code.is_a?(Proc)
     end
 
     def raise_not_found
