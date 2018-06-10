@@ -252,12 +252,12 @@ edit | Use a proc
 
 ### Properties
 Properties | Description | Type | Values and Default
-----------|-------------|--------|--------
-path | String |  Path to file | Required, no default
-filters | Array of filters, Proc, Method |  See the filter grammar | no default, required
+---------------|-------------|--------|--------
+path           | String |  Path to file | Required, no default
+filters        | Array of filters, Proc, Method |  See the filter grammar | Required, no default
 ignore_missing | Don't fail if the file is missing  |  true or false | Default is true
-eol | Alternate line end characters |  String | default \n on unix, \r\n on windows
-backup | Backup before changing |  Boolean | default false
+eol            | Alternate line end characters |  String | default \n on unix, \r\n on windows
+backup         | Backup before changing |  Boolean | default false
 
 ### Notes
 The filter_lines resource passes the contents of the path file in an array of lines to a Proc or Method
