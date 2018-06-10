@@ -6,8 +6,9 @@ template '/tmp/dangerfile' do
 end
 
 filter_lines 'Do nothing' do
+  sensitive false
   path '/tmp/dangerfile'
-  filter proc { |current| current }
+  filters proc { |current| current }
 end
 
 template '/tmp/reverse' do
@@ -15,13 +16,13 @@ template '/tmp/reverse' do
 end
 
 filter_lines 'Reverse line text' do
+  sensitive false
   path '/tmp/reverse'
-  filter proc { |current| current.map(&:reverse) }
+  filters proc { |current| current.map(&:reverse) }
 end
 
 # ==================== after filter =================
 
-filters = Line::Filter.new
 insert_lines = %w(line1 line2 line3)
 match_pattern = /^COMMENT ME|^HELLO/
 
@@ -34,14 +35,13 @@ end
 filter_lines 'Insert lines after match' do
   sensitive false
   path '/tmp/after'
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines]
+  filters after: [match_pattern, insert_lines]
 end
 
 filter_lines 'Insert lines after match redo' do
+  sensitive false
   path '/tmp/after'
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines]
+  filters after: [match_pattern, insert_lines]
 end
 
 template '/tmp/after_first' do
@@ -49,9 +49,9 @@ template '/tmp/after_first' do
 end
 
 filter_lines 'Insert lines after first match' do
+  sensitive false
   path '/tmp/after_first'
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines, :first]
+  filters after: [match_pattern, insert_lines, :first]
 end
 
 template '/tmp/after_last' do
@@ -59,9 +59,9 @@ template '/tmp/after_last' do
 end
 
 filter_lines 'Insert lines after last match' do
+  sensitive false
   path '/tmp/after_last'
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines, :last]
+  filters after: [match_pattern, insert_lines, :last]
 end
 
 # ==================== before filter =================
@@ -84,29 +84,25 @@ end
 filter_lines 'Insert lines before match' do
   path '/tmp/before'
   sensitive false
-  filter filters.method(:before)
-  filter_args [match_pattern, insert_lines]
+  filters before: [match_pattern, insert_lines]
 end
 
 filter_lines 'Insert lines before match' do
   path '/tmp/before_first'
   sensitive false
-  filter filters.method(:before)
-  filter_args [match_pattern, insert_lines, :first]
+  filters before: [match_pattern, insert_lines, :first]
 end
 
 filter_lines 'Insert lines last match' do
   path '/tmp/before_last'
   sensitive false
-  filter filters.method(:before)
-  filter_args [match_pattern, insert_lines, :last]
+  filters before: [match_pattern, insert_lines, :last]
 end
 
 filter_lines 'Insert lines before match redo' do
   path '/tmp/before'
   sensitive false
-  filter filters.method(:before)
-  filter_args [match_pattern, insert_lines]
+  filters before: [match_pattern, insert_lines]
 end
 
 # ==================== between filter =================
@@ -117,15 +113,13 @@ end
 filter_lines 'Change lines between matches' do
   path '/tmp/between'
   sensitive false
-  filter filters.method(:between)
-  filter_args [/^empty/, /last_list/, ['add line']]
+  filters between: [/^empty/, /last_list/, ['add line']]
 end
 
 filter_lines 'Change lines between matches redo' do
   path '/tmp/between'
   sensitive false
-  filter filters.method(:between)
-  filter_args [/$empty/, /last_list/, ['add line']]
+  filters between: [/^empty/, /last_list/, ['add line']]
 end
 
 # ==================== comment filter =================
@@ -136,15 +130,13 @@ end
 filter_lines 'Change matching lines to comments' do
   path '/tmp/comment'
   sensitive false
-  filter filters.method(:comment)
-  filter_args [/last_list/]
+  filters comment: [/last_list/]
 end
 
 filter_lines 'Change matching lines to comments redo' do
   path '/tmp/comment'
   sensitive false
-  filter filters.method(:comment)
-  filter_args [/last_list/]
+  filters comment: [/last_list/]
 end
 
 # ==================== replace filter =================
@@ -155,15 +147,15 @@ template '/tmp/replace' do
 end
 
 filter_lines 'Replace the matched line' do
+  sensitive false
   path '/tmp/replace'
-  filter filters.method(:replace)
-  filter_args [match_pattern, insert_lines]
+  filters replace: [match_pattern, insert_lines]
 end
 
 filter_lines 'Replace the matched line redo' do
+  sensitive false
   path '/tmp/replace'
-  filter filters.method(:replace)
-  filter_args [match_pattern, insert_lines]
+  filters replace: [match_pattern, insert_lines]
 end
 
 # ==================== stanza filter =================
@@ -176,26 +168,19 @@ filter_lines 'Change stanza values' do
   sensitive false
   filters(
     [
-      { code: filters.method(:stanza),
-        args: ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
-      },
-      { code: filters.method(:stanza),
-        args: ['nss_vas', { 'lowercase-names' => false, addme: 'option' }],
-      },
+      { stanza:  ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }] },
+      { stanza:  ['nss_vas', { 'lowercase-names' => false, addme: 'option' }] },
     ]
   )
 end
 
 filter_lines 'Change stanza values redo' do
   path '/tmp/stanza'
+  sensitive false
   filters(
     [
-      { code: filters.method(:stanza),
-        args: ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }],
-      },
-      { code: filters.method(:stanza),
-        args: ['nss_vas', { 'lowercase-names' => false, addme: 'option' }],
-      },
+      { stanza: ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }] },
+      { stanza: ['nss_vas', { 'lowercase-names' => false, addme: 'option' }] },
     ]
   )
 end
@@ -207,14 +192,14 @@ end
 
 filter_lines 'Substitute string for matching pattern' do
   path '/tmp/substitute'
-  filter filters.method(:substitute)
-  filter_args [/last_list/, 'start_list']
+  sensitive false
+  filters substitute: [/last_list/, 'start_list']
 end
 
 filter_lines 'Substitute string for matching pattern redo' do
   path '/tmp/substitute'
-  filter filters.method(:substitute)
-  filter_args [/last_list/, 'start_list']
+  sensitive false
+  filters substitute: [/last_list/, 'start_list']
 end
 
 # ==================== Multiple filters =================
@@ -230,16 +215,11 @@ filter_lines 'Multiple before and after match' do
   filters(
     [
       # insert lines before the last match
-      { code: filters.method(:before),
-        args: [match_pattern, insert_lines, :last],
-      },
+      { before: [match_pattern, insert_lines, :last] },
       # insert lines after the last match
-      { code: filters.method(:after),
-        args: [match_pattern, insert_lines, :last],
-      },
+      { after:  [match_pattern, insert_lines, :last] },
       # delete comment lines
-      { code: proc { |current| current.select { |line| line !~ /^#/ } },
-      },
+      proc { |current| current.select { |line| line !~ /^#/ } },
     ]
   )
 end
@@ -250,16 +230,11 @@ filter_lines 'Multiple before and after match redo' do
   filters(
     [
       # insert lines before the last match
-      { code: filters.method(:before),
-        args: [match_pattern, insert_lines, :last],
-      },
+      { before: [match_pattern, insert_lines, :last] },
       # insert lines after the last match
-      { code: filters.method(:after),
-        args: [match_pattern, insert_lines, :last],
-      },
+      { after:  [match_pattern, insert_lines, :last] },
       # delete comment lines
-      { code: proc { |current| current.select { |line| line !~ /^#/ } },
-      },
+      proc { |current| current.select { |line| line !~ /^#/ } },
     ]
   )
 end
@@ -272,5 +247,6 @@ end
 
 filter_lines 'Do nothing to the empty file' do
   path '/tmp/emptyfile'
-  filter proc { |current| current }
+  sensitive false
+  filters proc { |current| current }
 end

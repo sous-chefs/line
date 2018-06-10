@@ -112,15 +112,19 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
   end
 
   describe file('/tmp/chef_resource_status') do
-    its(:content) { should match(/Insert lines before match redo.*n/) }
-  end
-
-  describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Insert lines after match redo.*n/) }
   end
 
   describe file('/tmp/chef_resource_status') do
-    its(:content) { should match(/Multiple before and after match redo.*n/) }
+    its(:content) { should match(/Insert lines before match redo.*n/) }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Change lines between matches redo.*n/) }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Change matching lines to comments redo.*n/) }
   end
 
   describe file('/tmp/chef_resource_status') do
@@ -132,10 +136,10 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
   end
 
   describe file('/tmp/chef_resource_status') do
-    its(:content) { should match(/Change lines between matches redo.*n/) }
+    its(:content) { should match(/Substitute string for matching pattern redo.*n/) }
   end
 
   describe file('/tmp/chef_resource_status') do
-    its(:content) { should match(/Substitute string for matching pattern redo.*n/) }
+    its(:content) { should match(/Multiple before and after match redo.*n/) }
   end
 end

@@ -75,36 +75,29 @@ delete_lines 'remove from nonexisting' do
   ignore_missing true
 end
 
-filter_lines 'Shift lines' do
+filter_lines 'Shift lines to at least 8 leading spaces' do
   path '/some/file'
-  filter proc { |current| current.map(|line| "       #{line}") }
+  filter proc { |current| current.map(|line| line =~ /^ {8}/ ? line : "       #{line}") }
 end
 
-filters = Line::Filter.new
 insert_lines = %w(line1 line2 line3)
 match_pattern = /^COMMENT ME|^HELLO/
 filter_lines 'Insert lines after match' do
   path '/some/file'
-  filter filters.method(:after)
-  filter_args [match_pattern, insert_lines]
+  filter after: [match_pattern, insert_lines]
 end
 
 filter_lines 'Multiple before and after match' do
-  path '/some/file'
+  path '/tmp/multiple_filters'
   sensitive false
   filters(
     [
-      # insert lines before the last match
-      { code: filters.method(:before),
-        args: [match_pattern, insert_lines, :last],
-      },
-      # insert lines after the first match
-      { code: filters.method(:after),
-        args: [match_pattern, insert_lines, :first],
-      },
-      # delete comment lines
-      { code: proc { |current| current.select { |line| line !~ /^#/ } },
-      },
+    # insert lines before the last match
+      { before: [match_pattern, insert_lines, :last] },
+    # insert lines after the last match
+      { after:  [match_pattern, insert_lines, :last] },
+    # delete comment lines
+      proc { |current| current.select { |line| line !~ /^#/ } },
     ]
   )
 end
@@ -261,9 +254,7 @@ edit | Use a proc
 Properties | Description | Type | Values and Default
 ----------|-------------|--------|--------
 path | String |  Path to file | Required, no default
-filters | Array |  Proc or Method | no default
-filter | Code to run against the input file |  Proc or Method |  no default
-filter_args | Regular expression to select lines | Regular expression or String |  no default
+filters | Array of filters, Proc, Method |  See the filter grammar | no default, required
 ignore_missing | Don't fail if the file is missing  |  true or false | Default is true
 eol | Alternate line end characters |  String | default \n on unix, \r\n on windows
 backup | Backup before changing |  Boolean | default false
@@ -273,6 +264,16 @@ The filter_lines resource passes the contents of the path file in an array of li
 filter. The filter should return an array of lines. The output array will be written to the file or passed to the next filter.
 The built in filters are usable examples of what can be done with a filter, please write your own when you have specific needs.
 The built in filters all take an array of positional arguments.
+
+### Filter Grammer
+* filters ::= filter | [<filter>, ...]
+* filter ::= <code> | { <code> => <args> }
+* args ::= <String> | <Array>
+* code ::= <Symbol> | <Method> | <Proc>
+* Symbol ::= :after | :before | :between | :comment | :replace | :stanza | :substitute and are translated to methods in Line::Filter
+* Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array) and returns an array
+* Proc ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array) and returns an array
+*
 
 ### Filters
 Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
