@@ -21,7 +21,8 @@ module Line
     def comment(current, args)
       # current is an array of lines
       # args[0] is a pattern to match a line
-      # args[2] match instance, each, first, last
+      # args[1] Comment string 
+      # args[2] Space between comment string and the real line
       #
       # returns array with inserted lines
       match_pattern = verify_kind(args[0], Regexp)

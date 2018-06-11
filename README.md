@@ -87,15 +87,25 @@ filter_lines 'Insert lines after match' do
   filter after: [match_pattern, insert_lines]
 end
 
-filter_lines 'Multiple before and after match' do
+filter_lines 'Built in example filters' do
   path '/tmp/multiple_filters'
   sensitive false
   filters(
     [
-    # insert lines before the last match
-      { before: [match_pattern, insert_lines, :last] },
     # insert lines after the last match
       { after:  [match_pattern, insert_lines, :last] },
+    # insert lines before the last match
+      { before: [match_pattern, insert_lines, :last] },
+    # insert lines between lines matching patterns
+      { between: [after_pattern, before_pattern, insert_lines] },
+    # change lines to comments
+      { comment: [match_pattern] },
+    # replace matching lines with a group of lines
+      { replace: [match_pattern, insert_lines] },
+    # Update values set in a stanza of a file
+      { stanza: [stanza_name, {first: value1, second: value2} ] },
+    # Substitute characters for patterns found on specific lines
+      { substitute: [line_pattern, 'new_string, match_pattern] },
     # delete comment lines
       proc { |current| current.select { |line| line !~ /^#/ } },
     ]
