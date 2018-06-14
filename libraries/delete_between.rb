@@ -15,22 +15,23 @@
 # limitations under the License.
 #
 
-# Filter to insert lines between two matches
+# Filter to delete lines between two matches
 module Line
   class Filter
-    def between(current, args)
-      # Insert a set of lines between lines matching two patterns
+    def delete_between(current, args)
+      # delete the lines matching a pattern found between lines matching two patterns
       # current is an array of lines
-      # args[0] is a pattern. Insert lines after this pattern
-      # args[1] is a pattern. Insert lines before this pattern
-      # args[2] is a string or an array of lines to insert after the matched lines
+      # args[0] is a pattern. Delete lines after this pattern
+      # args[1] is a pattern. Delete lines before this pattern
+      # args[2] is a pattern. Delete the lines that match this pattern found between the after and before patterns
+      # args[3] is a symbol. Include the start and end lines in the delete match. Default is :exclude. Other options are :first, :include, :last
       #
-      # returns array with inserted lines
+      # returns array with deleted lines
       first_pattern = verify_kind(args[0], Regexp)
       second_pattern = verify_kind(args[1], Regexp)
-      insert_array = [verify_kind(args[2], [Array, String])].flatten
+      delete_pattern = verify_kind(args[2], Regexp)
+      ends = verify_one_of(args[3], [nil, :exclude, :first, :include, :last]) || :exclude
 
-      # find matching lines  (match object, line #, insert match, insert direction)
       first_matches = []
       second_matches = []
       current.each_index do |i|
@@ -41,8 +42,11 @@ module Line
       start_line = first_matches.first
       end_line = second_matches.last
       if start_line && end_line && start_line <= end_line
-        insert_lines = missing_lines_between(current, start_line, end_line, insert_array)
-        current[start_line] = Replacement.new(current[start_line], insert_lines, :after)
+        delete_start = [:first, :include].include?(ends) ? start_line : start_line + 1
+        delete_end = [:last, :include].include?(ends) ? end_line : end_line - 1
+        (delete_start..delete_end).each do |i|
+          current[i] = Replacement.new(current[i], '', :delete) if current[i] =~ delete_pattern
+        end
       end
       expand(current)
     end

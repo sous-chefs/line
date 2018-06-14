@@ -35,7 +35,7 @@ module Line
         # note - want to do *lines to add them instead adding an array
         new_lines.push line.class == Replacement ? line.insert : line
       end
-      new_lines.flatten # add the lines better so we don't need this
+      new_lines.compact.flatten # add the lines better so we don't need this
     end
 
     def verify_kind(value, kinds)
@@ -53,7 +53,7 @@ module Line
     def initialize(original, additional, direction)
       @original = original.dup
       @additional = additional
-      @direction = direction # replace, before, after
+      @direction = direction # replace, before, after, remove
     end
 
     def insert
@@ -62,6 +62,8 @@ module Line
         [@additional].unshift(@original)
       when :before
         [@additional].push(@original)
+      when :delete
+        nil
       when :replace
         [@additional]
       else

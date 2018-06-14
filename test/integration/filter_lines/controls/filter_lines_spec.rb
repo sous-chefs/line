@@ -78,6 +78,16 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
     its('size_lines') { should eq 20 }
   end
 
+  describe file('/tmp/delete_between') do
+    its(:content) { should_not match(/^kernel/) }
+  end
+  describe file('/tmp/delete_between') do
+    its(:content) { should match(/crashkernel/) }
+  end
+  describe file_ext('/tmp/delete_between') do
+    its('size_lines') { should eq 18 }
+  end
+
   describe file('/tmp/multiple_filters') do
     its(:content) { should match(/HELLO THERE I AM DANGERFILE#{eol}line1#{eol}line2#{eol}line3#{eol}/m) }
     its(:content) { should match(/COMMENT ME AND I STOP YELLING I PROMISE#{eol}line1#{eol}line2#{eol}line3#{eol}int/m) }
@@ -125,6 +135,10 @@ control 'filter_lines - Verify the code to use filters. Verify several example f
 
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Change matching lines to comments redo.*n/) }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Delete lines between matches redo.*n/) }
   end
 
   describe file('/tmp/chef_resource_status') do
