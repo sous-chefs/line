@@ -100,6 +100,8 @@ filter_lines 'Built in example filters' do
       { between: [after_pattern, before_pattern, insert_lines] },
     # change lines to comments
       { comment: [match_pattern] },
+    # delete lines between matches
+      { delete_between: [start_match, end_match, delete_match, :include] },
     # replace matching lines with a group of lines
       { replace: [match_pattern, insert_lines] },
     # Update values set in a stanza of a file
@@ -125,13 +127,14 @@ add_to_list       - Add an item to a list
 delete_from_list  - Delete lines that match a pattern
 filter_lines      - Supply a proc or use a sample filter
   Sample filters:
-  after      - Insert lines before a match
-  before     - Insert lines after a match
-  between    - Insert lines between matches
-  comment    - Turn lines into comments
-  replace    - Replace a matched line with multiple lines
-  stanza     - Set keys in a stanza
-  substitute - Find line that matches a pattern, replace text that matches another pattern
+  after          - Insert lines before a match
+  before         - Insert lines after a match
+  between        - Insert lines between matches
+  delete_between - Delete lines between matches
+  comment        - Turn lines into comments
+  replace        - Replace a matched line with multiple lines
+  stanza         - Set keys in a stanza
+  substitute     - Find line that matches a pattern, replace text that matches another pattern
   
 ```
 
@@ -293,6 +296,7 @@ Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
  :before | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines
  :between | Insert lines between two matches | Start pattern to match | End pattern | Lines to insert
  :comment | Mark lines as commented | Pattern to match | Comment string, defaults to # | Comment spacing, defaults to '&nbsp'
+ :delete_between | Delete lines between matched lines | Starting pattern| End pattern | Delete lines that match this pattern | Delete including the matched ends: default is :exclude, :include, :first, :last
  :replace | Replace matching lines | Pattern to match | String or Array of lines to insert | Force repeating change
  :stanza | Replace or insert key values in a stanza |  Stanza name | Hash of keys with values
  :substitue | Substitute value for pattern | Line match pattern | replacement string | Substitute pattern, defaults to line match pattern | Force repeating change
