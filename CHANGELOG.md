@@ -1,7 +1,7 @@
 # line Cookbook CHANGELOG
 
 ## v2.0.2 (2018-06-29)
-- Explicitly disallow embedded EOL characters in replace and append lines
+- Explicitly disallow embedded EOL characters in replacement and append lines
 
 ## v2.0.1 (2018-06-01)
 

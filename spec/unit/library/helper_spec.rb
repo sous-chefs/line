@@ -34,7 +34,7 @@ describe 'embedded_eol method' do
     expect(@method_test.embedded_eol("line\n")).to eq('line')
   end
 
-  it 'should raise error wit embedded eol' do
+  it 'should raise error with embedded eol' do
     expect { @method_test.embedded_eol("embedded\ninline") }.to raise_error(ArgumentError)
   end
 end
