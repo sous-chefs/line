@@ -16,18 +16,12 @@
 #
 
 require 'rspec_helper'
-require 'ostruct'
-
-class MethodTester
-  include Line::Helper
-  def new_resource
-    OpenStruct.new(eol: "\n")
-  end
-end
 
 describe 'embedded_eol method' do
   before(:each) do
-    @method_test = MethodTester.new
+    @method_test = Class.new
+    @method_test.extend(Line::Helper)
+    allow(@method_test).to receive(:new_resource).and_return(double('new_resource', eol: "\n"))
   end
 
   it 'should remove trailing eol' do
