@@ -10,7 +10,7 @@ action :edit do
   raise_not_found
   sensitive_default
   eol = default_eol
-  add_line = embedded_eol(new_resource.line)
+  add_line = chomp_eol(new_resource.line)
   string = Regexp.escape(add_line)
   regex = /^#{string}$/
   current = target_current_lines

@@ -12,7 +12,7 @@ action :edit do
   raise_not_found
   sensitive_default
   eol = default_eol
-  add_line = embedded_eol(new_resource.line)
+  add_line = chomp_eol(new_resource.line)
   found = false
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   new = []
@@ -23,7 +23,7 @@ action :edit do
     line = line.dup
     if line =~ regex || line == add_line
       found = true
-      line = add_line unless line == add_line
+      line = add_line
     end
     new << line
   end

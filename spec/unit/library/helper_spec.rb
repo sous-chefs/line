@@ -17,7 +17,7 @@
 
 require 'rspec_helper'
 
-describe 'embedded_eol method' do
+describe 'chomp_eol method' do
   before(:each) do
     @method_test = Class.new
     @method_test.extend(Line::Helper)
@@ -25,10 +25,10 @@ describe 'embedded_eol method' do
   end
 
   it 'should remove trailing eol' do
-    expect(@method_test.embedded_eol("line\n")).to eq('line')
+    expect(@method_test.chomp_eol("line\n")).to eq('line')
   end
 
   it 'should raise error with embedded eol' do
-    expect { @method_test.embedded_eol("embedded\ninline") }.to raise_error(ArgumentError)
+    expect { @method_test.chomp_eol("embedded\ninline") }.to raise_error(ArgumentError)
   end
 end
