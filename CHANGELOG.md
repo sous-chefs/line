@@ -1,5 +1,8 @@
 # line Cookbook CHANGELOG
 
+## v2.0.2 (2018-06-29)
+- Explicitly disallow embedded EOL characters in replacement and append lines
+
 ## v2.0.1 (2018-06-01)
 
 - Tested on chef 12.13.37.  Fix error caused by using the sensitive attribute.  Sensitive true will always be used for chef 12.

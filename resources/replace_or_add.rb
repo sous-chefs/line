@@ -12,6 +12,7 @@ action :edit do
   raise_not_found
   sensitive_default
   eol = default_eol
+  add_line = chomp_eol(new_resource.line)
   found = false
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   new = []
@@ -20,15 +21,15 @@ action :edit do
   # replace
   current.each do |line|
     line = line.dup
-    if line =~ regex || line == new_resource.line
+    if line =~ regex || line == add_line
       found = true
-      line = new_resource.line unless line == new_resource.line
+      line = add_line
     end
     new << line
   end
 
   # add
-  new << new_resource.line unless found || new_resource.replace_only
+  new << add_line unless found || new_resource.replace_only
 
   # Last line terminator
   new[-1] += eol unless new[-1].to_s.empty?
