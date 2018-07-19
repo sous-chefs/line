@@ -31,6 +31,7 @@ module Line
       else
         invoke_filter(filter, nil)
       end
+    end
 
     def chomp_eol(line)
       fixed = line.chomp(new_resource.eol)
