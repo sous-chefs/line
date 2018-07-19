@@ -27,12 +27,13 @@ action :edit do
   raise_not_found
   sensitive_default
   eol = default_eol
-  string = Regexp.escape(new_resource.line)
+  add_line = chomp_eol(new_resource.line)
+  string = Regexp.escape(add_line)
   regex = /^#{string}$/
   current = target_current_lines
 
   file new_resource.path do
-    content((current + [new_resource.line + eol]).join(eol))
+    content((current + [add_line + eol]).join(eol))
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }

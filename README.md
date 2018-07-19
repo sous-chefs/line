@@ -12,6 +12,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
 - The end of line processing was only tested using`\n` and `\r\n`. Using other line endings very well may not work.
 - The end of line string used needs to match the actual end of line used in the file `\n` and `\r\n` are used as the defaults but if they don't match the actual end of line used in the file the results will be weird.
 - Adding a line implies there is a separator on the previous line. Adding a line differs from appending characters.
+- Lines to be added should not contain EOL characters. The providers do not do multiline regex checks.
 - Missing file processing is the way it is by intention
 
   - `add_to_list` do nothing, list not found so there is nothing to add to.
