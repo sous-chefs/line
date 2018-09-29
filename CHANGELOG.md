@@ -1,5 +1,8 @@
 # line Cookbook CHANGELOG
 
+## v2.1.0 (2018-09-28)
+- Explicitly disallow embedded EOL characters in replacement and append lines
+
 ## v2.0.2 (2018-06-29)
 - Explicitly disallow embedded EOL characters in replacement and append lines
 
