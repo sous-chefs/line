@@ -1,6 +1,6 @@
 # line cookbook
 
-[![Build Status](https://www.travis-ci.org/sous-chefs/line-cookbook.svg?branch=master)](https://www.travis-ci.org/sous-chefs/line-cookbook)
+[![Build Status](https://www.travis-ci.org/sous-chefs/line.svg?branch=master)](https://www.travis-ci.org/sous-chefs/line)
 
 # Motivation
 
@@ -9,7 +9,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
 # Limitations
 
 - The line resources processes the entire target file in memory. Trying to edit large files may fail.
-- The end of line processing was only tested using`\n` and `\r\n`. Using other line endings very well may not work.
+- The end of line processing was only tested using `\n` and `\r\n`. Using other line endings very well may not work.
 - The end of line string used needs to match the actual end of line used in the file `\n` and `\r\n` are used as the defaults but if they don't match the actual end of line used in the file the results will be weird.
 - Adding a line implies there is a separator on the previous line. Adding a line differs from appending characters.
 - Lines to be added should not contain EOL characters. The providers do not do multiline regex checks.
@@ -20,11 +20,12 @@ Quite often, the need arises to do line editing instead of managing an entire fi
   - `delete_from_list` do nothing, the list was not found which implies there is nothing to delete
   - `delete_lines` do nothing, the line isn't there which implies there is nothing to delete
   - `replace_or_add` create file, add the line
-  - Chef client version 13 or greater is expected.
+
+- Chef client version 13 or greater is expected.
 
 # Usage
 
-Add "depends 'line'" to your cookbook's metadata.rb to gain access to the resoures.
+Add "depends 'line'" to your cookbook's metadata.rb to gain access to the resources.
 
 ```ruby
 append_if_no_line "make sure a line is in some file" do
@@ -111,7 +112,7 @@ add_to_list       - Add an item to a list
 delete_from_list  - Delete lines that match a pattern
 filter_lines      - Supply a proc or use a sample filter
   Sample filters:
-    after          - Insert lines before a match
+    after         - Insert lines before a match
 
 ```
 
@@ -208,7 +209,7 @@ If two delimiters are given, the first is used as the list element delimiter and
 
 if three delimiters are given, the first is used as the list element delimiter, the second as the leading entry delimiter and the third as the trailing delimiter: multi = ([310], [818]) delim [", ", "[", "]"] entry "425" multi = ([310], [818], [425])
 
-end_with is an optional property. If specified a list is expected to end with the given string.
+`ends_with` is an optional property. If specified a list is expected to end with the given string.
 
 ## Resource: delete_from_list
 
@@ -261,22 +262,22 @@ The built in filters all take an array of positional arguments.
 ```
 
 filters ::= filter | [<filter>, ...]
-filter ::= <code> | { <code> => <args>  }
-args   ::= <String> | <Array>
-code   ::= <Symbol> | <Method> | <Proc>
-Symbol ::= :after | :before | :between | :comment | :replace | :stanza | :substitute
-           Symbols are translated to methods in Line::Filter
-Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array)
-           and that  returns an array
-Proc ::=   A reference to a proc that has a signature of proc(current lines is Array, args is Array)
-           and returns an array
+filter  ::= <code> | { <code> => <args>  }
+args    ::= <String> | <Array>
+code    ::= <Symbol> | <Method> | <Proc>
+Symbol  ::= :after | :before | :between | :comment | :replace | :stanza | :substitute
+            Symbols are translated to methods in Line::Filter
+Method  ::= A reference to a method that has a signature of method(current lines is Array, args is Array)
+            and that  returns an array
+Proc    ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array)
+            and returns an array
 
 ```
 
 ### Filters
 Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
 ----------------|-------------|-----------|--|--|--|
- :after | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines
+ `:after` | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines
 
 # Author
 
