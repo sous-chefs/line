@@ -1,6 +1,6 @@
 # line Cookbook CHANGELOG
 
-## v2.1.1 (2018-10-06)
+## v2.1.1 (2018-10-08)
 - Allow the backup option to be specified as true
 
 ## v2.1.0 (2018-09-28)
