@@ -203,11 +203,32 @@ backup         | Backup before changing             | Boolean                   
 
 ### Notes
 
-If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and each entry will be followed by either the delimiter or a new line character: People to call: Joe, Bobby delim [","] entry 'Karen' People to call: Joe, Bobby, Karen
+If one delimiter is given, it is assumed that either the delimiter or the given search pattern will proceed each entry and each entry will be followed by either the delimiter or a new line character.
+````
+Example:
+Input -      People to call: Joe, Bobby
+Delimeters - delim [","]
+Add this -   entry 'Karen'
+Output -     People to call: Joe, Bobby, Karen
+````
 
-If two delimiters are given, the first is used as the list element delimiter and the second as entry delimiters: my @net1918 = ("10.0.0.0/8", "172.16.0.0/12"); delim [", ", "\""] entry "192.168.0.0/16" my @net1918 = ("10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16");
+If two delimiters are given, the first is used as the list element delimiter and the second as entry delimiters.
+````
+Example:
+Input -      net1918 = "10.0.0.0/8", "172.16.0.0/12"
+Delimeters - delim [", ", "\""]
+Add this -   entry "192.168.0.0/16"
+Output -     net1918 = "10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"
+````
 
-if three delimiters are given, the first is used as the list element delimiter, the second as the leading entry delimiter and the third as the trailing delimiter: multi = ([310], [818]) delim [", ", "[", "]"] entry "425" multi = ([310], [818], [425])
+If three delimiters are given, the first is used as the list element delimiter, the second as the leading entry delimiter and the third as the trailing delimiter.
+````
+Example:
+Input -      multi = ([310], [818])
+Delimeters - delim [", ", "[", "]"]
+Add this -   entry "425"
+Output -     multi = ([310], [818], [425])
+````
 
 `ends_with` is an optional property. If specified a list is expected to end with the given string.
 
