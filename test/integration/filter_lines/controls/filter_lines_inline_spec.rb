@@ -4,6 +4,7 @@
 
 control 'filter_lines - Verify the code to use adhoc filters.' do
   eol = os.family == 'windows' ? "\r\n" : "\n"
+
   # ============ inline
 
   # do nothing
