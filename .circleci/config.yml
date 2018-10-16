@@ -1,23 +1,13 @@
-version: 2
-jobs:
-  build:
-    docker:
-       - image: circleci/ruby:2.5.1-browsers
+version: 2.1
 
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-      - run:
-          name: Install Danger
-          command: gem install danger
-      - run:
-          name: Run Danger
-          command: danger
+orbs:
+  kitchen: sous-chefs/kitchen@1.0.0
 
 workflows:
-  version: 2
-  danger-flow:
+  kitchen:
     jobs:
-      - build:
+      - kitchen/danger:
+          name: danger
           context: Danger
+      - kitchen/lint:
+          name: lint
