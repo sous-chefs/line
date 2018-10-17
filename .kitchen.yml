@@ -12,10 +12,8 @@ client_rb:
 verifier: inspec
 
 platforms:
-- name: ubuntu-16.04
-- name: windows-2012r2
-  driver_config:
-    box: mwrock/Windows2012R2
+- name: ubuntu-18.04
+- name: centos-7
 
 suites:
 - name: add_to_list

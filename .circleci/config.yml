@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  kitchen: sous-chefs/kitchen@1.0.0
+  kitchen: sous-chefs/kitchen@1.0.1
 
 workflows:
   kitchen:
@@ -11,3 +11,51 @@ workflows:
           context: Danger
       - kitchen/lint:
           name: lint
+      - kitchen/dokken-single:
+          name: add-to-list-centos-7
+          suite: add-to-list-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: add-to-list-ubuntu-1804
+          suite: add-to-list-ubuntu-1804
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: append-if-no-line-centos-7
+          suite: append-if-no-line-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: append-if-no-line-ubuntu-1804
+          suite: append-if-no-line-ubuntu-1804
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: delete-from-list-centos-7
+          suite: delete-from-list-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: delete-from-list-ubuntu-1804
+          suite: delete-from-list-ubuntu-1804
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: delete-lines-centos-7
+          suite: delete-lines-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: delete-lines-ubuntu-1804
+          suite: delete-lines-ubuntu-1804
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: filter-lines-centos-7
+          suite: filter-lines-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: filter-lines-ubuntu-1804
+          suite: filter-lines-ubuntu-1804
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          name: replace-or-add-centos-7
+          suite: replace-or-add-centos-7
+          requires: [ lint, danger ]
+      - kitchen/dokken-single:
+          suite: replace-or-add-ubuntu-1804
+          name: replace-or-add-ubuntu-1804
+          requires: [ lint, danger ]
