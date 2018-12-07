@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+# Unreleased
+- Add the comment filter. 
+Allow selected lines to be changed to comments in a file.
+
 ## v2.1.1 (2018-10-08)
 - Allow the backup option to be specified as true
 
