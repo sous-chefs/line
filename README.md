@@ -302,6 +302,7 @@ Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
 ----------------|-------------|-----------|--|--|--|
  `:after` | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines
  `:before` | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines
+ `:missing` | Insert lines before or after existing lines | Pattern to match | String or Array of lines to insert | `:before`, `:after`
 
 # Author
 
