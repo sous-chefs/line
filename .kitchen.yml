@@ -12,10 +12,8 @@ client_rb:
 verifier: inspec
 
 platforms:
-- name: ubuntu-16.04
-- name: windows-2012r2
-  driver_config:
-    box: mwrock/Windows2012R2
+- name: ubuntu-18.04
+- name: centos-7
 
 suites:
 - name: add_to_list
@@ -38,8 +36,10 @@ suites:
   run_list:
     - recipe[test::resource_status]
     - recipe[test::filter_lines_after]
+    - recipe[test::filter_lines_before]
     - recipe[test::filter_lines_comment]
     - recipe[test::filter_lines_inline]
+    - recipe[test::filter_lines_multi]
 - name: replace_or_add
   run_list:
     - recipe[test::resource_status]
