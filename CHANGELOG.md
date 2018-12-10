@@ -1,5 +1,10 @@
 # line Cookbook CHANGELOG
 
+## v2.2.0 (2018-10-09)
+- Add the before filter method to allow lines to be inserted before a matching line.
+- Add test examples that show combining filters.
+- Add a couple tests of empty file edge cases.
+
 # Unreleased
 -
 

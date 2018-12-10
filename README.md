@@ -76,7 +76,6 @@ delete_lines 'remove from nonexisting' do
   ignore_missing true
 end
 
-
 filter_lines 'Shift lines to at least 8 leading spaces' do
   path '/some/file'
   filter proc { |current| current.map(|line| line =~ /^ {8}/ ? line : "       #{line}") }
@@ -96,6 +95,8 @@ filter_lines 'Built in example filters' do
     [
     # insert lines after the last match
       { after:  [match_pattern, insert_lines, :last] },
+    # insert lines before the first  match
+      { before: [match_pattern, insert_lines, :first]  },
     ]
   )
 end
@@ -112,7 +113,8 @@ add_to_list       - Add an item to a list
 delete_from_list  - Delete lines that match a pattern
 filter_lines      - Supply a proc or use a sample filter
   Sample filters:
-    after         - Insert lines before a match
+    after         - Insert lines after a matched line
+    before        - Insert lines before a matched lined
 
 ```
 
@@ -132,7 +134,7 @@ path           | File to update                    | String        | Required, n
 line           | Line contents                     | String        | Required, no default
 ignore_missing | Don't fail if the file is missing | true or false | Default is true
 eol            | Alternate line end characters     | String        | default `\n` on unix, `\r\n` on windows
-backup         | Backup before changing            | Boolean       | default false
+backup         | Backup before changing            | Boolean, Integer | default false
 
 ### Notes
 
@@ -156,7 +158,7 @@ line           | Line contents                            | String              
 replace_only   | Don't append only replace matching lines | true or false                | Required, no default
 ignore_missing | Don't fail if the file is missing        | true or false                | Default is true
 eol            | Alternate line end characters            | String                       | default `\n` on unix, `\r\n` on windows
-backup         | Backup before changing                   | Boolean                      | default false
+backup         | Backup before changing                   | Boolean, Integer             | default false
 
 ## Resource: delete_lines
 
@@ -174,7 +176,7 @@ path           | File to update                     | String                    
 pattern        | Regular expression to select lines | Regular expression or String | Required, no default
 ignore_missing | Don't fail if the file is missing  | true or false                | Default is true
 eol            | Alternate line end characters      | String                       | default `\n` on unix, `\r\n` on windows
-backup         | Backup before changing             | Boolean                      | default false
+backup         | Backup before changing             | Boolean, Integer             | default false
 
 ### Notes
 
@@ -199,7 +201,7 @@ entry          | Value to add                       | String                    
 ends_with      | List ending                        | String                       | No default
 ignore_missing | Don't fail if the file is missing  | true or false                | Default is true
 eol            | Alternate line end characters      | String                       | default `\n` on unix, `\r\n` on windows
-backup         | Backup before changing             | Boolean                      | default false
+backup         | Backup before changing             | Boolean, Integer             | default false
 
 ### Notes
 
@@ -251,7 +253,7 @@ entry          | Value to delete                    | String                    
 ends_with      | List ending                        | String                       | No default
 ignore_missing | Don't fail if the file is missing  | true or false                | Default is true
 eol            | Alternate line end characters      | String                       | default `\n` on unix, `\r\n` on windows
-backup         | Backup before changing             | Boolean                      | default false
+backup         | Backup before changing             | Boolean, Integer             | default false
 
 ### Notes
 
@@ -265,13 +267,13 @@ Action | Description
 edit | Use a proc
 
 ### Properties
-Properties | Description | Type | Values and Default
----------------|-------------|--------|--------
-path           | String |  Path to file | Required, no default
-filters        | Array of filters, Proc, Method |  See the filter grammar | Required, no default
-ignore_missing | Don't fail if the file is missing  |  true or false | Default is true
-eol            | Alternate line end characters |  String | default \n on unix, \r\n on windows
-backup         | Backup before changing |  Boolean | default false
+Properties     | Description | Type   | Values and Default
+---------------|-------------|--------|-------------------
+path           | String                             |  Path to file           | Required, no default
+filters        | Array of filters, Proc, Method     |  See the filter grammar | Required, no default
+ignore_missing | Don't fail if the file is missing  |  true or false          | Default is true
+eol            | Alternate line end characters      |  String                 | default \n on unix, \r\n on windows
+backup         | Backup before changing             |  Boolean, Integer       | default false
 
 ### Notes
 The filter_lines resource passes the contents of the path file in an array of lines to a Proc or Method
@@ -299,6 +301,7 @@ Proc    ::= A reference to a proc that has a signature of proc(current lines is 
 Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
 ----------------|-------------|-----------|--|--|--|
  `:after` | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines
+ `:before` | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines
  `:missing` | Insert lines before or after existing lines | Pattern to match | String or Array of lines to insert | `:before`, `:after`
 
 # Author
