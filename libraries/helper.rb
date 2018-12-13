@@ -21,7 +21,7 @@ module Line
     # filter ::= <code> | { <code> => <args> }
     # args ::= <String> | <Array>
     # code ::= <Symbol> | <Method> | <Proc>
-    # Symbol ::= :after | :before | :between | :comment | :replace | :stanza
+    # Symbol ::= :after | :before | :between | :comment | :missing | :replace | :stanza | :substitue
 
     def apply_filter(filter)
       case filter

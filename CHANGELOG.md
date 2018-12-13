@@ -1,12 +1,13 @@
 # line Cookbook CHANGELOG
 
+# Unreleased
+- Add the comment filter. 
+Allow selected lines to be changed to comments in a file.
+
 ## v2.2.0 (2018-10-09)
 - Add the before filter method to allow lines to be inserted before a matching line.
 - Add test examples that show combining filters.
 - Add a couple tests of empty file edge cases.
-
-# Unreleased
--
 
 ## v2.1.1 (2018-10-08)
 - Allow the backup option to be specified as true
