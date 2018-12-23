@@ -46,6 +46,13 @@ module Line
       lines || []
     end
 
+    def verify_insert_lines(match_pattern, lines, force, error_message)
+      error_message ||= 'Inserted lines should not match the insert location pattern'
+      insert_lines.each do ||line|
+        raise ArgumentError, "Error - #{error_message}" if line =~ @match_pattern && !@force
+      end
+    end
+
     def verify_kind(value, kinds)
       raise ArgumentError, "Wrong class #{value} with class #{value.class} should be one of #{kinds}" unless [kinds].flatten.include?(value.class)
       value
