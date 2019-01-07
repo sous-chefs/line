@@ -38,6 +38,7 @@ For more detailed information see the matching resource documentation:
   Sample filters:
   - after: Insert lines after a matched line
   - before: Insert lines before a matched lined
+  - delete_between: Delete the lines found between two patterns
   - comment: Change lines to comments
   - missing: Add missing lines to a file
 
