@@ -7,7 +7,6 @@ Allow selected lines to be changed to comments in a file.
 - Add the safe option to the after and before filter. 
 Safe was the intended behavior.
 
-
 ## v2.2.0 (2018-10-09)
 - Add the before filter method to allow lines to be inserted before a matching line.
 - Add test examples that show combining filters.
