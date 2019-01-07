@@ -1,5 +1,6 @@
 # line Cookbook CHANGELOG
 
+<<<<<<< HEAD
 
 ## v2.3.0
 # Unreleased - for target version 2.3.0 in mid April 2019
