@@ -274,12 +274,18 @@ filters        | Array of filters, Proc, Method     |  See the filter grammar | 
 ignore_missing | Don't fail if the file is missing  |  true or false          | Default is true
 eol            | Alternate line end characters      |  String                 | default \n on unix, \r\n on windows
 backup         | Backup before changing             |  Boolean, Integer       | default false
+safe           | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. |  Boolean                | default true
 
 ### Notes
-The filter_lines resource passes the contents of the path file in an array of lines to a Proc or Method
-filter. The filter should return an array of lines. The output array will be written to the file or passed to the next filter.
-The built in filters are usable examples of what can be done with a filter, please write your own when you have specific needs.
-The built in filters all take an array of positional arguments.
+The filter_lines resource passes the contents of the path file in an array of lines to a Proc or Method filter.
+The filter should return an array of lines. The output array will be written to the file or passed to the next
+filter.  The built in filters are usable examples of what can be done with a filter, please write your own when
+you have specific needs.  The built in filters all take an array of positional arguments.
+
+### Filter Options
+Options are expected to be either a hash, with the following keys and values, or nil.
+
+* safe: true or false.  Overrides the default set by the resource property. If an inserted line matches the insert point selection pattern the line may be inserted repeatedy. Setting safe to true prevents those inserts.
 
 ### Filter Grammar
 ```
@@ -298,10 +304,10 @@ Proc    ::= A reference to a proc that has a signature of proc(current lines is 
 ```
 
 ### Filters
-Built in Filter | Description | Arguments | arg1 | arg2  | arg3 |
-----------------|-------------|-----------|--|--|--|
- `:after` | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines
- `:before` | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines
+Built in Filter | Description | Arguments | arg1 | arg2  | arg3 | options |
+----------------|-------------|-----------|------|-------|------|-----|
+ `:after` | Insert lines after a matching line | Pattern to match | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines | options
+ `:before` | Insert lines before a matching line | Pattern to match | String or Array of lines to insert | :each, :first, or :last to select the matching lines | options
  `:missing` | Insert lines before or after existing lines | Pattern to match | String or Array of lines to insert | `:before`, `:after`
 
 # Author
