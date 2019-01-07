@@ -32,4 +32,21 @@ control 'filter_lines_after - Verify the code to use the after filter.' do
   describe file('/tmp/chef_resource_status') do
     its(:content) { should match(/Insert lines after match redo.*n/) }
   end
+
+  describe file('/tmp/safe_bypass') do
+    its(:content) { should match(/line1/) }
+  end
+  describe file_ext('/tmp/safe_bypass') do
+    its('size_lines') { should eq 4 }
+  end
+
+  describe file('/tmp/chef_resource_status') do
+    its(:content) { should match(/Bypass safe doit.*y/) }
+    its(:content) { should match(/Bypass safe redo 1.*y/) }
+    its(:content) { should match(/Bypass safe redo 2.*y/) }
+  end
+
+  describe file_ext('/tmp/safe_active') do
+    its('size_lines') { should eq 1 }
+  end
 end

@@ -1,8 +1,10 @@
 # line Cookbook CHANGELOG
 
-# Unreleased
+# Unreleased - for target version 2.3.0 in mid Janary 2018
 - Add the comment filter. 
 Allow selected lines to be changed to comments in a file.
+- Add the safe option to the after and before filter. 
+Safe was the intended behavior.
 
 ## v2.2.0 (2018-10-09)
 - Add the before filter method to allow lines to be inserted before a matching line.

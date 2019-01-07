@@ -20,6 +20,7 @@ property :eol
 property :filters, [Array, Hash, Method, Proc], required: true
 property :ignore_missing, [true, false], default: true
 property :path, String
+property :safe, [true, false], default: true
 
 resource_name :filter_lines
 
