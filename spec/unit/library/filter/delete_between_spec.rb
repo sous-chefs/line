@@ -21,6 +21,7 @@ include Line
 describe 'delete_between method' do
   before(:each) do
     @filt = Line::Filter.new
+    @filt.safe_default = true
     @ia = %w(line1 line2 line3)
     @current = %w(line3 line2 line1 c1 c2 c1 line1 c1 c2)
     @out = @current.clone
