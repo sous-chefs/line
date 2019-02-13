@@ -29,12 +29,12 @@ Quite often, the need arises to do line editing instead of managing an entire fi
 
 For more detailed information see the matching resource documentation:
 
-- [append_if_no_line](documentation/append_if_no_line.md) - Add a missing line
-- [replace_or_add](documentation/replace_or_add.md) - Replace a line that matches a pattern or add a missing line
-- [delete_lines](documentation/delete_lines.md) - Delete an item from a list
-- [add_to_list](documentation/add_to_list.md) - Add an item to a list
-- [delete_from_list](documentation/delete_from_list.md) - Delete lines that match a pattern
-- [filter_lines](documentation/filter_lines.md) - Supply a proc or use a sample filter
+- [append_if_no_line](documentation/resources/append_if_no_line.md) - Add a missing line
+- [replace_or_add](documentation/resources/replace_or_add.md) - Replace a line that matches a pattern or add a missing line
+- [delete_lines](documentation/resources/delete_lines.md) - Delete an item from a list
+- [add_to_list](documentation/resources/add_to_list.md) - Add an item to a list
+- [delete_from_list](documentation/resources/delete_from_list.md) - Delete lines that match a pattern
+- [filter_lines](documentation/resources/filter_lines.md) - Supply a proc or use a sample filter
   Sample filters:
   - after: Insert lines after a matched line
   - before: Insert lines before a matched lined
