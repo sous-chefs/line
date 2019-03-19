@@ -31,6 +31,22 @@ module Line
       missing_lines.compact
     end
 
+    def chomp_array(lines)
+      lines.map do |line|
+        chomp_eol(line)
+      end
+    end
+
+    def chomp_eol(line)
+      fixed = line.chomp(eol)
+      raise ArgumentError, "Line #{fixed} has embedded EOL characters, not allowed for this resource" if fixed =~ /#{eol}/
+      fixed
+    end
+
+    attr_reader :eol
+
+    attr_writer :eol
+
     def expand(lines)
       new_lines = []
       lines.each do |line|
@@ -60,7 +76,7 @@ module Line
     end
 
     def safe_default
-      # @safe must be defined by a call to safe_default by the filter resource
+      # @safe must be defined by a call to safe_default= by the filter resource
       @safe
     end
 

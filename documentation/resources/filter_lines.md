@@ -23,17 +23,23 @@
 
 filter_lines 'Shift lines to at least 8 leading spaces' do
   path '/some/file'
-  filter proc { |current| current.map(|line| line =~ /^ {8}/ ? line : "       #{line}") }
+  filters proc { |current| current.map(|line| line =~ /^ {8}/ ? line : "       #{line}") }
 end
 ```
 
 ```ruby
+# For the provided sample filters the line input can be in an array or string with line delimeters
 insert_lines = %w(line1 line2 line3)
+text_lines = 
+'line1
+line2
+line3'.gsub(/^\s+/, '')
+
 
 match_pattern = /^COMMENT ME|^HELLO/
 filter_lines 'Insert lines after match' do
   path '/some/file'
-  filter after: [match_pattern, insert_lines]
+  filters after: [match_pattern, insert_lines]
 end
 
 filter_lines 'Built in example filters' do
@@ -44,7 +50,7 @@ filter_lines 'Built in example filters' do
     # insert lines after the last match
       { after:  [match_pattern, insert_lines, :last] },
     # insert lines before the first  match
-      { before: [match_pattern, insert_lines, :first]  },
+      { before: [match_pattern, text_lines, :first]  },
     ]
   )
 end

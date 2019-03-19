@@ -17,8 +17,7 @@
 # limitations under the License.
 #
 
-require 'chefspec'
-require 'chefspec/berkshelf'
+require 'chefspec_helper'
 
 describe 'spectest::replace_or_add_missing_file' do
   let(:chef_run) do

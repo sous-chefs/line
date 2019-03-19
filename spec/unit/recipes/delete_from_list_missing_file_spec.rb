@@ -17,8 +17,7 @@
 # limitations under the License.
 #
 
-require 'chefspec'
-require 'chefspec/berkshelf'
+require 'chefspec_helper'
 
 describe 'spectest::delete_from_list_missing_file' do
   let(:chef_run) do
