@@ -16,7 +16,7 @@
 #
 
 module Line
-  # Helper methods to use in filters
+  # Helper methods to use in resources
   module Helper
     # filter ::= <code> | { <code> => <args> }
     # args ::= <String> | <Array>
@@ -58,6 +58,7 @@ module Line
       unless @filters
         @filters ||= Line::Filter.new
         @filters.safe_default = new_resource.safe
+        @filters.eol = new_resource.eol
       end
       @filters
     end

@@ -22,6 +22,7 @@ describe 'missing method' do
   before(:each) do
     @filt = Line::Filter.new
     @filt.safe_default = true
+    @filt.eol = "\n"
     @ia = %w(line1 line2 line3)
     @all = %w(line3 line2 line1 c1)
     @none = %w(c1 linef)

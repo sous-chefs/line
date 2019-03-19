@@ -22,6 +22,7 @@ describe 'before method' do
   before(:each) do
     @filt = Line::Filter.new
     @filt.safe_default = true
+    @filt.eol = "\n"
     @ia = %w(line1 line2 line3)
     @current = %w(line3 line2 line1 c1 line3 line2 c1 line1 c1 c2)
     @solo_start = %w(c1 linef lineg lineh )
