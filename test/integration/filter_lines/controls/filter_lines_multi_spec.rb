@@ -1,4 +1,3 @@
-
 # ============ multiple filters
 
 control 'filter_lines - Verify the code to use filters. Verify several example filters' do
