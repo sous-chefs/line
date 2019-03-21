@@ -55,7 +55,11 @@ module Line
     end
 
     def filters
-      @filters ||= Line::Filter.new
+      unless @filters
+        @filters ||= Line::Filter.new
+        @filters.safe_default = new_resource.safe
+      end
+      @filters
     end
 
     def invoke_filter(code, args)

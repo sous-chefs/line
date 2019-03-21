@@ -21,6 +21,7 @@ include Line
 describe 'after method' do
   before(:each) do
     @filt = Line::Filter.new
+    @filt.safe_default = true
     @ia = %w(line1 line2 line3)
     @current = %w(line3 line2 line1 c1 line3 line2 c1 line1 c1 c2)
     @solo_start = %w(c1 linef lineg lineh)
@@ -96,5 +97,17 @@ describe 'after method' do
 
   it 'should insert a string' do
     expect(@filt.after(@solo_middle, [@pattern_c1, 'string1', :last])).to eq(%w(linef c1 string1 lineg))
+  end
+
+  it 'should not insert a line that matches the pattern by default, nil implies safe' do
+    expect { @filt.after(%w(line1 line2), [/line1/, 'line1 longer', :last]) }.to raise_error(ArgumentError)
+  end
+
+  it 'should not insert a line that matches the pattern with an explicit safe run' do
+    expect { @filt.after(%w(line1 line2), [/line1/, 'line1 longer', :last, { safe: true }]) }.to raise_error(ArgumentError)
+  end
+
+  it 'should insert a line that matches the pattern during an unsafe run' do
+    expect(@filt.after(%w(line1 line2), [/line1/, 'line1 longer', :last, { safe: false }])).to eq(['line1', 'line1 longer', 'line2'])
   end
 end

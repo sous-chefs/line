@@ -46,6 +46,36 @@ module Line
       lines || []
     end
 
+    def options(values, allowed)
+      # allowed is {option_name: [settings]}
+      @options ||= {}
+      @options[:safe] ||= safe_default
+      return @options unless values
+      values.each do |key, setting|
+        raise ArgumentError, "Option key  #{key} should be one of #{allowed.keys}" unless allowed.key?(key.to_sym)
+        raise ArgumentError, "Option setting of #{key} should be one of #{allowed[key.to_sym]}" unless allowed[key.to_sym].include?(setting)
+        @options[key.to_sym] = setting
+      end
+      @options
+    end
+
+    def safe_default
+      # @safe must be defined by a call to safe_default by the filter resource
+      @safe
+    end
+
+    def safe_default=(option)
+      @safe = option
+    end
+
+    def verify_insert_lines(match_pattern, insert_lines, safe)
+      return unless safe
+      error_message = 'Inserted lines should not match the insert location pattern'
+      insert_lines.each do |line|
+        raise ArgumentError, "Error - #{error_message}" if match_pattern.match(line)
+      end
+    end
+
     def verify_kind(value, kinds)
       raise ArgumentError, "Wrong class #{value} with class #{value.class} should be one of #{kinds}" unless [kinds].flatten.include?(value.class)
       value
