@@ -72,7 +72,7 @@ module Line
       return unless safe
       error_message = 'Inserted lines should not match the insert location pattern'
       insert_lines.each do |line|
-        raise ArgumentError, "Error - #{error_message}" if line =~ @match_pattern
+        raise ArgumentError, "Error - #{error_message}" if line =~ match_pattern
       end
     end
 
