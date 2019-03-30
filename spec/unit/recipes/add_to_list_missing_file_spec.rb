@@ -17,6 +17,7 @@
 # limitations under the License.
 #
 
+require 'berkshelf'
 require 'chefspec'
 require 'chefspec/berkshelf'
 
