@@ -58,7 +58,7 @@ describe 'replace method' do
     expect(@filt.replace(@solo_end, [@pattern_c1, @ia])).to eq(%w(linef lineg lineh line1 line2 line3))
   end
 
-  it 'should raise error if the pattern matchs the replacement lines' do
+  it 'should raise error if the pattern matches the replacement lines' do
     expect { @filt.replace(@current, [@pattern_c1, ['c1 match', 'c2']]) }.to raise_error(ArgumentError)
   end
 
