@@ -64,6 +64,10 @@ describe 'before method' do
     expect(@filt.before(@current, [@pattern_c1_c2, @ia, :last])).to eq(@last_match_c1)
   end
 
+  it 'should split text into multiple lines for inserting' do
+    expect(@filt.before(@solo_start, [@pattern_c1, "string1\nstring2\n", :first])).to eq(%w(string1 string2 c1 linef lineg lineh))
+  end
+
   it 'should insert before match of the first line - each' do
     expect(@filt.before(@solo_start, [@pattern_c1, @ia, :each])).to eq(%w(line1 line2 line3 c1 linef lineg lineh))
   end

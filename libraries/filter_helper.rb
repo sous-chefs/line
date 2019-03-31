@@ -31,6 +31,14 @@ module Line
       missing_lines.compact
     end
 
+    def prepare_insert_lines(inserts)
+      chomp_array([verify_kind(string_to_lines(inserts), [Array, String])].flatten)
+    end
+
+    def string_to_lines(line)
+      line.respond_to?(:split) ? line.split(eol) : line
+    end
+
     def chomp_array(lines)
       lines.map do |line|
         chomp_eol(line)

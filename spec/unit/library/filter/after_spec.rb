@@ -100,6 +100,10 @@ describe 'after method' do
     expect(@filt.after(@solo_middle, [@pattern_c1, 'string1', :last])).to eq(%w(linef c1 string1 lineg))
   end
 
+  it 'should split text input into multiple lines' do
+    expect(@filt.after(@solo_middle, [@pattern_c1, "string1\nstring2\n", :last])).to eq(%w(linef c1 string1 string2 lineg))
+  end
+
   it 'should not insert a line that matches the pattern by default, nil implies safe' do
     expect { @filt.after(%w(line1 line2), [/line1/, 'line1 longer', :last]) }.to raise_error(ArgumentError)
   end
