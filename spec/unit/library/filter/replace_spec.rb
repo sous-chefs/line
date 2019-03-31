@@ -62,7 +62,7 @@ describe 'replace method' do
     expect { @filt.replace(@current, [@pattern_c1, ['c1 match', 'c2']]) }.to raise_error(ArgumentError)
   end
 
-  it 'should not raise error if the pattern matchs the replacement lines, force the change' do
+  it 'should not raise error if the pattern matches the replacement lines, force the change' do
     out_lines = @current.map { |line| line }
     out_lines[3] = 'c1 match'
     out_lines[6] = 'c1 match'
