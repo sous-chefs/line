@@ -35,9 +35,11 @@ For more detailed information see the matching resource documentation:
 - [add_to_list](documentation/resources/add_to_list.md) - Add an item to a list
 - [delete_from_list](documentation/resources/delete_from_list.md) - Delete lines that match a pattern
 - [filter_lines](documentation/resources/filter_lines.md) - Supply a ruby proc or use a sample filter to edit lines
+
   Sample filters:
   - after: Insert lines after a matched line
   - before: Insert lines before a matched lined
+  - delete_between: Delete the lines found between two patterns
   - comment: Change lines to comments
   - missing: Add missing lines to a file
 
