@@ -41,6 +41,7 @@ module Line
     def chomp_eol(line)
       fixed = line.chomp(new_resource.eol)
       raise ArgumentError, "Line #{line} has embedded EOL characters, not allowed for this resource" if fixed =~ /#{new_resource.eol}/
+
       fixed
     end
 
@@ -51,6 +52,7 @@ module Line
 
     def filter_method(code)
       raise ArgumentError, "Unknown filter, #{code}, specified" unless filters.public_methods.include?(code)
+
       filters.method(code)
     end
 

@@ -42,8 +42,8 @@ module Line
       start_line = first_matches.first
       end_line = second_matches.last
       if start_line && end_line && start_line <= end_line
-        delete_start = [:first, :include].include?(ends) ? start_line : start_line + 1
-        delete_end = [:last, :include].include?(ends) ? end_line : end_line - 1
+        delete_start = %i(first include).include?(ends) ? start_line : start_line + 1
+        delete_end = %i(last include).include?(ends) ? end_line : end_line - 1
         (delete_start..delete_end).each do |i|
           current[i] = Replacement.new(current[i], '', :delete) if current[i] =~ delete_pattern
         end

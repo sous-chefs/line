@@ -23,6 +23,7 @@ module Line
       # find the lines that are alreay between the start and next_match search limits of the lines array
       # filter those lines out of the line array
       raise ArgumentError unless start <= next_match
+
       missing_lines = insert_lines.dup
       lines_between(current, start, next_match).each do |line|
         match_line = missing_lines.index(line)
@@ -48,6 +49,7 @@ module Line
     def chomp_eol(line)
       fixed = line.chomp(eol)
       raise ArgumentError, "Line #{fixed} has embedded EOL characters, not allowed for this resource" if fixed =~ /#{eol}/
+
       fixed
     end
 
@@ -75,9 +77,11 @@ module Line
       @options ||= {}
       @options[:safe] ||= safe_default
       return @options unless values
+
       values.each do |key, setting|
         raise ArgumentError, "Option key  #{key} should be one of #{allowed.keys}" unless allowed.key?(key.to_sym)
         raise ArgumentError, "Option setting of #{key} should be one of #{allowed[key.to_sym]}" unless allowed[key.to_sym].include?(setting)
+
         @options[key.to_sym] = setting
       end
       @options
@@ -94,6 +98,7 @@ module Line
 
     def verify_insert_lines(match_pattern, insert_lines, safe)
       return unless safe
+
       error_message = 'Inserted lines should not match the insert location pattern'
       insert_lines.each do |line|
         raise ArgumentError, "Error - #{error_message}" if line =~ match_pattern
@@ -102,11 +107,13 @@ module Line
 
     def verify_kind(value, kinds)
       raise ArgumentError, "Wrong class #{value} with class #{value.class} should be one of #{kinds}" unless [kinds].flatten.include?(value.class)
+
       value
     end
 
     def verify_one_of(value, allowed)
       raise ArgumentError, "Value #{value} should be one of #{allowed}" unless [allowed].flatten.include?(value)
+
       value
     end
   end
