@@ -7,7 +7,7 @@ directory '/tmp'
 # ==================== after filter =================
 
 insert_lines = %w(line1 line2 line3)
-text_lines = %w(line1 line2 line3)
+text_lines = "line1\nline2\nline3\n"
 match_pattern = /^COMMENT ME|^HELLO/
 
 # ==================== after filter =================
