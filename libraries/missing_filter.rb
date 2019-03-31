@@ -25,7 +25,7 @@ module Line
       # args[1] :after or :before
       #
       # returns array with inserted lines
-      insert_array = chomp_array([verify_kind(args[0], [Array, String])].flatten)
+      insert_array = prepare_insert_lines(args[0])
       add_point = verify_one_of(args[1], [nil, :after, 'after', :before, 'before']) || :after
 
       case add_point
