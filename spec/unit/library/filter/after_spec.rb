@@ -22,6 +22,7 @@ describe 'after method' do
   before(:each) do
     @filt = Line::Filter.new
     @filt.safe_default = true
+    @filt.eol = "\n"
     @ia = %w(line1 line2 line3)
     @current = %w(line3 line2 line1 c1 line3 line2 c1 line1 c1 c2)
     @solo_start = %w(c1 linef lineg lineh)
@@ -97,6 +98,10 @@ describe 'after method' do
 
   it 'should insert a string' do
     expect(@filt.after(@solo_middle, [@pattern_c1, 'string1', :last])).to eq(%w(linef c1 string1 lineg))
+  end
+
+  it 'should split text input into multiple lines' do
+    expect(@filt.after(@solo_middle, [@pattern_c1, "string1\nstring2\n", :last])).to eq(%w(linef c1 string1 string2 lineg))
   end
 
   it 'should not insert a line that matches the pattern by default, nil implies safe' do

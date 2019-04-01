@@ -22,6 +22,7 @@ describe 'missing method' do
   before(:each) do
     @filt = Line::Filter.new
     @filt.safe_default = true
+    @filt.eol = "\n"
     @ia = %w(line1 line2 line3)
     @all = %w(line3 line2 line1 c1)
     @none = %w(c1 linef)
@@ -45,6 +46,10 @@ describe 'missing method' do
 
   it 'should not add if lines are already there before' do
     expect(@filt.missing(@all, [@ia, :before])).to eq(%w(line3 line2 line1 c1))
+  end
+
+  it 'should split input text lines' do
+    expect(@filt.missing(@none, ["string1\nstring2\n", :after])).to eq(%w(c1 linef string1 string2))
   end
 
   it 'should add missing lines - all missing after' do

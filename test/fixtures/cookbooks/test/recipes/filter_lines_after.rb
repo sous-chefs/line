@@ -7,12 +7,24 @@ directory '/tmp'
 # ==================== after filter =================
 
 insert_lines = %w(line1 line2 line3)
+text_lines = "line1\nline2\nline3\n"
 match_pattern = /^COMMENT ME|^HELLO/
 
 # ==================== after filter =================
 
 template '/tmp/after' do
   source 'dangerfile.erb'
+end
+
+template '/tmp/after_text' do
+  source 'dangerfile.erb'
+end
+
+filter_lines 'Insert lines after match - text' do
+  sensitive false
+  path '/tmp/after_text'
+  filters after: [match_pattern, text_lines]
+  backup false
 end
 
 filter_lines 'Insert lines after match' do

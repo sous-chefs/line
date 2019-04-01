@@ -28,7 +28,7 @@ module Line
       #
       # returns array with inserted lines
       match_pattern = verify_kind(args[0], Regexp)
-      insert_array = [verify_kind(args[1], [Array, String])].flatten
+      insert_array = prepare_insert_lines(args[1])
       select_match = verify_one_of(args[2], [nil, :each, 'each', :first, 'first', :last, 'last']) || :each
       options(args[3], safe: [true, false])
 
