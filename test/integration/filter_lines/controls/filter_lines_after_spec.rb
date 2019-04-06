@@ -52,6 +52,9 @@ control 'filter_lines_after - Verify the code to use the after filter.' do
     its(:content) { should match(/Bypass safe doit.*y/) }
     its(:content) { should match(/Bypass safe redo 1.*y/) }
     its(:content) { should match(/Bypass safe redo 2.*y/) }
+    its(:content) { should match(/filter_lines\[Missing file ok\] n/) }
+    its(:content) { should match(/filter_lines\[Missing file fails\] n/) }
+    its(:content) { should match(/filter_lines\[Empty file\] n/) }
   end
 
   describe file_ext('/tmp/safe_active') do

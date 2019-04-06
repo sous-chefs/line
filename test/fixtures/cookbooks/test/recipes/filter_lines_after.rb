@@ -20,6 +20,27 @@ template '/tmp/after_text' do
   source 'dangerfile.erb'
 end
 
+file '/tmp/empty' do
+  content ''
+end
+
+filter_lines 'Missing file ok' do
+  path '/tmp/missing'
+  filters after: [match_pattern, text_lines]
+end
+
+filter_lines 'Missing file fails' do
+  path '/tmp/missing'
+  ignore_missing false
+  ignore_failure true
+  filters after: [match_pattern, text_lines]
+end
+
+filter_lines 'Empty file' do
+  path '/tmp/empty'
+  filters after: [match_pattern, text_lines]
+end
+
 filter_lines 'Insert lines after match - text' do
   sensitive false
   path '/tmp/after_text'
