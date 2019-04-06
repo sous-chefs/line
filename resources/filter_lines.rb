@@ -19,7 +19,7 @@ property :backup, [true, false, Integer], default: false
 property :eol
 property :filters, [Array, Hash, Method, Proc], required: true
 property :ignore_missing, [true, false], default: true
-property :path, String
+property :path, String, name_property: true
 property :safe, [true, false], default: true
 
 resource_name :filter_lines
@@ -45,7 +45,7 @@ action :edit do
   # filter ::= <code> | { <code> => <args> }
   # args ::= <String> | <Array>
   # code ::= <Symbol> | <Method> | <Proc>
-  # Symbol ::= :after | :before | :between | :comment | :missing | :replace | :stanza | :substitute
+  # Symbol ::= :after | :before | :between | :comment | :delete_between | :missing | :replace | :stanza | :substitute
   # Method ::= A reference to a method that has a signature of method(current lines is Array, args is Array) and returns an array
   # Proc ::= A reference to a proc that has a signature of proc(current lines is Array, args is Array) and returns an array
   #

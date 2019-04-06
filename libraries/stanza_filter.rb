@@ -1,4 +1,3 @@
-#
 # Copyright 2018 Sous Chefs
 #
 #
@@ -25,6 +24,7 @@ module Line
       # Sets one instance of a key in a stanza to a new value
       # Only the last matching stanza will be updated in case of duplicated stanza names
       # Only the last matching key value within a stanza will be updated in case of duplicated key names
+      # Supported stanza styles are equal "keyword = value" and value "keyword value".
       # Example
       # [a1]
       #   att1 = value1
@@ -34,10 +34,12 @@ module Line
 
       # args[0] stanza to select, name of the stanza to match if not there it will be created
       # args[1] {keys, values} to replace or add to the stanza
+      # args[2] keyword style option
       # Comment lines will be ignored
       #
       @stanza_name = verify_kind(args[0], String)
       @settings = verify_kind(args[1], Hash) # A hash of keywords and values
+      @key_style = (verify_one_of(args[2], [nil, :equal, 'equal', :value, 'value']) || :equal).to_sym
 
       verify_stanza_name
       verify_keys
@@ -53,7 +55,7 @@ module Line
     def find_stanzas(current)
       stanza_names = {}
       current.each_index do |i|
-        md = stanza_regex.match(current[i])
+        md = stanza_pattern.match(current[i])
         next unless md
         stanza_names[md[:name]] = i
       end
@@ -68,7 +70,7 @@ module Line
     def parse_stanza(current, stanza_names, stanza_name)
       settings = {}
       si = stanza_names[stanza_name] + 1
-      while si < current.size && current[si] !~ @stanza_pattern
+      while si < current.size && current[si] !~ stanza_pattern
         md = key_regex.match(current[si])
         settings[md[:key].to_sym] = { value: md[:value], location: si } if md
         si += 1
@@ -102,22 +104,26 @@ module Line
     end
 
     def rep_value(key, value)
-      ["  #{key} = #{value}"]
+      ["  #{key}#{key_seperator}#{value}"]
     end
 
     def key_regex
-      /\s*(?<key>#{name_pattern})\s*=\s*(?<value>.*)\s*/
+      /\s*(?<key>#{name_pattern})\s*#{key_seperator}\s*(?<value>.*)\s*/
     end
 
     def key_value_regex
       /(?<key>#{name_pattern})/
     end
 
+    def key_seperator
+      @key_style == :equal ? ' = ' : ' '
+    end
+
     def name_pattern
       '[\w.\-_%@]*'
     end
 
-    def stanza_regex
+    def stanza_pattern
       /^\[(?<name>#{name_pattern})\]\s*/ # deal with comments on stanza line
     end
 

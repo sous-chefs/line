@@ -49,6 +49,20 @@ describe 'stanza method' do
       '  key1 = val1',
       '  key1 = val2',
     ]
+    @sample_value = [
+      '[head1]',
+      '  key1 val1',
+      '  key1 val2',
+    ]
+    @sample_mixed = [
+      '[head1]',
+      '  key1 val1',
+      '  key2 val2',
+      '[head2]',
+      '  key2 val2',
+      '  key3 val1',
+      '  key4 val4',
+    ]
   end
 
   it 'should add stanza to an empty array' do
@@ -97,13 +111,23 @@ describe 'stanza method' do
     expect(@filt.stanza(@sample2, ['name.-_%@', { 'name.-_%@' => 'replace1' }])).to eq(out_lines)
   end
 
-  it 'should do this with multiple stanzas of the same name' do
+  it 'should use the last stanza with multiple stanzas of the same name' do
     out_lines = ['[head1]', '  key1 = val1', '[head1]', '  key1 = replace1', '  newkey = insertvalue', '  key2 = val2']
     expect(@filt.stanza(@sample_repeated_stanza, ['head1', { 'key1' => 'replace1', newkey: 'insertvalue' }])).to eq(out_lines)
   end
 
-  it 'should do this with multiple keys of the same name' do
+  it 'should use the last key with multiple keys of the same name' do
     out_lines = ['[head1]', '  newkey = insertvalue', '  key1 = val1', '  key1 = replace1']
     expect(@filt.stanza(@sample_repeated_key, ['head1', { 'key1' => 'replace1', newkey: 'insertvalue' }])).to eq(out_lines)
+  end
+
+  it 'should use the value style for keywords' do
+    out_lines = ['[head1]', '  newkey insertvalue', '  key1 val1', '  key1 replace1']
+    expect(@filt.stanza(@sample_value, ['head1', { 'key1' => 'replace1', newkey: 'insertvalue' }, :value])).to eq(out_lines)
+  end
+
+  it 'should update keys regardless of the order' do
+    out_lines = ['[head1]', '  newkey insertvalue', '  key1 replace2', '  key2 replace1', '[head2]', '  key2 val2', '  key3 val1', '  key4 val4']
+    expect(@filt.stanza(@sample_mixed, ['head1', { 'key2' => 'replace1', newkey: 'insertvalue', 'key1' => 'replace2' }, :value])).to eq(out_lines)
   end
 end
