@@ -22,6 +22,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
   - `delete_from_list` do nothing, the list was not found which implies there is nothing to delete
   - `delete_lines` do nothing, the line isn't there which implies there is nothing to delete
   - `replace_or_add` create file, add the line
+  - `filter_lines` create file if the file changes
 
 - Chef client version 13 or greater is expected.
 
@@ -34,7 +35,8 @@ For more detailed information see the matching resource documentation:
 - [delete_lines](documentation/resources/delete_lines.md) - Delete an item from a list
 - [add_to_list](documentation/resources/add_to_list.md) - Add an item to a list
 - [delete_from_list](documentation/resources/delete_from_list.md) - Delete lines that match a pattern
-- [filter_lines](documentation/resources/filter_lines.md) - Supply a ruby proc or use a sample filter to edit lines
+- [filter_lines](documentation/resources/filter_lines.md) - Supply a ruby proc or use a sample filter to edit lines.
+  The filter_lines resource supports multiple line modfications.
 
   Sample filters:
   - after: Insert lines after a matched line
