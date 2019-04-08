@@ -30,7 +30,6 @@ action :edit do
   eol = default_eol
   backup_if_true
 
-  # die horribly unless the file exists unless ignore_missing
   current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
   @new = current.clone
 
