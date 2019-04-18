@@ -1,5 +1,8 @@
 # line Cookbook CHANGELOG
 
+## v2.3.1
+- Try to make the links pretty on supermarket.chef.io.  Relative links did not translate well.
+
 ## v2.3.0
 # Unreleased - for target version 2.3.0 in mid April 2019
 - Add the between filter. 
