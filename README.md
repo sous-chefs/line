@@ -36,7 +36,7 @@ Quite often, the need arises to do line editing instead of managing an entire fi
 
 For more detailed information see the matching resource documentation:
 
-- [append_if_no_line](https://github.com/sous-chefs/line/blob/master/documentation/resources/add_to_list.md) - Add a missing line
+- [append_if_no_line](https://github.com/sous-chefs/line/blob/master/documentation/resources/append_if_no_line.md) - Add a missing line
 - [replace_or_add](https://github.com/sous-chefs/line/blob/master/documentation/resources/replace_or_add.md) - Replace a line that matches a pattern or add a missing line
 - [delete_lines](https://github.com/sous-chefs/line/blob/master/documentation/resources/delete_lines.md) - Delete an item from a list
 - [add_to_list](https://github.com/sous-chefs/line/blob/master/documentation/resources/add_to_list.md) - Add an item to a list
