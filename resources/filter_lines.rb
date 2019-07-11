@@ -26,7 +26,7 @@ resource_name :filter_lines
 
 action :edit do
   raise_not_found
-  new_resource.sensitive = true unless property_is_set?(:sensitive)
+  sensitive_default
   eol = default_eol
   backup_if_true
 
