@@ -46,7 +46,7 @@ describe 'helper methods' do
 
   describe 'filters' do
     it 'should return a new filter object' do
-      expect(@method_test.filters.class).to eq(Line::Filter)
+      expect(@method_test.filter_rep.class).to eq(Line::Filter)
     end
   end
 
