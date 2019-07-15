@@ -1,5 +1,8 @@
 # line Cookbook CHANGELOG
 
+## v2.3.3
+- Fix `filter_lines` to work with Chef12
+
 ## v2.3.2
 - Fix internal documentation references
 - Bump to get a rebuild
