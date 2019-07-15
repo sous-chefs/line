@@ -5,7 +5,7 @@ driver:
 provisioner:
   name: chef_zero
   chef_omnibus_install_options: chef
-  require_chef_omnibus: 15.1.36
+  require_chef_omnibus: 14.13.11
   accept_license: true
 
 client_rb:
