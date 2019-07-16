@@ -4,9 +4,9 @@ driver:
 
 provisioner:
   name: chef_zero
-  chef_omnibus_install_options: chef
-  require_chef_omnibus: 14.13.11
-  accept_license: true
+  chef_license: accept
+  product_name: chef
+  product_version: 12.22.5
 
 client_rb:
   treat_deprecation_warnings_as_errors: true

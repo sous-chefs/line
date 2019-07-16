@@ -50,6 +50,31 @@ describe 'helper methods' do
     end
   end
 
+  describe 'sensitive_default?' do
+    it 'should return a default value if not set' do
+      new_resource = OpenStruct.new
+      allow(@method_test).to receive(:property_is_set?).with(:sensitive).and_return(false)
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+      expect(@method_test.sensitive_default).to eq(true)
+      expect(new_resource.sensitive).to eq(true)
+    end
+    it 'should leave the value alone if property_is_set?' do
+      new_resource = OpenStruct.new
+      new_resource.sensitive = false
+      allow(@method_test).to receive(:property_is_set?).with(:sensitive).and_return(true)
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+      expect(@method_test.sensitive_default).to eq(nil)
+      expect(new_resource.sensitive).to eq(false)
+    end
+    it 'should recover from ArgumentError if property_is_set? is not defined ala chef 12' do
+      new_resource = OpenStruct.new
+      allow(@method_test).to receive(:property_is_set?).with(:sensitive).and_raise(ArgumentError)
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+      expect(@method_test.sensitive_default).to eq(true)
+      expect(new_resource.sensitive).to eq(true)
+    end
+  end
+
   describe 'target_current_lines?' do
     it 'should get an array of lines' do
       File.write('/tmp/file', "foo\nbar\nlast\n")

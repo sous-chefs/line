@@ -3,6 +3,7 @@
 ## v2.3.3
 - Fix `filter_lines` to work with Chef12. The filters helper method matched the name of a resource property.
 Changed the name to avoid the collision.
+- Add tests for the sensitive_default method
 
 ## v2.3.2
 - Fix internal documentation references
