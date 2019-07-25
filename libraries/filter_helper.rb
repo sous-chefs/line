@@ -113,7 +113,7 @@ module Line
 
   class Replacement
     def initialize(original, additional, direction)
-      @original = original.dup
+      @original = original.nil? ? nil : original.dup
       @additional = additional
       @direction = direction # replace, before, after, remove
     end
