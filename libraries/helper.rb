@@ -50,17 +50,17 @@ module Line
     end
 
     def filter_method(code)
-      raise ArgumentError, "Unknown filter, #{code}, specified" unless filters.public_methods.include?(code)
-      filters.method(code)
+      raise ArgumentError, "Unknown filter, #{code}, specified" unless filter_rep.public_methods.include?(code)
+      filter_rep.method(code)
     end
 
-    def filters
-      unless @filters
-        @filters ||= Line::Filter.new
-        @filters.safe_default = new_resource.safe
-        @filters.eol = new_resource.eol
+    def filter_rep
+      unless @filter_rep
+        @filter_rep ||= Line::Filter.new
+        @filter_rep.safe_default = new_resource.safe
+        @filter_rep.eol = new_resource.eol
       end
-      @filters
+      @filter_rep
     end
 
     def invoke_filter(code, args)
