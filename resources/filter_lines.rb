@@ -1,5 +1,5 @@
 #
-# Copyright:: 2018, 2019 Sous Chefs
+# Copyright::  2019 Sous Chefs
 #
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
