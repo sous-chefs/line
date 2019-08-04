@@ -10,7 +10,7 @@ match_pattern = /^COMMENT ME|^HELLO/
 # ==================== Multiple filters =================
 
 template '/tmp/multiple_filters' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 

@@ -10,7 +10,7 @@ start_pattern = /COMMENT/
 end_pattern = /main/
 
 template '/tmp/replace_between' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 

@@ -2,6 +2,8 @@
 
 ## v2.4.0
 - Add the replace_between filter to allow replacing all of the lines between two lines that match patterns.
+- Change the test dangerfile name to samplefile.  There was a name conflict between the lint Dangerfile
+and the test data dangerfile that was causing some confusion.
 
 ## v2.3.3
 - Fix `filter_lines` to work with Chef12. The filters helper method matched the name of a resource property.

@@ -1,63 +1,63 @@
 directory '/tmp'
 
-template '/tmp/dangerfile1' do
+template '/tmp/samplefile1' do
 end
 
-template '/tmp/dangerfile2' do
+template '/tmp/samplefile2' do
 end
 
 # just dup the files for regexp tests
 
-file '/tmp/dangerfile1-regexp' do
-  content lazy { IO.binread('/tmp/dangerfile1') }
+file '/tmp/samplefile1-regexp' do
+  content lazy { IO.binread('/tmp/samplefile1') }
 end
 
-file '/tmp/dangerfile2-regexp' do
-  content lazy { IO.binread('/tmp/dangerfile2') }
+file '/tmp/samplefile2-regexp' do
+  content lazy { IO.binread('/tmp/samplefile2') }
 end
 
 # string tests
 
 delete_lines 'Operation 5' do
-  path '/tmp/dangerfile1'
+  path '/tmp/samplefile1'
   pattern '^HI.*'
   backup true
 end
 
 delete_lines 'Operation 6' do
-  path '/tmp/dangerfile1'
+  path '/tmp/samplefile1'
   pattern '^#.*'
 end
 
 delete_lines 'Operation 7' do
-  path '/tmp/dangerfile1'
+  path '/tmp/samplefile1'
   pattern '^#.*'
 end
 
 delete_lines 'Operation 8' do
-  path '/tmp/dangerfile2'
+  path '/tmp/samplefile2'
   pattern '^#.*'
 end
 
 # regexp tests
 
 delete_lines 'Operation 5 regexp' do
-  path '/tmp/dangerfile1-regexp'
+  path '/tmp/samplefile1-regexp'
   pattern /^HI.*/
 end
 
 delete_lines 'Operation 6 regexp' do
-  path '/tmp/dangerfile1-regexp'
+  path '/tmp/samplefile1-regexp'
   pattern /^#.*/
 end
 
 delete_lines 'Operation 7 regexp' do
-  path '/tmp/dangerfile1-regexp'
+  path '/tmp/samplefile1-regexp'
   pattern /^#.*/
 end
 
 delete_lines 'Operation 8 regexp' do
-  path '/tmp/dangerfile2-regexp'
+  path '/tmp/samplefile2-regexp'
   pattern /^#.*/
 end
 

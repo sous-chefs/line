@@ -6,7 +6,7 @@ directory '/tmp'
 
 # ==================== delete_between filter =================
 template '/tmp/delete_between' do
-  source 'dangerfile3.erb'
+  source 'samplefile3.erb'
 end
 
 filter_lines 'Delete lines between matches' do

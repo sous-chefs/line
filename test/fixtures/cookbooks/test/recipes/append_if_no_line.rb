@@ -3,31 +3,31 @@ directory '/tmp'
 eol = /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM ? "\r\n" : "\n"
 danger_contents = "HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT ME YOU FOOL#{eol}COMMENT ME AND I STOP YELLING I PROMISE#{eol}"
 
-template '/tmp/dangerfile' do
+template '/tmp/samplefile' do
 end
 
-file '/tmp/dangerfile2' do
+file '/tmp/samplefile2' do
   content danger_contents
 end
 
 append_if_no_line 'Operation' do
-  path '/tmp/dangerfile'
+  path '/tmp/samplefile'
   line 'HI THERE I AM STRING'
   backup true
 end
 
 append_if_no_line 'Operation redo' do
-  path '/tmp/dangerfile'
+  path '/tmp/samplefile'
   line 'HI THERE I AM STRING'
 end
 
 append_if_no_line 'with special chars' do
-  path '/tmp/dangerfile'
+  path '/tmp/samplefile'
   line 'AM I A STRING?+\'".*/-\(){}^$[]'
 end
 
 append_if_no_line 'with special chars redo' do
-  path '/tmp/dangerfile'
+  path '/tmp/samplefile'
   line 'AM I A STRING?+\'".*/-\(){}^$[]'
 end
 

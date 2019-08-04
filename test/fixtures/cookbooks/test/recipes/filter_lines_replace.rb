@@ -9,7 +9,7 @@ insert_lines = %w(line1 line2 line3)
 match_pattern = /^COMMENT ME|^HELLO/
 
 template '/tmp/replace' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 

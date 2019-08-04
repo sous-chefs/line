@@ -6,7 +6,7 @@ directory '/tmp'
 
 # ==================== between filter =================
 template '/tmp/between' do
-  source 'dangerfile3.erb'
+  source 'samplefile3.erb'
 end
 
 filter_lines 'Change lines between matches' do

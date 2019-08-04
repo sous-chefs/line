@@ -6,7 +6,7 @@ directory '/tmp'
 
 # ==================== substitute filter =================
 template '/tmp/substitute' do
-  source 'dangerfile3.erb'
+  source 'samplefile3.erb'
 end
 
 filter_lines 'Substitute string for matching pattern' do

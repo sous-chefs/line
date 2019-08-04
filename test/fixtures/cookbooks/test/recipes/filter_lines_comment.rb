@@ -2,7 +2,7 @@ directory '/tmp'
 
 # ==================== comment filter =================
 template '/tmp/comment' do
-  source 'dangerfile3.erb'
+  source 'samplefile3.erb'
 end
 
 filter_lines 'Change matching lines to comments' do

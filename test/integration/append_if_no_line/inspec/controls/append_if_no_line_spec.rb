@@ -1,19 +1,19 @@
 control 'Append lines' do
   eol = os.family == 'windows' ? "\r\n" : "\n"
 
-  describe file('/tmp/dangerfile') do
+  describe file('/tmp/samplefile') do
     its(:content) { should match(/HI THERE I AM STRING#{eol}/) }
   end
 
-  describe matches('/tmp/dangerfile', 'HI THERE I AM STRING') do
+  describe matches('/tmp/samplefile', 'HI THERE I AM STRING') do
     its(:count) { should eq 1 }
   end
 
-  describe matches('/tmp/dangerfile', 'AM I A STRING?+\'".*/-\(){}^$[]') do
+  describe matches('/tmp/samplefile', 'AM I A STRING?+\'".*/-\(){}^$[]') do
     its(:count) { should eq 1 }
   end
 
-  describe file_ext('/tmp/dangerfile') do
+  describe file_ext('/tmp/samplefile') do
     its(:size_lines) { should eq 7 }
   end
 
@@ -26,7 +26,7 @@ control 'Append lines' do
   end
 
   # The last line has an eol
-  describe file('/tmp/dangerfile') do
+  describe file('/tmp/samplefile') do
     its(:content) { should match(/^last line#{eol}/) }
   end
 
