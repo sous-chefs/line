@@ -36,10 +36,10 @@ module Line
 
       # The start and end patterns shouldn't match lines inside the insert array unless the bounds match too.
       # if the patterns match an internal replacement line replacing may add lines every time.
-      unless match_insert_lines(start_pattern, insert_array[0..0], @options[:safe]) && [:first, :include].include?(ends)
+      unless match_insert_lines?(start_pattern, insert_array[0..0], @options[:safe]) && [:first, :include].include?(ends)
         verify_insert_lines(start_pattern, insert_array[1..-1], @options[:safe])
       end
-      unless match_insert_lines(end_pattern, insert_array[-1..-1], @options[:safe]) && [:last, :include].include?(ends)
+      unless match_insert_lines?(end_pattern, insert_array[-1..-1], @options[:safe]) && [:last, :include].include?(ends)
         verify_insert_lines(end_pattern, insert_array[0...-1], @options[:safe])
       end
 
