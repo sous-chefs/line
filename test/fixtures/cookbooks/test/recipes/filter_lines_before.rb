@@ -12,17 +12,17 @@ match_pattern = /^COMMENT ME|^HELLO/
 # ==================== before filter =================
 
 template '/tmp/before' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 
 template '/tmp/before_first' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 
 template '/tmp/before_last' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
   sensitive true
 end
 

@@ -6,17 +6,17 @@ directory '/tmp'
 
 # ==================== Inline proc filters =================
 
-template '/tmp/dangerfile' do
+template '/tmp/samplefile' do
 end
 
 filter_lines 'Do nothing' do
   sensitive false
-  path '/tmp/dangerfile'
+  path '/tmp/samplefile'
   filters proc { |current| current }
 end
 
 template '/tmp/reverse' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
 end
 
 filter_lines 'Reverse line text' do

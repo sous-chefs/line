@@ -13,11 +13,11 @@ match_pattern = /^COMMENT ME|^HELLO/
 # ==================== after filter =================
 
 template '/tmp/after' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
 end
 
 template '/tmp/after_text' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
 end
 
 file '/tmp/empty' do
@@ -62,7 +62,7 @@ filter_lines 'Insert lines after match redo' do
 end
 
 template '/tmp/after_first' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
 end
 
 filter_lines 'Insert lines after first match' do
@@ -72,7 +72,7 @@ filter_lines 'Insert lines after first match' do
 end
 
 template '/tmp/after_last' do
-  source 'dangerfile.erb'
+  source 'samplefile.erb'
 end
 
 filter_lines 'Insert lines after last match' do
