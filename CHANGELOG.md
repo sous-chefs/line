@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v2.4.1
+- Rename match_insert_lines to match_insert_lines?
+- Add tests for match_insert_lines?
+
 ## v2.4.0
 - Add the replace_between filter to allow replacing all of the lines between two lines that match patterns.
 - Change the test dangerfile name to samplefile.  There was a name conflict between the lint Dangerfile

@@ -70,8 +70,8 @@ module Line
       lines || []
     end
 
-    def match_insert_lines(match_pattern, insert_lines, safe)
-      return unless safe
+    def match_insert_lines?(match_pattern, insert_lines, safe)
+      return false unless safe
       insert_lines.any? do |line|
         line =~ match_pattern
       end
