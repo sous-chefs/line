@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: line
+# Cookbook:: line
 # Spec:: replace_or_add_missing_file
 #
-# Copyright 2017 Sous Chefs
+# Copyright:: 2017 Sous Chefs
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
