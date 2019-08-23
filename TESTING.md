@@ -1,7 +1,7 @@
 
 ### Cookbook Testing Guidelines
 
-Each Sous Chefs cookbook is setup for both local testing and testing within automated test platforms. The line cookbook utilizes Rspec, Chefspec, Cookstyle, Foodcritic, and Test Kitchen for cookbook testing. On a local workstation Test Kitchen will run via kitchen-vagrant against VirtualBox systems. Within Travis CI we utilize kitchen-dokken to test in Docker containers. Within Appveyor we use Appveyor supplied windows images to test windows servers. Dangerfile processing is used to verify content in the pull request.
+Each Sous Chefs cookbook is setup for both local testing and testing within automated test platforms. The line cookbook utilizes Rspec, Chefspec, Cookstyle, Foodcritic, and Test Kitchen for cookbook testing. On a local workstation Test Kitchen will run via kitchen-vagrant against VirtualBox systems. Within Circleci we utilize kitchen-dokken to test in Docker containers.
 
 Prior to submitting your change you should run all tests. Linting (Cookstyle/Foodcritic) and Unit (Rspec) tests can be run by running delivery local all or by running each command. Test kitchen tests can be run by running kitchen test. Test Kitchen tests may take quite some time to complete depending on the level of coverage and systems involved. You may want to run kitchen list and test against a sub-set of a total suites.
 
@@ -20,15 +20,12 @@ If you need help writing tests, please ask on the Sous Chef channel of the Chef 
 - [ ] foodcritic . 
   *  Check against the foodcritic rules
 - [ ] test kitchen 
-  *  Integration tests to use the resources. Please run the ubuntu-16.04 tests as the minimum acceptable level of testing. 
+  *  Integration tests to use the resources. Please run the ubuntu-18.04 tests as the minimum acceptable level of testing. 
 
 ### Github Pull Request Testing Check List
 
 - [ ] Circleci runs Dangerfile tests
   *  Test kitchen on ubuntu linux versions
-- [ ] Appveyor tests
-  *  Test kitchen on Windows 2012r2
-- [ ] Travis tests
   *  Test kitchen on centos and ubuntu linux versions
   *  Unit tests using rspec
   *  Lint tests using foodcritic and cookstyle
