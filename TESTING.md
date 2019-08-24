@@ -1,5 +1,5 @@
 
-### Cookbook Testing Guidelines
+# Cookbook Testing Guidelines
 
 Each Sous Chefs cookbook is setup for both local testing and testing within automated test platforms. The line cookbook utilizes Rspec, Chefspec, Cookstyle, Foodcritic, and Test Kitchen for cookbook testing. On a local workstation Test Kitchen will run via kitchen-vagrant against VirtualBox systems. Within Circleci we utilize kitchen-dokken to test in Docker containers.
 
