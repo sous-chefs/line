@@ -20,6 +20,8 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
+      - kitchen/mdlint:
+          name: lint-markdown
 
       # Resource tests
       - kitchen/dokken-single:

@@ -31,9 +31,9 @@ end
 # For the provided sample filters the line input can be in an array or string with line delimeters
 insert_lines = %w(line1 line2 line3)
 
-or 
+or
 
-text_lines = 
+text_lines =
 'line1
 line2
 line3'
@@ -68,6 +68,7 @@ The built in filters are usable examples of what can be done with a filter, plea
 The built in filters all take an array of positional arguments.
 
 ## Filter Options
+
 Options are expected to be either a hash, with the following keys and values, or nil.
 
 * safe: true or false.  Overrides the default set by the resource property. If an inserted line matches the insert point selection pattern the line may be inserted repeatedy. Setting safe to true prevents those inserts.
