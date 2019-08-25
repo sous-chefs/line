@@ -8,13 +8,12 @@
 ## v2.4.0
 
 - Add the replace_between filter to allow replacing all of the lines between two lines that match patterns.
-- Change the test dangerfile name to samplefile.  There was a name conflict between the lint Dangerfile
-and the test data dangerfile that was causing some confusion.
+- Change the test dangerfile name to samplefile.  There was a name conflict between the lint Dangerfile and the test data dangerfile that was causing some confusion.
 
 ## v2.3.3
 
 - Fix `filter_lines` to work with Chef12. The filters helper method matched the name of a resource property.
-Changed the name to avoid the collision.
+  Changed the name to avoid the collision.
 - Add tests for the sensitive_default method
 - Cookstyle comments
 
@@ -30,14 +29,14 @@ Changed the name to avoid the collision.
 ## v2.3.0
 
 - Add the between filter.
-Add lines between lines matching two patterns.
+  Add lines between lines matching two patterns.
 - Add the comment filter.
-Allow selected lines to be changed to comments in a file.
+  Allow selected lines to be changed to comments in a file.
 - Add the delete_before filter.
 - Add the replace filter.
-Allow selected lines in a file to be replaced by other lines.
+  Allow selected lines in a file to be replaced by other lines.
 - Add the safe option to the after and before filter.
-Safe was the intended behavior.
+  Safe was the intended behavior.
 - Add missing tests for methods verify_kind and verify_one_of.
 - Allow inserted lines to be specified as strings. Split input strings on EOL characters.
 - Add the substitute filter

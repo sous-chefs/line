@@ -11,7 +11,7 @@ In practical terms unit tests for new library modules are usually written using 
 
 If you need help writing tests, please ask on the Sous Chef channel of the Chef Community Slack.
 
-### Local Testing Check List
+# Local Testing Check List
 
 - [ ] rspec
   - Runs the rspec unit tests including the chefspec tests
@@ -22,7 +22,7 @@ If you need help writing tests, please ask on the Sous Chef channel of the Chef 
 - [ ] test kitchen
   - Integration tests to use the resources. Please run the ubuntu-18.04 tests as the minimum acceptable level of testing.
 
-### Github Pull Request Testing Check List
+## Github Pull Request Testing Check List
 
 - [ ] Circleci runs Dangerfile tests
   - Test kitchen on ubuntu linux versions
