@@ -121,3 +121,27 @@ delete_from_list 'missing_file' do
   delim [', ', '[', ']']
   entry '425'
 end
+
+file '/tmp/ends_with_test_last_entry' do
+  content 'GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm quiet elevator=noop"'
+end
+delete_from_list '/tmp/ends_with_test_last_entry' do
+  path      '/tmp/ends_with_test_last_entry'
+  pattern   'GRUB_CMDLINE_LINUX='
+  delim     [' ']
+  entry     'elevator=noop'
+  ends_with '"'
+  sensitive false
+end
+
+file '/tmp/ends_with_test_middle_entry' do
+  content 'GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm quiet elevator=noop"'
+end
+delete_from_list '/tmp/ends_with_test_middle_entry' do
+  path      '/tmp/ends_with_test_middle_entry'
+  pattern   'GRUB_CMDLINE_LINUX='
+  delim     [' ']
+  entry     'rd.lvm'
+  ends_with '"'
+  sensitive false
+end

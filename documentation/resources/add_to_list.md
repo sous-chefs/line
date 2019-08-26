@@ -62,4 +62,13 @@ Add this -   entry "425"
 Output -     multi = ([310], [818], [425])
 ```
 
-`ends_with` is an optional property. If specified a list is expected to end with the given string.
+`ends_with` is an optional property. If specified, a list is expected to end with the given string.
+
+```text
+Example:
+Input -      multi = "([310], [818])"
+Delimeters - delim [", ", "[", "]"]
+Ends With - ')"'
+Add this -   entry "425"
+Output -     multi = "([310], [818], [425])"
+```
