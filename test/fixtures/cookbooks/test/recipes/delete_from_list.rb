@@ -43,14 +43,14 @@ end
 
 delete_from_list 'grub.conf - Remove rhgb' do
   path '/tmp/samplefile3'
-  pattern '^\\s*kernel .*'
+  pattern '^\\s*kernel '
   delim [' ']
   entry 'rhgb'
 end
 
 delete_from_list 'grub.conf - Remove quiet' do
   path '/tmp/samplefile3'
-  pattern '^\\s*kernel .*'
+  pattern '^\\s*kernel '
   delim [' ']
   entry 'quiet'
 end

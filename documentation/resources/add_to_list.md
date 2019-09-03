@@ -63,12 +63,14 @@ Output -     multi = ([310], [818], [425])
 ```
 
 `ends_with` is an optional property. If specified, a list is expected to end with the given string.
+This property is useful for inserting into an empty delimited list.
 
 ```text
 Example:
-Input -      multi = "([310], [818])"
+Input -      multi = "()"
 Delimeters - delim [", ", "[", "]"]
-Ends With - ')"'
+Ends With -  ')"'
+Pattern -    'multi = "'
 Add this -   entry "425"
-Output -     multi = "([310], [818], [425])"
+Output -     multi = "([425])"
 ```

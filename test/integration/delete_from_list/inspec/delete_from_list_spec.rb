@@ -38,11 +38,11 @@ describe file('/tmp/emptyfile') do
 end
 
 describe file('/tmp/ends_with_test_last_entry') do
-  its(:content) { should match(%r{GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm quiet"}) }
+  its(:content) { should match(%r{GRUB_CMDLINE_LINUX=\"rd.lvm.lv=centos/root rd.lvm quiet\"}) }
 end
 
 describe file('/tmp/ends_with_test_middle_entry') do
-  its(:content) { should match(%r{GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root quiet elevator=noop"}) }
+  its(:content) { should match(%r{GRUB_CMDLINE_LINUX=\"rd.lvm.lv=centos/root quiet elevator=noop\"}) }
 end
 
 describe file('/tmp/chef_resource_status') do
