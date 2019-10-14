@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## UNRELEASED
+
+- Cookstyle fixes
+
 ## v2.4.1
 
 - Rename match_insert_lines to match_insert_lines?
