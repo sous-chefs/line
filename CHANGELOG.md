@@ -2,7 +2,7 @@
 
 ## v2.5.0
 
-- Clean up processing of lists
+- Clean up processing of add and delete from lists
 - Add processing of ends_with to delete from list
 - Add unit tests for add and delete from list
 
