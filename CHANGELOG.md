@@ -1,8 +1,10 @@
 # line Cookbook CHANGELOG
 
-## UNRELEASED
+## v2.5.0
 
-- Cookstyle fixes
+- Clean up processing of lists
+- Add processing of ends_with to delete from list
+- Add unit tests for add and delete from list
 
 ## v2.4.1
 
