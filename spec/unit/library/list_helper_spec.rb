@@ -208,12 +208,135 @@ describe 'list_helper methods single delimeter' do
     end
   end
 end
-# TODO
-# mattern matches part of another entry, end match with spaces(problematic), delim, listend
-#   can only sub the actual match white space and delimeter
-# Add to empty list
-# Delete to empty list
-# test with , separater - non white space
-# test 2 delim
-# test 3 delim
-# insert and delete are inverses tests
+
+describe 'list_helper methods two delimeters' do
+  describe 'add to list' do
+    before(:each) do
+      @method_test = Class.new
+      @method_test.extend(Line::ListHelper)
+      new_resource = OpenStruct.new
+      new_resource.delim = [',', '"']
+      new_resource.entry = '192.168.0.0/16'
+      new_resource.eol = "\n"
+      new_resource.pattern = /ip=/
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.insert_list_entry(['nl='])).to eq(['nl='])
+    end
+    it 'should add an entry to an empty list' do
+      expect(@method_test.insert_list_entry(['ip='])).to eq(['ip="192.168.0.0/16"'])
+    end
+    it 'should add an entry to a list' do
+      expect(@method_test.insert_list_entry(['ip="1.1.1.0/8"'])).to eq(['ip="1.1.1.0/8","192.168.0.0/16"'])
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.delete_list_entry(['nl='])).to eq(['nl='])
+    end
+    it 'should delete the last entry' do
+      expect(@method_test.delete_list_entry(['ip="192.168.0.0/16"'])).to eq(['ip='])
+    end
+    it 'should delete an entry from a list' do
+      expect(@method_test.delete_list_entry(['ip="1.1.1.0/8","192.168.0.0/16"'])).to eq(['ip="1.1.1.0/8"'])
+      expect(@method_test.delete_list_entry(['ip="192.168.0.0/16","1.1.1.0/8"'])).to eq(['ip="1.1.1.0/8"'])
+    end
+  end
+  describe 'add to list with list ends_with' do
+    before(:each) do
+      @method_test = Class.new
+      @method_test.extend(Line::ListHelper)
+      new_resource = OpenStruct.new
+      new_resource.delim = [',', '"']
+      new_resource.ends_with = ')'
+      new_resource.entry = '192.168.0.0/16'
+      new_resource.eol = "\n"
+      new_resource.pattern = /ip=\(/
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.insert_list_entry(['nl=()'])).to eq(['nl=()'])
+    end
+    it 'should add an entry to an empty list' do
+      expect(@method_test.insert_list_entry(['ip=()'])).to eq(['ip=("192.168.0.0/16")'])
+    end
+    it 'should add an entry to a list' do
+      expect(@method_test.insert_list_entry(['ip=("1.1.1.0/8")'])).to eq(['ip=("1.1.1.0/8","192.168.0.0/16")'])
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.delete_list_entry(['nl=()'])).to eq(['nl=()'])
+    end
+    it 'should delete the last entry' do
+      expect(@method_test.delete_list_entry(['ip=("192.168.0.0/16")'])).to eq(['ip=()'])
+    end
+    it 'should delete an entry from a list' do
+      expect(@method_test.delete_list_entry(['ip=("1.1.1.0/8","192.168.0.0/16")'])).to eq(['ip=("1.1.1.0/8")'])
+      expect(@method_test.delete_list_entry(['ip=("192.168.0.0/16","1.1.1.0/8")'])).to eq(['ip=("1.1.1.0/8")'])
+    end
+  end
+end
+
+describe 'list_helper methods three delimeters' do
+  describe 'add to list' do
+    before(:each) do
+      @method_test = Class.new
+      @method_test.extend(Line::ListHelper)
+      new_resource = OpenStruct.new
+      new_resource.delim = [',', '{', '}']
+      new_resource.entry = '192.168.0.0/16'
+      new_resource.eol = "\n"
+      new_resource.pattern = /ip=/
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.insert_list_entry(['nl='])).to eq(['nl='])
+    end
+    it 'should add an entry to an empty list' do
+      expect(@method_test.insert_list_entry(['ip='])).to eq(['ip={192.168.0.0/16}'])
+    end
+    it 'should add an entry to a list' do
+      expect(@method_test.insert_list_entry(['ip={1.1.1.0/8}'])).to eq(['ip={1.1.1.0/8},{192.168.0.0/16}'])
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.delete_list_entry(['nl='])).to eq(['nl='])
+    end
+    it 'should delete the last entry' do
+      expect(@method_test.delete_list_entry(['ip={192.168.0.0/16}'])).to eq(['ip='])
+    end
+    it 'should delete an entry from a list' do
+      expect(@method_test.delete_list_entry(['ip={1.1.1.0/8},{192.168.0.0/16}'])).to eq(['ip={1.1.1.0/8}'])
+      expect(@method_test.delete_list_entry(['ip={192.168.0.0/16},{1.1.1.0/8}'])).to eq(['ip={1.1.1.0/8}'])
+    end
+  end
+  describe 'add to list with list ends_with' do
+    before(:each) do
+      @method_test = Class.new
+      @method_test.extend(Line::ListHelper)
+      new_resource = OpenStruct.new
+      new_resource.delim = [',', '{', '}']
+      new_resource.ends_with = ')'
+      new_resource.entry = '192.168.0.0/16'
+      new_resource.eol = "\n"
+      new_resource.pattern = /ip=\(/
+      allow(@method_test).to receive(:new_resource).and_return(new_resource)
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.insert_list_entry(['nl=()'])).to eq(['nl=()'])
+    end
+    it 'should add an entry to an empty list' do
+      expect(@method_test.insert_list_entry(['ip=()'])).to eq(['ip=({192.168.0.0/16})'])
+    end
+    it 'should add an entry to a list' do
+      expect(@method_test.insert_list_entry(['ip=({1.1.1.0/8})'])).to eq(['ip=({1.1.1.0/8},{192.168.0.0/16})'])
+    end
+    it 'should leave things alone if the pattern doesnt match' do
+      expect(@method_test.delete_list_entry(['nl=()'])).to eq(['nl=()'])
+    end
+    it 'should delete the last entry' do
+      expect(@method_test.delete_list_entry(['ip=({192.168.0.0/16})'])).to eq(['ip=()'])
+    end
+    it 'should delete an entry from a list' do
+      expect(@method_test.delete_list_entry(['ip=({1.1.1.0/8},{192.168.0.0/16})'])).to eq(['ip=({1.1.1.0/8})'])
+      expect(@method_test.delete_list_entry(['ip=({192.168.0.0/16},{1.1.1.0/8})'])).to eq(['ip=({1.1.1.0/8})'])
+    end
+  end
+end
