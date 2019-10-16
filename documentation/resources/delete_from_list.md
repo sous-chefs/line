@@ -32,4 +32,4 @@ end
 
 ## Notes
 
-Delimiters works exactly the same way as `add_to_list`, see above.
+Delimiters are defined and used as in [add_to_list](https://github.com/sous-chefs/line/blob/master/documentation/resources/add_to_list.md).

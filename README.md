@@ -38,9 +38,9 @@ For more detailed information see the matching resource documentation:
 
 - [append_if_no_line](https://github.com/sous-chefs/line/blob/master/documentation/resources/append_if_no_line.md) - Add a missing line
 - [replace_or_add](https://github.com/sous-chefs/line/blob/master/documentation/resources/replace_or_add.md) - Replace a line that matches a pattern or add a missing line
-- [delete_lines](https://github.com/sous-chefs/line/blob/master/documentation/resources/delete_lines.md) - Delete an item from a list
+- [delete_lines](https://github.com/sous-chefs/line/blob/master/documentation/resources/delete_lines.md) - Delete lines that match a pattern
 - [add_to_list](https://github.com/sous-chefs/line/blob/master/documentation/resources/add_to_list.md) - Add an item to a list
-- [delete_from_list](https://github.com/sous-chefs/line/blob/master/documentation/resources/delete_from_list.md) - Delete lines that match a pattern
+- [delete_from_list](https://github.com/sous-chefs/line/blob/master/documentation/resources/delete_from_list.md) - Delete an item from a list
 - [filter_lines](https://github.com/sous-chefs/line/blob/master/documentation/resources/filter_lines.md) - Supply a ruby proc or use a sample filter to edit lines.
   The filter_lines resource supports multiple line modfications.
 
