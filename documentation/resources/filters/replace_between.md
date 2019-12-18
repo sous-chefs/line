@@ -22,7 +22,7 @@ line3
 ```ruby
 replines = "rep1\nrep2\n"
 filter_lines '/example/replace_between' do
- filters(replace_between: [/^line1$/, /^line2$/, replines])
+ filters(replace_between: [/^line1$/, /^line3$/, replines])
 end
 ```
 
@@ -46,6 +46,6 @@ rep2
 ```rubyruby
 replines = "rep1\nrep2\n"
 filter_lines '/example/replace_between_include_bounds' do
- filters(replace_between: [/^line1$/, /^line2$/, replines, :include])
+ filters(replace_between: [/^line1$/, /^line3$/, replines, :include])
 end
 ```
