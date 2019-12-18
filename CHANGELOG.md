@@ -1,5 +1,9 @@
 # line Cookbook CHANGELOG
 
+## v2.5.1
+
+- Replace_between examples had typos
+
 ## v2.5.0
 
 - Clean up processing of add and delete from lists
