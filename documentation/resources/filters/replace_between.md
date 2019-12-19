@@ -49,3 +49,55 @@ filter_lines '/example/replace_between_include_bounds' do
  filters(replace_between: [/^line1$/, /^line3$/, replines, :include])
 end
 ```
+
+## Example 3: Original file
+
+```text
+line1
+line2
+line3
+```
+
+## Example 3: Output file
+
+```texttext
+rep1
+rep2
+line3
+```
+
+## Example 3: Filter
+
+```rubyruby
+replines = "rep1\nrep2\n"
+filter_lines '/example/replace_between_include_first_boundary' do
+ filters(replace_between: [/^line1$/, /^line3$/, replines, :first])
+end
+```
+
+## Example 4: Replace a set of lines delimted by a semicolon
+
+## Example 4: Original file
+
+```text
+line1 = text
+line2;
+line3;
+```
+
+## Example 4: Output file
+
+```texttext
+line1 = rep1
+rep2;
+line3
+```
+
+## Example 4: Filter
+
+```rubyruby
+replines = "line1 = rep1\nrep2;\n"
+filter_lines '/example/replace_between_using_next' do
+ filters(replace_between: [/^line1/, /;$/, replines, [:include,:next])
+end
+```

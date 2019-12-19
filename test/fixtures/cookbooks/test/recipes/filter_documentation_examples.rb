@@ -80,6 +80,22 @@ filter_lines '/example/replace_between_include_bounds' do
   filters(replace_between: [/^line1$/, /^line3$/, replines, :include])
 end
 
+file '/example/replace_between_include_first_boundary' do
+  content "line1\nline2\nline3"
+end
+replines = "rep1\nrep2\n"
+filter_lines '/example/replace_between_include_first_boundary' do
+  filters(replace_between: [/^line1$/, /^line3$/, replines, :first])
+end
+
+file '/example/replace_between_using_next' do
+  content "line1 = text\nline2;\nline3;"
+end
+replines = "line1 = rep1\nrep2;\n"
+filter_lines '/example/replace_between_using_next' do
+  filters(replace_between: [/^line1/, /;$/, replines, [:include, :next]])
+end
+
 # Examples for the stanza filter
 file '/example/stanza' do
   content "[first]\n  line1 = value1\n[second]\n  line2 = value2\n"

@@ -1,5 +1,34 @@
 # line Cookbook CHANGELOG
 
+## v2.6.0
+
+- Add the :next boundary option to replace_between
+
+```ruby
+    This new options lets you replace delimited setting that extend over
+    multiple lines. Adding :next to the boundary options find the next
+    occurance of the search end pattern.
+
+    Input file:
+    logging = some, time, info,
+              details;
+    others = that;
+
+    Desired output:
+    logging = new, time, allinfo,
+              details;
+    others = that;
+
+    Resource:
+    replines = 'logging = new, time, allinfo,\ndetails;'
+    filter_lines 'inputfile' do
+      # :include makes sure to replace the matching lines
+      # :next search for the first semicolon after matching logging =
+      # The default behavior is to replace from the first match to the last
+       filters(replace_between: [/^logging =/, /;/, replines, [:include,:next]])
+    end
+```
+
 ## v2.5.1
 
 - Replace_between examples had typos
