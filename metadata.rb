@@ -5,6 +5,7 @@ license          'Apache-2.0'
 description      'Provides line editing resources for use by recipes'
 
 version          '2.6.0'
+
 source_url       'https://github.com/sous-chefs/line'
 issues_url       'https://github.com/sous-chefs/line/issues'
 chef_version     '>= 12.13.37'
