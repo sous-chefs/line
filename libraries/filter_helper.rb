@@ -77,6 +77,15 @@ module Line
       end
     end
 
+    def match_limits(request, lookfor)
+      return false if [request].flatten.compact.empty?
+      ([request].flatten.compact & lookfor.flatten.compact).any?
+    end
+
+    def next_match_after(start, matches)
+      matches.select { |m| start.to_i <= m }.min || matches.last
+    end
+
     def options(values, allowed)
       # allowed is {option_name: [settings]}
       @options ||= {}
@@ -115,6 +124,13 @@ module Line
     def verify_one_of(value, allowed)
       raise ArgumentError, "Value #{value} should be one of #{allowed}" unless [allowed].flatten.include?(value)
       value
+    end
+
+    def verify_all_of(value, allowed)
+      a = [allowed].flatten
+      v = [value].flatten
+      raise ArgumentError, "Values #{v} should all be in #{a}" unless (v & a) == v
+      [value].flatten.compact
     end
   end
 

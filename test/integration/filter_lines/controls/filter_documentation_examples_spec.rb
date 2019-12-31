@@ -37,6 +37,14 @@ control 'filter_documentation_examples' do
     its(:content) { should eq "rep1#{eol}rep2#{eol}" }
   end
 
+  describe file('/example/replace_between_using_next') do
+    its(:content) { should eq "line1 = rep1#{eol}rep2;#{eol}line3;#{eol}" }
+  end
+
+  describe file('/example/replace_between_include_first_boundary') do
+    its(:content) { should eq "rep1#{eol}rep2#{eol}line3#{eol}" }
+  end
+
   describe file('/example/stanza') do
     its(:content) { should eq "[first]#{eol}  line2 = addme#{eol}  line1 = new1#{eol}[second]#{eol}  line3 = add3#{eol}  line2 = value2#{eol}" }
   end

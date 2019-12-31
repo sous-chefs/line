@@ -54,6 +54,14 @@ describe 'replace_between method' do
     expect(@filter.replace_between(@current.clone, [/line3/, /c2/, @new_lines])).to eq(%w(line3 new1 new2 new3 c2))
   end
 
+  it 'should replace picking the first match of the end pattern' do
+    expect(@filter.replace_between(@current.clone, [/line3/, /c2/, @new_lines, :next])).to eq(%w(line3 new1 new2 new3 c2 c1 line1 c1 c2))
+  end
+
+  it 'should replace picking the first match of the end pattern, include the starting and ending patterns' do
+    expect(@filter.replace_between(@current.clone, [/line3/, /c2/, @new_lines, [:next, :include]])).to eq(%w(new1 new2 new3 c1 line1 c1 c2))
+  end
+
   it 'should replace between first and last lines' do
     expect(@filter.replace_between(@current.clone, [/line3/, @pattern_c2, @new_lines])).to eq(%w(line3 new1 new2 new3 c2))
   end
