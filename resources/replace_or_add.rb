@@ -5,6 +5,7 @@ property :line, String
 property :path, String
 property :pattern, [String, Regexp]
 property :replace_only, [true, false]
+property :remove_duplicates, [true, false]
 
 resource_name :replace_or_add
 
@@ -26,7 +27,7 @@ action :edit do
       found = true
       line = add_line
     end
-    new << line
+    new << line unless new.include?(line) && new_resource.remove_duplicates
   end
 
   # add
