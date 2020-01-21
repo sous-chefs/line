@@ -1,11 +1,21 @@
 control 'Check removed duplicate lines' do
   eol = os.family == 'windows' ? "\r\n" : "\n"
 
-  describe matches('/tmp/no_duplicate', /^Remove duplicate lines#{eol}/) do
+  describe matches('/tmp/no_duplicate_double', /^Remove duplicate lines#{eol}/) do
     its('count') { should eq 1 }
   end
-  describe matches('/tmp/no_duplicate', /^Identical line#{eol}/) do
+  describe matches('/tmp/no_duplicate_double', /^Identical line#{eol}/) do
     its('count') { should eq 0 }
+  end
+
+  describe matches('/tmp/no_duplicate_single', /^Remove duplicate lines#{eol}/) do
+    its('count') { should eq 1 }
+  end
+  describe matches('/tmp/no_duplicate_single', /^Data line#{eol}/) do
+    its('count') { should eq 0 }
+  end
+  describe matches('/tmp/no_duplicate_single', /^Identical line#{eol}/) do
+    its('count') { should eq 2 }
   end
 
   describe matches('/tmp/no_duplicate_replace_only', /^Remove duplicate lines#{eol}/) do

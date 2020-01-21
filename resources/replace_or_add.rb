@@ -17,30 +17,30 @@ action :edit do
   add_line = chomp_eol(new_resource.line)
   found = false
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
-  new = []
+  new_content = []
   current = target_current_lines
 
   # replace
   current.each do |line|
-    line = line.dup
     if line =~ regex || line == add_line
-      found = true
+      next if found && new_resource.remove_duplicates
       line = add_line
+      found = true
     end
-    new << line unless new.include?(line) && new_resource.remove_duplicates
+    new_content << line.dup
   end
 
   # add
-  new << add_line unless found || new_resource.replace_only
+  new_content << add_line unless found || new_resource.replace_only
 
   # Last line terminator
-  new[-1] += eol unless new[-1].to_s.empty?
+  new_content[-1] += eol unless new_content[-1].to_s.empty?
 
   file new_resource.path do
-    content new.join(eol)
+    content new_content.join(eol)
     backup new_resource.backup
     sensitive new_resource.sensitive
-    not_if { new == current }
+    not_if { new_content == current }
   end
 end
 
