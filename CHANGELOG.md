@@ -4,6 +4,11 @@
 
 - Migrate to github actions
 
+## v2.7.0
+
+- Add new property remove_duplicates to add_or_replace resource
+- Update documentation for the default value of the replace_only property in the add_or_replace resource
+
 ## v2.6.0
 
 - Add the :next boundary option to replace_between

@@ -4,8 +4,8 @@ property :ignore_missing, [true, false], default: true
 property :line, String
 property :path, String
 property :pattern, [String, Regexp]
-property :replace_only, [true, false]
-property :remove_duplicates, [true, false]
+property :replace_only, [true, false], default: false
+property :remove_duplicates, [true, false], default: false
 
 resource_name :replace_or_add
 
