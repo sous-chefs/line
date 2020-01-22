@@ -4,7 +4,8 @@ property :ignore_missing, [true, false], default: true
 property :line, String
 property :path, String
 property :pattern, [String, Regexp]
-property :replace_only, [true, false]
+property :replace_only, [true, false], default: false
+property :remove_duplicates, [true, false], default: false
 
 resource_name :replace_or_add
 
@@ -21,12 +22,12 @@ action :edit do
 
   # replace
   current.each do |line|
-    line = line.dup
     if line =~ regex || line == add_line
-      found = true
+      next if found && new_resource.remove_duplicates
       line = add_line
+      found = true
     end
-    new << line
+    new << line.dup
   end
 
   # add

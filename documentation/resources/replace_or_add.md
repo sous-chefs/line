@@ -8,15 +8,16 @@
 
 ## Properties
 
-| Properties     | Description                              | Type                         | Values and Default                      |
-| -------------- | ---------------------------------------- | ---------------------------- | --------------------------------------- |
-| path           | File to update                           | String                       | Required, no default                    |
-| pattern        | Regular expression to select lines       | Regular expression or String | Required, no default                    |
-| line           | Line contents                            | String                       | Required, no default                    |
-| replace_only   | Don't append only replace matching lines | true or false                | Required, no default                    |
-| ignore_missing | Don't fail if the file is missing        | true or false                | Default is true                         |
-| eol            | Alternate line end characters            | String                       | default `\n` on unix, `\r\n` on windows |
-| backup         | Backup before changing                   | Boolean, Integer             | default false                           |
+| Properties        | Description                              | Type                         | Values and Default                      |
+| --------------    | ---------------------------------------- | ---------------------------- | --------------------------------------- |
+| path              | File to update                           | String                       | Required, no default                    |
+| pattern           | Regular expression to select lines       | Regular expression or String | Required, no default                    |
+| line              | Line contents                            | String                       | Required, no default                    |
+| replace_only      | Don't append only replace matching lines | true or false                | Default is false                        |
+| remove_duplicates | Remove duplicate lines matching pattern  | true or false                | Default is false                        |
+| ignore_missing    | Don't fail if the file is missing        | true or false                | Default is true                         |
+| eol               | Alternate line end characters            | String                       | default `\n` on unix, `\r\n` on windows |
+| backup            | Backup before changing                   | Boolean, Integer             | default false                           |
 
 ## Example Usage
 
