@@ -1,4 +1,4 @@
+# Contributing
 
-# Contributing Guidelines
-
-Please see <https://sous-chefs.org/docs/contributing/> for guidelines for contributing to the line cookbook. [TESTING.md](https://github.com/sous-chefs/line/blob/master/TESTING.md) has specific guidelines for testing.
+Please refer to
+[https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD](https://github.com/chef-cookbooks/community_cookbook_documentation/blob/master/CONTRIBUTING.MD)
