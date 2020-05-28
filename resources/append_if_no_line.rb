@@ -5,6 +5,7 @@ property :line, String
 property :path, String
 
 resource_name :append_if_no_line
+provides :append_if_no_line
 
 action :edit do
   raise_not_found

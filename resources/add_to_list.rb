@@ -8,6 +8,7 @@ property :path, String
 property :pattern, String
 
 resource_name :add_to_list
+provides :add_to_list
 
 action :edit do
   raise_not_found
