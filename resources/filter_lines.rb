@@ -23,6 +23,7 @@ property :path, String, name_property: true
 property :safe, [true, false], default: true
 
 resource_name :filter_lines
+provides :filter_lines
 
 action :edit do
   raise_not_found
