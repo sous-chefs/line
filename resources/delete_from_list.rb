@@ -7,7 +7,7 @@ property :ignore_missing, [true, false], default: true
 property :path, String
 property :pattern, [String, Regexp]
 
-resource_name :delete_from_list
+provides :delete_from_list
 
 action :edit do
   return if !target_file_exist? && new_resource.ignore_missing
