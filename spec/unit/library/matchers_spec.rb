@@ -19,7 +19,7 @@
 
 describe 'test::matchers' do
   let(:chef_run) do
-    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04')
+    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04')
     chef_run.converge(described_recipe)
   end
 
@@ -29,7 +29,7 @@ describe 'test::matchers' do
 
   it 'add_to_list is findable' do
     custom = chef_run.add_to_list('Add to list 1')
-    expect(custom.to_s).to eq('line_add_to_list[Add to list 1]')
+    expect(custom.to_s).to eq('add_to_list[Add to list 1]')
   end
 
   it 'append_if_no_line' do
@@ -38,7 +38,7 @@ describe 'test::matchers' do
 
   it 'append_if_no_line is findable' do
     custom = chef_run.append_if_no_line('Operation')
-    expect(custom.to_s).to eq('line_append_if_no_line[Operation]')
+    expect(custom.to_s).to eq('append_if_no_line[Operation]')
   end
 
   it 'delete_from_list' do
@@ -47,7 +47,7 @@ describe 'test::matchers' do
 
   it 'delete_from_list is findable' do
     custom = chef_run.delete_from_list('Delete Operation 1')
-    expect(custom.to_s).to eq('line_delete_from_list[Delete Operation 1]')
+    expect(custom.to_s).to eq('delete_from_list[Delete Operation 1]')
   end
 
   it 'delete_lines' do
@@ -56,7 +56,7 @@ describe 'test::matchers' do
 
   it 'delete_lines is findable' do
     custom = chef_run.delete_lines('Operation 5')
-    expect(custom.to_s).to eq('line_delete_lines[Operation 5]')
+    expect(custom.to_s).to eq('delete_lines[Operation 5]')
   end
 
   it 'replace_or_add' do
@@ -65,6 +65,6 @@ describe 'test::matchers' do
 
   it 'replace_or_add is findable' do
     custom = chef_run.replace_or_add('Operation 2')
-    expect(custom.to_s).to eq('line_replace_or_add[Operation 2]')
+    expect(custom.to_s).to eq('replace_or_add[Operation 2]')
   end
 end

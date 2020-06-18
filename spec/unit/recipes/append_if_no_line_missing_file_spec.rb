@@ -21,7 +21,7 @@ require 'chefspec_helper'
 
 describe 'spectest::append_if_no_line_missing_file' do
   let(:chef_run) do
-    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '16.04', step_into: ['append_if_no_line'])
+    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04', step_into: ['append_if_no_line'])
     chef_run.converge(described_recipe)
   end
 

@@ -58,6 +58,7 @@ describe 'helper methods' do
       expect(@method_test.sensitive_default).to eq(true)
       expect(new_resource.sensitive).to eq(true)
     end
+
     it 'should leave the value alone if property_is_set?' do
       new_resource = OpenStruct.new
       new_resource.sensitive = false
@@ -66,6 +67,7 @@ describe 'helper methods' do
       expect(@method_test.sensitive_default).to eq(nil)
       expect(new_resource.sensitive).to eq(false)
     end
+
     it 'should recover from ArgumentError if property_is_set? is not defined ala chef 12' do
       new_resource = OpenStruct.new
       allow(@method_test).to receive(:property_is_set?).with(:sensitive).and_raise(ArgumentError)
@@ -94,6 +96,7 @@ describe 'helper methods' do
       allow(@method_test).to receive(:new_resource).and_return(new_resource)
       expect(@method_test.target_file_exist?).to eq(false)
     end
+
     it 'should verify file does exist' do
       File.write('/tmp/file', 'foo')
       new_resource = OpenStruct.new
