@@ -7,6 +7,7 @@ property :pattern, [String, Regexp]
 property :replace_only, [true, false], default: false
 property :remove_duplicates, [true, false], default: false
 
+resource_name :replace_or_add
 provides :replace_or_add
 
 action :edit do
