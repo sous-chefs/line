@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## UNRELEASED
+
+- Restore compatibility with Chef Infra Client < 16
+
 ## 2.8.1 - 2020-06-02
 
 - resolved cookstyle error: resources/add_to_list.rb:10:1 warning: `ChefDeprecations/ResourceUsesOnlyResourceName`
