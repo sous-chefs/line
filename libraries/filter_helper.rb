@@ -51,9 +51,7 @@ module Line
       fixed
     end
 
-    attr_reader :eol
-
-    attr_writer :eol
+    attr_accessor :eol
 
     def expand(lines)
       new_lines = []

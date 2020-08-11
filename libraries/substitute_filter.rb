@@ -36,12 +36,11 @@ module Line
       options(args[3], safe: [true, false])
 
       # find lines matching the pattern, then substitute
-      new_lines = current.map do |line|
+      current.map do |line|
         new_line = line =~ match_pattern ? line.gsub(sub_pattern, substitute_str) : line
         raise ArgumentError, "Warning - The line with contents #{line} will match #{match_pattern} and #{sub_pattern} each chef run" if new_line =~ match_pattern && new_line =~ sub_pattern && @options[:safe]
         new_line
       end
-      new_lines
     end
   end
 end
