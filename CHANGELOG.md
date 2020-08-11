@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+- resolved cookstyle error: libraries/filter_helper.rb:54:17 convention: `Style/BisectedAttrAccessor`
+- resolved cookstyle error: libraries/filter_helper.rb:56:1 convention: `Layout/EmptyLines`
+- resolved cookstyle error: libraries/filter_helper.rb:56:1 convention: `Layout/TrailingWhitespace`
+- resolved cookstyle error: libraries/filter_helper.rb:56:17 convention: `Style/BisectedAttrAccessor`
+- resolved cookstyle error: libraries/filter_helper.rb:57:1 convention: `Layout/EmptyLines`
+- resolved cookstyle error: libraries/substitute_filter.rb:39:7 convention: `Style/RedundantAssignment`
+- resolved cookstyle error: libraries/substitute_filter.rb:44:1 convention: `Layout/EmptyLinesAroundMethodBody`
+- resolved cookstyle error: libraries/substitute_filter.rb:44:1 convention: `Layout/TrailingWhitespace`
+
 ## 2.9.0 (2020-06-18)
 
 - Restore compatibility with Chef Infra Client < 16
