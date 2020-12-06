@@ -56,7 +56,7 @@ module Line
     def expand(lines)
       new_lines = []
       lines.each do |line|
-        # note - want to do *lines to add them instead adding an array
+        # NOTE: - want to do *lines to add them instead adding an array
         new_lines.push line.class == Replacement ? line.insert : line
       end
       new_lines.compact.flatten # add the lines better so we don't need this

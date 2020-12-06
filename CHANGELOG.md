@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+- resolved cookstyle error: libraries/filter_helper.rb:59:11 convention: `Style/CommentAnnotation`
+
 ## 2.9.1 (2020-09-16)
 
 - resolved cookstyle error: libraries/filter_helper.rb:54:17 convention: `Style/BisectedAttrAccessor`
