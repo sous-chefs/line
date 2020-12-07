@@ -16,7 +16,7 @@
 #
 
 property :backup, [true, false, Integer], default: false
-property :eol
+property :eol, String
 property :filters, [Array, Hash, Method, Proc], required: true
 property :ignore_missing, [true, false], default: true
 property :path, String, name_property: true
