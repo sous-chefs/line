@@ -46,8 +46,8 @@ jobs:
           - centos-8
           - centos-stream-8
           - fedora-latest
-          - ubuntu-20.04
-          - ubuntu-21.04
+          - ubuntu-2004
+          - ubuntu-2104
           - amazonlinux-2
         suite:
           - add-to-list
