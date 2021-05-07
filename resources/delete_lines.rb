@@ -6,6 +6,7 @@ property :pattern, [String, Regexp]
 
 resource_name :delete_lines
 provides :delete_lines
+unified_mode true
 
 action :edit do
   return if !target_file_exist? && new_resource.ignore_missing

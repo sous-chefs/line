@@ -24,6 +24,7 @@ property :safe, [true, false], default: true
 
 resource_name :filter_lines
 provides :filter_lines
+unified_mode true
 
 action :edit do
   raise_not_found

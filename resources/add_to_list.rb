@@ -9,6 +9,7 @@ property :pattern, String
 
 resource_name :add_to_list
 provides :add_to_list
+unified_mode true
 
 action :edit do
   raise_not_found

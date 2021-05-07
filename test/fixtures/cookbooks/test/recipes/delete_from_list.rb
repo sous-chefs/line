@@ -1,7 +1,6 @@
 directory '/tmp'
 
-template '/tmp/samplefile3' do
-end
+template '/tmp/samplefile3'
 
 # Delete the first entry in a list with delimited entries
 delete_from_list 'Delete Operation 1' do
@@ -125,6 +124,7 @@ end
 file '/tmp/ends_with_test_last_entry' do
   content 'GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm quiet elevator=noop"'
 end
+
 delete_from_list '/tmp/ends_with_test_last_entry' do
   path      '/tmp/ends_with_test_last_entry'
   pattern   'GRUB_CMDLINE_LINUX='
@@ -137,6 +137,7 @@ end
 file '/tmp/ends_with_test_middle_entry' do
   content 'GRUB_CMDLINE_LINUX="rd.lvm.lv=centos/root rd.lvm quiet elevator=noop"'
 end
+
 delete_from_list '/tmp/ends_with_test_middle_entry' do
   path      '/tmp/ends_with_test_middle_entry'
   pattern   'GRUB_CMDLINE_LINUX='

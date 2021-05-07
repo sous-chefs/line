@@ -1,7 +1,6 @@
 directory '/tmp'
 
-template '/tmp/samplefile3' do
-end
+template '/tmp/samplefile3'
 
 # test lists with an item seperator
 add_to_list 'Add to an empty list, seperator' do
@@ -155,6 +154,7 @@ end
 file '/tmp/emptyfile' do
   content ''
 end
+
 add_to_list 'Empty files that are not changed should stay empty' do
   path '/tmp/emptyfile'
   pattern  'line='

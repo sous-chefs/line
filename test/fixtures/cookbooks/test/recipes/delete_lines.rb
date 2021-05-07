@@ -1,10 +1,8 @@
 directory '/tmp'
 
-template '/tmp/samplefile1' do
-end
+template '/tmp/samplefile1'
 
-template '/tmp/samplefile2' do
-end
+template '/tmp/samplefile2'
 
 # just dup the files for regexp tests
 
@@ -64,6 +62,7 @@ end
 file '/tmp/emptyfile' do
   content ''
 end
+
 delete_lines 'Empty file should not change' do
   path '/tmp/emptyfile'
   pattern /line/

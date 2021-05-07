@@ -3,8 +3,7 @@ directory '/tmp'
 eol = /cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM ? "\r\n" : "\n"
 danger_contents = "HELLO THERE I AM DANGERFILE#{eol}# UNCOMMENT ME YOU FOOL#{eol}COMMENT ME AND I STOP YELLING I PROMISE#{eol}"
 
-template '/tmp/samplefile' do
-end
+template '/tmp/samplefile'
 
 file '/tmp/samplefile2' do
   content danger_contents
