@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+- Greately increase the platforms we test in CI
+- Increase the minimum supported Chef version to 15.3 for unified mode
+
 ## 2.9.3 - *2020-12-07*
 
 - Add a type to the EOL property of the filter_lines resource

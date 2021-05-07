@@ -40,15 +40,22 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'centos-7'
-          - 'ubuntu-1804'
+          - debian-9
+          - debian-10
+          - centos-7
+          - centos-8
+          - centos-stream-8
+          - fedora-latest
+          - ubuntu-20.04
+          - ubuntu-21.04
+          - amazonlinux-2
         suite:
-          - 'add-to-list'
-          - 'append-if-no-line'
-          - 'delete-from-list'
-          - 'delete-lines'
-          - 'filter-lines'
-          - 'replace-or-add'
+          - add-to-list
+          - append-if-no-line
+          - delete-from-list
+          - delete-lines
+          - filter-lines
+          - replace-or-add
       fail-fast: false
 
     steps:

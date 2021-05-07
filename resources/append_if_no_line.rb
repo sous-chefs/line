@@ -6,6 +6,7 @@ property :path, String
 
 resource_name :append_if_no_line
 provides :append_if_no_line
+unified_mode true
 
 action :edit do
   raise_not_found

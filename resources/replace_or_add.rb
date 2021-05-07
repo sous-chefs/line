@@ -9,6 +9,7 @@ property :remove_duplicates, [true, false], default: false
 
 resource_name :replace_or_add
 provides :replace_or_add
+unified_mode true
 
 action :edit do
   raise_not_found
