@@ -5,14 +5,9 @@ driver:
   chef_version: current
   env: [CHEF_LICENSE=accept]
 
-transport:
-  name: dokken
-
-provisioner:
-  name: dokken
-
-verifier:
-  name: inspec
+transport: { name: dokken }
+provisioner: { name: dokken }
+verifier: { name: inspec }
 
 platforms:
   - name: debian-9
