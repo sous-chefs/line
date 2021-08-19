@@ -5,7 +5,7 @@ property :entry, String
 property :eol, String
 property :ignore_missing, [true, false], default: true
 property :path, String
-property :pattern, String
+property :pattern, [String, Regexp]
 
 resource_name :add_to_list
 provides :add_to_list

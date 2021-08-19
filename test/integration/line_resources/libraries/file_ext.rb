@@ -29,4 +29,14 @@ class FileExtResource < Inspec.resource(1)
   def size_lines
     @file.content ? @file.content.lines.count : 0
   end
+
+  def has_correct_eol?
+    pattern = inspec.backend.os.family == 'windows' ? "\r\n" : "\n"
+    @file.content.lines.each do |line|
+      if line !~ /#{pattern}$/
+        return false
+      end
+    end
+    true
+  end
 end
