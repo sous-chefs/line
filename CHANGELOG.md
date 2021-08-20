@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 4.1.0 - *2021-08-20*
 
 - Update Inspec Tests
 - Patch Bug in `add_to_list` that caused elements to be added multiple times
