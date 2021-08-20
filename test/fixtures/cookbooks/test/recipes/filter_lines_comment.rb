@@ -1,18 +1,14 @@
-directory '/tmp'
+#
+# Verify the results of using the comment filter
+#
 
-# ==================== comment filter =================
 template '/tmp/comment' do
-  source 'samplefile3.erb'
+  source 'samplefile.erb'
+  action :create_if_missing
 end
 
 filter_lines 'Change matching lines to comments' do
   path '/tmp/comment'
   sensitive false
-  filters comment: [/last_list/]
-end
-
-filter_lines 'Change matching lines to comments redo' do
-  path '/tmp/comment'
-  sensitive false
-  filters comment: [/last_list/]
+  filters comment: [/I/]
 end

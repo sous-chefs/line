@@ -1,16 +1,25 @@
-control 'Change multiple lines with one pass' do
-  eol = os.family == 'windows' ? "\r\n" : "\n"
-  describe matches('/tmp/replace_only', /^Replace duplicate lines#{eol}/) do
-    its('count') { should eq 2 }
+#
+# Replace only
+
+control 'replace_or_add_replace_only' do
+  file('/tmp/replace_only') do
+    it { should exist }
+    its('content') { should_not match /^Penultimate$/ }
+  end
+  describe matches('/tmp/replace_only', /^Penultimate Replacement$/) do
+    its('count') { should eq 1 }
+  end
+  describe file_ext('/tmp/replace_only') do
+    it { should have_correct_eol }
+    its('size_lines') { should eq 7 }
   end
 
-  describe matches('/tmp/replace_only_nomatch', /^Replace duplicate lines#{eol}/) do
-    its('count') { should eq 0 }
+  file('/tmp/replace_only_nomatch') do
+    it { should exist }
+    its('content') { should_not match /^Penultimate Replacement$/ }
   end
-
-  # redo of resource did nothing
-  describe file('/tmp/chef_resource_status') do
-    its(:content) { should match(/replace_only redo.*n#{eol}/) }
-    its(:content) { should match(/replace_only_nomatch.*n#{eol}/) }
+  describe file_ext('/tmp/replace_only_nomatch') do
+    it { should have_correct_eol }
+    its('size_lines') { should eq 7 }
   end
 end
