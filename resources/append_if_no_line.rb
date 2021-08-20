@@ -1,7 +1,9 @@
 property :backup, [true, false, Integer], default: false
 property :eol, String
+property :group, String
 property :ignore_missing, [true, false], default: true
 property :line, String
+property :owner, String
 property :path, String
 
 resource_name :append_if_no_line
@@ -20,6 +22,8 @@ action :edit do
 
   file new_resource.path do
     content((current + [add_line + eol]).join(eol))
+    owner new_resource.owner
+    group new_resource.group
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }

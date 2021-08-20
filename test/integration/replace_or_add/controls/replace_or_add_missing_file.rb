@@ -31,4 +31,17 @@ control 'replace_or_add_missing_file' do
     it { should have_correct_eol }
     its('size_lines') { should eq 1 }
   end
+
+  describe file('/tmp/missingfile_owner') do
+    it { should exist }
+    its('owner') { should cmp 'test_user' }
+    its('group') { should cmp 'test_user' }
+  end
+  describe matches('/tmp/missingfile_owner', /^Owned by test_user$/) do
+    its('count') { should eq 1 }
+  end
+  describe file_ext('/tmp/missingfile_owner') do
+    it { should have_correct_eol }
+    its('size_lines') { should eq 1 }
+  end
 end
