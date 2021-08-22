@@ -21,7 +21,7 @@ require 'chefspec_helper'
 
 describe 'spectest::delete_from_list_missing_file' do
   let(:chef_run) do
-    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04', step_into: ['delete_from_list'])
+    chef_run = ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '20.04', step_into: [:delete_from_list])
     chef_run.converge(described_recipe)
   end
 

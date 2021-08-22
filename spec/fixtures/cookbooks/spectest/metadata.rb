@@ -1,1 +1,2 @@
 name 'spectest'
+depends 'line'

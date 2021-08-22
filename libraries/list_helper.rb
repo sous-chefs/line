@@ -30,7 +30,7 @@ module Line
         seperator = line =~ /#{new_resource.pattern}.*\S.*#{ends_with}/ ? new_resource.delim[0] : ''
         case new_resource.delim.count
         when 1
-          next if line =~ /(#{regexdelim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#regexdelim[0]|#{ends_with})/
+          next if line =~ /(#{regexdelim[0]}|#{new_resource.pattern})\s*#{new_resource.entry}\s*(#{regexdelim[0]}|#{ends_with})/
           line = line.insert(list_end, "#{seperator}#{new_resource.entry}")
         when 2
           next if line =~ /#{regexdelim[1]}#{new_resource.entry}\s*#{regexdelim[1]}/

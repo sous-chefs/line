@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+## 4.1.0 - *2021-08-20*
+
+- Update Inspec Tests
+- Patch Bug in `add_to_list` that caused elements to be added multiple times
+- Idempotency fixes
+
 ## 4.0.1 - *2021-06-01*
 
 ## 4.0.0 - *2021-05-11*
