@@ -1,7 +1,9 @@
 property :backup, [true, false, Integer], default: false
 property :eol, String
+property :group, String
 property :ignore_missing, [true, false], default: true
 property :line, String
+property :owner, String
 property :path, String
 property :pattern, [String, Regexp]
 property :replace_only, [true, false], default: false
@@ -40,6 +42,8 @@ action :edit do
 
   file new_resource.path do
     content new.join(eol)
+    owner new_resource.owner
+    group new_resource.group
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { new == current }

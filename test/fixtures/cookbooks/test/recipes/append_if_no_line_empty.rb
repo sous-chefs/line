@@ -2,6 +2,8 @@
 # Append to empty file
 #
 
+user 'test_user'
+
 file '/tmp/emptyfile'
 
 append_if_no_line 'should add to empty file' do
@@ -12,6 +14,13 @@ end
 append_if_no_line 'missing_file' do
   path '/tmp/missing_create'
   line 'added line'
+end
+
+append_if_no_line 'missing_file with owner and group' do
+  path '/tmp/missing_create_owner'
+  line 'Owned by test_user'
+  owner 'test_user'
+  group 'test_user'
 end
 
 append_if_no_line 'missing_file fail' do
