@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 4.2.0 - *2021-08-23*
 
 - Add `owner` and `group` properties to the `append_if_no_line` and `replace_or_add` resources
 - Add corresponding tests
