@@ -18,6 +18,8 @@
 | ignore_missing    | Don't fail if the file is missing        | true or false                | Default is true                         |
 | eol               | Alternate line end characters            | String                       | default `\n` on unix, `\r\n` on windows |
 | backup            | Backup before changing                   | Boolean, Integer             | default false                           |
+| owner             | Set the `owner` of the file              | String                       | no default                              |
+| group             | Set the `group` of the file              | String                       | no default                              |
 
 ## Example Usage
 
