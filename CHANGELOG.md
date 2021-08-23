@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add `owner` and `group` properties to the `append_if_no_line` and `replace_or_add` resources
 - Add corresponding tests
 
+## 4.1.1 - *2021-08-23*
+
 ## 4.1.0 - *2021-08-20*
 
 - Update Inspec Tests
