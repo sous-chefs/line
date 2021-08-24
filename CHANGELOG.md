@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 4.3.0 - *2021-08-24*
 
 - Add `mode` property to the `append_if_no_line` and `replace_or_add` resources
 - Add corresponding tests
