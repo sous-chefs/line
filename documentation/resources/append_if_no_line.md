@@ -17,6 +17,7 @@
 | backup         | Backup before changing            | Boolean, Integer | default false                           |
 | owner          | Set the `owner` of the file       | String           | no default                              |
 | group          | Set the `group` of the file       | String           | no default                              |
+| mode           | Set the `mode` of the file        | String, Integer  | no default                              |
 
 ## Example Usage
 

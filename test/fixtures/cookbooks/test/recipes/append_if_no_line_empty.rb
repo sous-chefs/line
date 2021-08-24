@@ -16,11 +16,12 @@ append_if_no_line 'missing_file' do
   line 'added line'
 end
 
-append_if_no_line 'missing_file with owner and group' do
+append_if_no_line 'missing_file with owner, group, mode' do
   path '/tmp/missing_create_owner'
   line 'Owned by test_user'
   owner 'test_user'
   group 'test_user'
+  mode '0600'
 end
 
 append_if_no_line 'missing_file fail' do
