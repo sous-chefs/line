@@ -3,6 +3,7 @@ property :eol, String
 property :group, String
 property :ignore_missing, [true, false], default: true
 property :line, String
+property :mode, [String, Integer]
 property :owner, String
 property :path, String
 
@@ -24,6 +25,7 @@ action :edit do
     content((current + [add_line + eol]).join(eol))
     owner new_resource.owner
     group new_resource.group
+    mode new_resource.mode
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { ::File.exist?(new_resource.path) && !current.grep(regex).empty? }

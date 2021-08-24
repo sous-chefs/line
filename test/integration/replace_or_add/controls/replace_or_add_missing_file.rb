@@ -36,6 +36,7 @@ control 'replace_or_add_missing_file' do
     it { should exist }
     its('owner') { should cmp 'test_user' }
     its('group') { should cmp 'test_user' }
+    its('mode') { should cmp '0600' }
   end
   describe matches('/tmp/missingfile_owner', /^Owned by test_user$/) do
     its('count') { should eq 1 }

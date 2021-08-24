@@ -26,6 +26,7 @@ control 'append_if_no_line_empty' do
     its('content') { should match /^Owned by test_user$/ }
     its('owner') { should cmp 'test_user' }
     its('group') { should cmp 'test_user' }
+    its('mode') { should cmp '0600' }
   end
   describe file_ext('/tmp/missing_create_owner') do
     it { should have_correct_eol }

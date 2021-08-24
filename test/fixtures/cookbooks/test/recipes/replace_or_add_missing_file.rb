@@ -30,6 +30,7 @@ replace_or_add 'missing_file_owner' do
   line 'Owned by test_user'
   owner 'test_user'
   group 'test_user'
+  mode '0600'
 end
 
 replace_or_add 'missing_file replace_only' do
