@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## Unreleased
 
 - resolved cookstyle error: resources/delete_from_list.rb:32:1 refactor: `Chef/Modernize/ClassEvalActionClass`
+
 ## 4.3.0 - *2021-08-24*
 
 - Add `mode` property to the `append_if_no_line` and `replace_or_add` resources
