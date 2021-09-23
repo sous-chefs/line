@@ -10,7 +10,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## 4.4.1 - *2021-09-21*
 
-
 ## 4.4.0 - *2021-09-09*
 
 - resolved cookstyle error: resources/delete_from_list.rb:32:1 refactor: `Chef/Modernize/ClassEvalActionClass`
