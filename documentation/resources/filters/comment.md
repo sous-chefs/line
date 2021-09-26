@@ -20,5 +20,5 @@ line
 
 ```ruby
 filter_lines '/example/comment' do
- filters(comment: [/^line\d+$/, '#'/, '      ')
+ filters(comment: [/^line\d+$/, '#', '      '])
 end
