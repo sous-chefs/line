@@ -14,6 +14,20 @@ filter_lines 'Change stanza values' do
     [
       { stanza:  ['libvas', { 'use-dns-srv' => false, 'mscldap-timeout' => 5 }] },
       { stanza:  ['nss_vas', { 'lowercase-names' => false, addme: 'option' }] },
+      { stanza:  ['test1', { line1: 'true' }] },
+      { stanza:  ['test2/test', { line1: 'false' }] },
+    ]
+  )
+end
+
+# Add a test for an invalid stanza name
+filter_lines 'Fail stanza change' do
+  path '/tmp/stanza'
+  ignore_failure true
+  sensitive false
+  filters(
+    [
+      { stanza:  ['test2!test', { line1: 'false' }] },
     ]
   )
 end
