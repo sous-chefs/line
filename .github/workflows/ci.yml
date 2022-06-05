@@ -8,15 +8,8 @@ name: ci
       - main
 
 jobs:
-  delivery:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run Chef Delivery
-        uses: actionshub/chef-delivery@main
-        env:
-          CHEF_LICENSE: accept-no-persist
+  lint-unit:
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.0.3
 
   yamllint:
     runs-on: ubuntu-latest
@@ -35,7 +28,7 @@ jobs:
         uses: actionshub/markdownlint@main
 
   integration:
-    needs: [mdl, yamllint, delivery]
+    needs: [mdl, yamllint, lint-unit]
     runs-on: ubuntu-latest
     strategy:
       matrix:

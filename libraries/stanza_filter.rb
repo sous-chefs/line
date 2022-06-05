@@ -112,7 +112,7 @@ module Line
     end
 
     def key_value_regex
-      /(?<key>#{name_pattern})/
+      /^(?<key>#{name_pattern})$/
     end
 
     def key_seperator
@@ -120,7 +120,7 @@ module Line
     end
 
     def name_pattern
-      '[\w.\-_%@]*'
+      '[\w/\-_.%@]+'
     end
 
     def stanza_pattern
@@ -130,13 +130,13 @@ module Line
     def verify_keys
       # unless the key names match the pattern the stanza will be inserted during each converge
       @settings.each_key do |key|
-        raise ArgumentError, "Invalid key value #{key}" unless key =~ key_value_regex
+        raise ArgumentError, "Unsupported key value #{key}, should match #{key_value_regex}" unless key =~ key_value_regex
       end
     end
 
     def verify_stanza_name
       # unless the new stanza name matches the pattern the stanza will be inserted during each converge
-      raise ArgumentError, "Invalid stanza name #{@stanza_name}, should match #{stanza_regex}" unless @stanza_name =~ key_value_regex
+      raise ArgumentError, "Unsupported stanza name #{@stanza_name}, should match #{key_value_regex}" unless @stanza_name =~ key_value_regex
     end
   end
 end

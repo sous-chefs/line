@@ -8,6 +8,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Standardise files with files in sous-chefs/repo-management
 
+## 4.5.0 - *2022-06-05*
+
+- StanzaSlash support using a slash as a character in a stanza name for the stanza filter
+  Improve detection of unsupported characters in a stanza name
+
 ## 4.4.4 - *2022-02-10*
 
 - Standardise files with files in sous-chefs/repo-management
