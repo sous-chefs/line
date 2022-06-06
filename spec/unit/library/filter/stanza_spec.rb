@@ -130,4 +130,18 @@ describe 'stanza method' do
     out_lines = ['[head1]', '  newkey insertvalue', '  key1 replace2', '  key2 replace1', '[head2]', '  key2 val2', '  key3 val1', '  key4 val4']
     expect(@filt.stanza(@sample_mixed, ['head1', { 'key2' => 'replace1', newkey: 'insertvalue', 'key1' => 'replace2' }, :value])).to eq(out_lines)
   end
+
+  it 'should allow certain characters in a stanza name' do
+    expect('stanzakey' =~ @filt.key_value_regex).to be_truthy()
+    expect('/stanzakey@' =~ @filt.key_value_regex).to be_truthy()
+    expect('/abcde1234-_.%@' =~ @filt.key_value_regex).to be_truthy()
+  end
+
+  it 'should not allow leading and trailing blanks in a stanza name' do
+    expect(' stanzakey ' =~ @filt.key_value_regex).to be_falsy()
+  end
+
+  it 'should only allow character in the name pattern in a stanza name' do
+    expect('stanza key' =~ @filt.key_value_regex).to be_falsy()
+  end
 end
