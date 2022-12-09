@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+Standardise files with files in sous-chefs/repo-management
+
 ## 4.5.2 - *2022-06-08*
 
 - StanzaSlash add some stanza filter unit tests to fill in the checks
