@@ -9,7 +9,13 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.1
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.2
+    permissions:
+      actions: write
+      checks: write
+      pull-requests: write
+      statuses: write
+      issues: write
 
   integration:
     needs: lint-unit
@@ -17,15 +23,20 @@ jobs:
     strategy:
       matrix:
         os:
-          - debian-9
-          - debian-10
-          - centos-7
-          - centos-8
-          - centos-stream-8
-          - fedora-latest
-          - ubuntu-2004
-          - ubuntu-2104
-          - amazonlinux-2
+          - "almalinux-8"
+          - "almalinux-9"
+          - "amazonlinux-2023"
+          - "centos-7"
+          - "centos-stream-8"
+          - "centos-stream-9"
+          - "debian-9"
+          - "debian-10"
+          - "debian-11"
+          - "debian-12"
+          - "fedora-latest"
+          - "ubuntu-1804"
+          - "ubuntu-2004"
+          - "ubuntu-2204"
         suite:
           - add-to-list
           - append-if-no-line
