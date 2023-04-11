@@ -8,13 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 Standardise files with files in sous-chefs/repo-management
 
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
-
-Standardise files with files in sous-chefs/repo-management
+## 4.5.8 - *2023-04-01*
 
 ## 4.5.7 - *2023-02-23*
 
@@ -241,8 +235,8 @@ Standardise files with files in sous-chefs/repo-management
 
 ## [2.0.0] - 2018-05-19
 
-- _Breaking change_ - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed.
-- _Breaking change_ - Drop Chef 12 support
+- **Breaking change** - Files are processed in memory instead of line by line. It's possible that large files that were previously updated by the line cookbook will not be able to be processed.
+- **Breaking change** - Drop Chef 12 support
 - Use template files instead of `cookbook_file` so that we get platform sensitive line endings written for testing.
 - Add windows support to `add_to_list`, `append_if_no_line`, `delete_from_list`, `delete_lines`, `replace_or_add`.
 - Make the processing of missing target files consistent. Add the `ignore_missing` property to the resources to allow a missing file to raise an error.

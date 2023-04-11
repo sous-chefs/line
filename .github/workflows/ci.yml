@@ -9,26 +9,10 @@ name: ci
 
 jobs:
   lint-unit:
-    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@0.0.3
-
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
-
-  mdl:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v3
-      - name: Run Markdown Lint
-        uses: actionshub/markdownlint@main
+    uses: sous-chefs/.github/.github/workflows/lint-unit.yml@2.0.1
 
   integration:
-    needs: [mdl, yamllint, lint-unit]
+    needs: lint-unit
     runs-on: ubuntu-latest
     strategy:
       matrix:
