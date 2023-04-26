@@ -6,6 +6,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased
 
+Update CI test matrix
+
 ## 4.5.10 - *2023-04-17*
 
 ## 4.5.9 - *2023-04-11*
