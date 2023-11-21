@@ -65,6 +65,7 @@ suites:
   - name: replace_or_add
     run_list:
       - recipe[test::replace_or_add_add_a_line_matching_pattern]
+      - recipe[test::replace_or_add_add_a_line_etchosts]
       - recipe[test::replace_or_add_change_line_eof]
       - recipe[test::replace_or_add_duplicate]
       - recipe[test::replace_or_add_missing_file]
