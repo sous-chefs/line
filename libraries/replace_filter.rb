@@ -27,7 +27,7 @@ module Line
       #
       # returns array with inserted lines
       #
-      match_pattern = verify_kind(args[0], Regexp)
+      match_pattern = verify_kind(args.first, Regexp)
       insert_array = prepare_insert_lines(args[1])
       options(args[2], safe: [true, false])
 

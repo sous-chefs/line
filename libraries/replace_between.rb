@@ -28,7 +28,7 @@ module Line
       # args[4] options.
       #
       # returns array with replaced lines
-      start_pattern = verify_kind(args[0], Regexp)
+      start_pattern = verify_kind(args.first, Regexp)
       end_pattern = verify_kind(args[1], Regexp)
       insert_array = prepare_insert_lines(args[2])
       ends = verify_all_of(args[3], [nil, :exclude, :first, :include, :last, :next]) || :exclude
