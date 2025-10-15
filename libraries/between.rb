@@ -9,7 +9,7 @@ module Line
       # args[2] is a string or an array of lines to insert after the matched lines
       #
       # returns array with inserted lines
-      first_pattern = verify_kind(args[0], Regexp)
+      first_pattern = verify_kind(args.first, Regexp)
       second_pattern = verify_kind(args[1], Regexp)
       insert_array = prepare_insert_lines(args[2])
 

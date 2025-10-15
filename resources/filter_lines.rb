@@ -63,8 +63,8 @@ action :edit do
   end
 
   # eol on last line
-  @new[-1] += eol unless @new[-1].to_s.empty?
-  current[-1] += eol unless current[-1].to_s.empty?
+  @new.last += eol unless @new.last.to_s.empty?
+  current.last += eol unless current.last.to_s.empty?
   new = @new
 
   file new_resource.path do
