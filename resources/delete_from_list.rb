@@ -20,7 +20,7 @@ action :edit do
   current = target_current_lines
   new = delete_list_entry(current)
 
-  terminate_last_line(new, eol)
+  new.last += eol unless new.last.to_s.empty?
   file new_resource.path do
     content new.join(eol)
     backup new_resource.backup

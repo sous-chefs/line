@@ -22,7 +22,7 @@ action :edit do
   new = insert_list_entry(current)
 
   # eol on last line
-  terminate_last_line(new, eol)
+  new.last += eol unless new.last.to_s.empty?
 
   file new_resource.path do
     content new.join(eol)

@@ -39,7 +39,7 @@ action :edit do
   new << add_line unless found || new_resource.replace_only
 
   # Last line terminator
-  terminate_last_line(new, eol)
+  new.last += eol unless new.last.to_s.empty?
 
   file new_resource.path do
     content new.join(eol)
