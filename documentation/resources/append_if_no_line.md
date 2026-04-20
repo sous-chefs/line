@@ -18,6 +18,7 @@
 | owner          | Set the `owner` of the file       | String           | no default                              |
 | group          | Set the `group` of the file       | String           | no default                              |
 | mode           | Set the `mode` of the file        | String, Integer  | no default                              |
+| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false | no default |
 
 ## Example Usage
 
@@ -31,3 +32,5 @@ end
 ## Notes
 
 This resource is intended to match the whole line **exactly**. That means if the file contains `this is my line` (trailing whitespace) and you've specified `line "this is my line"`, another line will be added. You may want to use `replace_or_add` instead, depending on your use case.
+
+If `manage_symlink_source` is set to `true`, Chef manages the symlink source file. If it is set to `false`, Chef disables symlink-source handling and may require the symlink to be removed before writing.

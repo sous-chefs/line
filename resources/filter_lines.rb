@@ -19,6 +19,7 @@ property :backup, [true, false, Integer], default: false
 property :eol, String
 property :filters, [Array, Hash, Method, Proc], required: true
 property :ignore_missing, [true, false], default: true
+property :manage_symlink_source, [true, false]
 property :path, String, name_property: true
 property :safe, [true, false], default: true
 
@@ -34,6 +35,7 @@ action :edit do
 
   current = ::File.exist?(new_resource.path) ? ::File.binread(new_resource.path).split(eol) : []
   @new = current.clone
+  manage_symlink_source_explicit = property_is_set?(:manage_symlink_source)
 
   # Proc or Method
   # if new_resource.filter.is_a?(Method) || new_resource.filter.is_a?(Proc)
@@ -69,6 +71,7 @@ action :edit do
 
   file new_resource.path do
     content new.join(eol)
+    manage_symlink_source new_resource.manage_symlink_source if manage_symlink_source_explicit
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { new == current }
