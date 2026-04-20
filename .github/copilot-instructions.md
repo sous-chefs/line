@@ -23,7 +23,7 @@
 ## Build and Test System
 
 ### Environment Setup
-**MANDATORY:** Install Chef Workstation first - provides chef, berks, cookstyle, kitchen tools.
+**MANDATORY:** Install Cinc Workstation first - provides `chef`, `berks`, `cookstyle`, and `kitchen` tools.
 
 ### Essential Commands (strict order)
 ```bash
@@ -44,7 +44,7 @@ chef exec rspec                 # Unit tests (ChefSpec)
 ### Common Issues and Solutions
 - **Always run `berks install` first** - most failures are dependency-related
 - **Docker must be running** for kitchen tests
-- **Chef Workstation required** - no workarounds, no alternatives
+- **Cinc Workstation required** - no workarounds, no alternatives
 - **Test data bags needed** (optional for some cookbooks) in `test/integration/data_bags/` for convergence
 
 ## Development Workflow
@@ -87,7 +87,7 @@ chef exec rspec                 # Unit tests (ChefSpec)
 These instructions are validated for Sous Chefs cookbooks. **Do not search for build instructions** unless information here fails.
 
 **Error Resolution Checklist:**
-1. Verify Chef Workstation installation
+1. Verify Cinc Workstation installation
 2. Confirm `berks install` completed successfully
 3. Ensure Docker is running for integration tests
 4. Check for missing test data dependencies
