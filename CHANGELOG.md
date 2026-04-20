@@ -7,6 +7,25 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [4.6.0](https://github.com/sous-chefs/line/compare/v4.5.23...v4.6.0) (2026-04-20)
+
+
+### Features
+
+* expose manage_symlink_source and release slack secrets ([53caec2](https://github.com/sous-chefs/line/commit/53caec2f1b7e40dfeac99ed7b9f8b533b60bd527))
+
+
+### Bug Fixes
+
+* align kitchen matrix and resource EOL handling ([2b6a0a0](https://github.com/sous-chefs/line/commit/2b6a0a0b6f8294610584a94408809e0926bd1007))
+* **ci:** Update workflows to use release pipeline ([#280](https://github.com/sous-chefs/line/issues/280)) ([1ac66c4](https://github.com/sous-chefs/line/commit/1ac66c43992f258b238bccf4c09be878483bc0af))
+* drop almalinux 8 from matrix ([64f335c](https://github.com/sous-chefs/line/commit/64f335c516bee57a7315225ab6419f4c81408a69))
+* drop oraclelinux and rocky 8 from matrix ([5ed3e45](https://github.com/sous-chefs/line/commit/5ed3e459f2871b8e124cead3380bb57967327b6b))
+* remove debug lines ([f285dc2](https://github.com/sous-chefs/line/commit/f285dc250b3a27ecb13d0da8da1174725d8c1178))
+* Remove debug lines from Chef run ([#284](https://github.com/sous-chefs/line/issues/284)) ([f285dc2](https://github.com/sous-chefs/line/commit/f285dc250b3a27ecb13d0da8da1174725d8c1178))
+* restore helper for resource line endings ([0afec01](https://github.com/sous-chefs/line/commit/0afec016bd135399fd5fa9dc83ac98ff560cfddc))
+* use Cinc workstation installer ([8bb5510](https://github.com/sous-chefs/line/commit/8bb55106ab05bc405136002f4e84824abc33581b))
+
 ## [4.5.23](https://github.com/sous-chefs/line/compare/4.5.22...v4.5.23) (2025-10-15)
 
 
