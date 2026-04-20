@@ -23,7 +23,6 @@ jobs:
     strategy:
       matrix:
         os:
-          - "almalinux-8"
           - "almalinux-9"
           - "almalinux-10"
           - "amazonlinux-2023"
