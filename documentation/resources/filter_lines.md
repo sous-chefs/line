@@ -3,20 +3,20 @@
 ## Actions
 
 | Action | Description |
-| ------ | ----------- |
+|--------|-------------|
 | edit   | Use a proc  |
 
 ## Properties
 
-| Properties     | Description                       | Type                   | Values and Default                  |
-| -------------- | --------------------------------- | ---------------------- | ----------------------------------- |
-| path           | String                            | Path to file           | Required, resource name property    |
-| filters        | Array of filters, Proc, Method    | See the filter grammar | Required, no default                |
-| ignore_missing | Don't fail if the file is missing | true or false          | Default is true                     |
-| eol            | Alternate line end characters     | String                 | default \n on unix, \r\n on windows |
-| backup         | Backup before changing            | Boolean, Integer       | default false                       |
-| safe           | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. |  Boolean                | default true
-| sensitive      | Print the file changes            |  Boolean                | default false
+| Properties     | Description                                                                                                                | Type                   | Values and Default                  |
+|----------------|----------------------------------------------------------------------------------------------------------------------------|------------------------|-------------------------------------|
+| path           | String                                                                                                                     | Path to file           | Required, resource name property    |
+| filters        | Array of filters, Proc, Method                                                                                             | See the filter grammar | Required, no default                |
+| ignore_missing | Don't fail if the file is missing                                                                                          | true or false          | Default is true                     |
+| eol            | Alternate line end characters                                                                                              | String                 | default \n on unix, \r\n on windows |
+| backup         | Backup before changing                                                                                                     | Boolean, Integer       | default false                       |
+| safe           | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. | Boolean                | default true                        |
+| sensitive      | Print the file changes                                                                                                     | Boolean                | default false                       |
 
 ## Example Usage
 
@@ -90,15 +90,15 @@ Proc    ::= A reference to a proc that has a signature of proc(current lines is 
 
 ## Filters
 
-| Built in Filter | Description                                 | Argument Array Arg0        | arg1                               | arg2                                                       | arg3 |
-| --------------- | ------------------------------------------- | ---------------- | ---------------------------------- | ---------------------------------------------------------- | ---- |
-| [:after](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/after.md)    | Insert lines after a matching line          | Pattern to match insert lines | String or Array of lines to insert | `:each`, `:first`, or `:last` to select the matching lines | Options |
-| [:before](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/before.md)       | Insert lines before a matching line         | Pattern to match insert lines | String or Array of lines to insert | :each, :first, or :last to select the matching lines       | Options |
-| [:between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/between.md)      | Insert lines between matched lines          | Pattern - Insert after this| Pattern - Insert before this | Lines to insert |  |
-| [:comment](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/comment.md)      | Change lines to comments                    | Pattern to match lines| Comment string                     |  String to add after the comment indicator   |  |
-| [:delete_between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/delete_between.md)| Delete lines between matching patterns     | Pattern - delete after this | Pattern - delete before this | `:exclude`, `:include`, `:first`, `:last` | |
-| [:missing](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/missing.md)      | Insert lines before or after existing lines | String or Array of lines to add | `:before`, `:after` | |
-| [:replace](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/replace.md)      | Replace matching lines                      | Pattern to match lines | String or Array to replace the matched line | Options                       | |
-| [:replace_between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/replace_between.md)      | Replace lines between matches | Start pattern | End Pattern | String or Array to replace the lines between matches | Boundary line  processing `:exclude`, `:include`, `:first`, `:last`, `:next` | Options |
-| [:stanza](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/stanza.md)       | Insert or change keys in a stanza           | Stanza name | Hash of keys and values to set   | `:equal`, `:value` to select the key style  |  |
-| [:substitute](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/substitute.md)   | Substitute text in matching lines           | Pattern to select lines | Pattern to select text | Replacement text |  Options |
+| Built in Filter                                                                                                       | Description                                 | Arg0                            | Arg1                                        | Arg2                                                       | Arg3                                                                         | Arg4    |
+|-----------------------------------------------------------------------------------------------------------------------|---------------------------------------------|---------------------------------|---------------------------------------------|------------------------------------------------------------|------------------------------------------------------------------------------|---------|
+| [:after](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/after.md)                     | Insert lines after a matching line          | Pattern to match insert lines   | String or Array of lines to insert          | `:each`, `:first`, or `:last` to select the matching lines | Options                                                                      |         |
+| [:before](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/before.md)                   | Insert lines before a matching line         | Pattern to match insert lines   | String or Array of lines to insert          | `:each`, `:first`, or `:last` to select the matching lines | Options                                                                      |         |
+| [:between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/between.md)                 | Insert lines between matched lines          | Pattern - insert after this     | Pattern - insert before this                | Lines to insert                                            |                                                                              |         |
+| [:comment](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/comment.md)                 | Change lines to comments                    | Pattern to match lines          | Comment string                              | String to add after the comment indicator                  |                                                                              |         |
+| [:delete_between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/delete_between.md)   | Delete lines between matching patterns      | Pattern - delete after this     | Pattern - delete before this                | `:exclude`, `:include`, `:first`, `:last`                  |                                                                              |         |
+| [:missing](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/missing.md)                 | Insert lines before or after existing lines | String or Array of lines to add | `:before`, `:after`                         |                                                            |                                                                              |         |
+| [:replace](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/replace.md)                 | Replace matching lines                      | Pattern to match lines          | String or Array to replace the matched line | Options                                                    |                                                                              |         |
+| [:replace_between](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/replace_between.md) | Replace lines between matches               | Start pattern                   | End pattern                                 | String or Array to replace the lines between matches       | Boundary line processing: `:exclude`, `:include`, `:first`, `:last`, `:next` | Options |
+| [:stanza](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/stanza.md)                   | Insert or change keys in a stanza           | Stanza name                     | Hash of keys and values to set              | `:equal`, `:value` to select the key style                 |                                                                              |         |
+| [:substitute](https://github.com/sous-chefs/line/blob/master/documentation/resources/filters/substitute.md)           | Substitute text in matching lines           | Pattern to select lines         | Pattern to select text                      | Replacement text                                           | Options                                                                      |         |
