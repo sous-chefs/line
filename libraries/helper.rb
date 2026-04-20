@@ -49,6 +49,13 @@ module Line
       new_resource.eol
     end
 
+    def terminate_last_line(lines, eol)
+      return lines if lines.last.to_s.empty?
+
+      lines[-1] = "#{lines.last}#{eol}"
+      lines
+    end
+
     def filter_method(code)
       raise ArgumentError, "Unknown filter, #{code}, specified" unless filter_rep.public_methods.include?(code)
       filter_rep.method(code)
