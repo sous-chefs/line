@@ -4,6 +4,7 @@ property :ends_with, String
 property :entry, String
 property :eol, String
 property :ignore_missing, [true, false], default: true
+property :manage_symlink_source, [true, false]
 property :path, String
 property :pattern, [String, Regexp]
 
@@ -17,6 +18,7 @@ action :edit do
   eol = default_eol
   backup_if_true
   current = target_current_lines
+  manage_symlink_source_explicit = property_is_set?(:manage_symlink_source)
 
   # insert
   new = insert_list_entry(current)
@@ -26,6 +28,7 @@ action :edit do
 
   file new_resource.path do
     content new.join(eol)
+    manage_symlink_source new_resource.manage_symlink_source if manage_symlink_source_explicit
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { new == current }

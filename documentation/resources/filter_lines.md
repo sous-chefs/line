@@ -15,6 +15,7 @@
 | ignore_missing | Don't fail if the file is missing                                                                                          | true or false          | Default is true                     |
 | eol            | Alternate line end characters                                                                                              | String                 | default \n on unix, \r\n on windows |
 | backup         | Backup before changing                                                                                                     | Boolean, Integer       | default false                       |
+| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false | no default |
 | safe           | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. | Boolean                | default true                        |
 | sensitive      | Print the file changes                                                                                                     | Boolean                | default false                       |
 
@@ -66,6 +67,7 @@ The filter_lines resource passes the contents of the path file in an array of li
 The filter should return an array of lines. The output array will be written to the file or passed to the next filter.
 The built in filters are usable examples of what can be done with a filter, please write your own when you have specific needs.
 The built in filters all take an array of positional arguments.
+If `manage_symlink_source` is set to `true`, Chef manages the symlink source file. If it is set to `false`, Chef disables symlink-source handling and may require the symlink to be removed before writing.
 
 ## Filter Options
 

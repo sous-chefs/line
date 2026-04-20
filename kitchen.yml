@@ -72,3 +72,4 @@ suites:
       - recipe[test::replace_or_add_duplicate]
       - recipe[test::replace_or_add_missing_file]
       - recipe[test::replace_or_add_replace_only]
+      - recipe[test::replace_or_add_manage_symlink_source]

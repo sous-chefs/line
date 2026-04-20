@@ -3,6 +3,7 @@ property :eol, String
 property :group, String
 property :ignore_missing, [true, false], default: true
 property :line, String
+property :manage_symlink_source, [true, false]
 property :mode, [String, Integer]
 property :owner, String
 property :path, String
@@ -24,6 +25,7 @@ action :edit do
   regex = new_resource.pattern.is_a?(String) ? /#{new_resource.pattern}/ : new_resource.pattern
   new = []
   current = target_current_lines
+  manage_symlink_source_explicit = property_is_set?(:manage_symlink_source)
 
   # replace
   current.each do |line|
@@ -46,6 +48,7 @@ action :edit do
     owner new_resource.owner
     group new_resource.group
     mode new_resource.mode
+    manage_symlink_source new_resource.manage_symlink_source if manage_symlink_source_explicit
     backup new_resource.backup
     sensitive new_resource.sensitive
     not_if { new == current }
