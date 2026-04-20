@@ -21,7 +21,7 @@ action :edit do
   new = current.reject { |l| l =~ regex }
 
   # Last line terminator
-  new.last += eol unless new.last.to_s.empty?
+  terminate_last_line(new, eol)
 
   file new_resource.path do
     content new.join(eol)

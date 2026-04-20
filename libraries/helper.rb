@@ -76,6 +76,10 @@ module Line
       new_resource.sensitive = true unless property_is_set?(:sensitive)
     end
 
+    def terminate_last_line(lines, eol)
+      lines[-1] = "#{lines.last}#{eol}" unless lines.last.to_s.empty?
+    end
+
     def target_current_lines
       target_file_exist? ? ::File.binread(new_resource.path).split(new_resource.eol) : []
     end
