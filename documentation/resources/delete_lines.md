@@ -3,19 +3,19 @@
 ## Actions
 
 | Action | Description                          |
-| ------ | ------------------------------------ |
+|--------|--------------------------------------|
 | edit   | Delete lines that match the pattern. |
 
 ## Properties
 
-| Properties     | Description                        | Type                         | Values and Default                      |
-| -------------- | ---------------------------------- | ---------------------------- | --------------------------------------- |
-| path           | File to update                     | String                       | Required, no default                    |
-| pattern        | Regular expression to select lines | Regular expression or String | Required, no default                    |
-| ignore_missing | Don't fail if the file is missing  | true or false                | Default is true                         |
-| eol            | Alternate line end characters      | String                       | default `\n` on unix, `\r\n` on windows |
-| backup         | Backup before changing             | Boolean, Integer             | default false                           |
-| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false | no default |
+| Properties            | Description                                                                                               | Type                         | Values and Default                      |
+|-----------------------|-----------------------------------------------------------------------------------------------------------|------------------------------|-----------------------------------------|
+| path                  | File to update                                                                                            | String                       | Required, no default                    |
+| pattern               | Regular expression to select lines                                                                        | Regular expression or String | Required, no default                    |
+| ignore_missing        | Don't fail if the file is missing                                                                         | true or false                | Default is true                         |
+| eol                   | Alternate line end characters                                                                             | String                       | default `\n` on unix, `\r\n` on windows |
+| backup                | Backup before changing                                                                                    | Boolean, Integer             | default false                           |
+| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false                | no default                              |
 
 ## Example Usage
 

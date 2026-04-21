@@ -8,16 +8,16 @@
 
 ## Properties
 
-| Properties     | Description                                                                                                                | Type                   | Values and Default                  |
-|----------------|----------------------------------------------------------------------------------------------------------------------------|------------------------|-------------------------------------|
-| path           | String                                                                                                                     | Path to file           | Required, resource name property    |
-| filters        | Array of filters, Proc, Method                                                                                             | See the filter grammar | Required, no default                |
-| ignore_missing | Don't fail if the file is missing                                                                                          | true or false          | Default is true                     |
-| eol            | Alternate line end characters                                                                                              | String                 | default \n on unix, \r\n on windows |
-| backup         | Backup before changing                                                                                                     | Boolean, Integer       | default false                       |
-| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false | no default |
-| safe           | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. | Boolean                | default true                        |
-| sensitive      | Print the file changes                                                                                                     | Boolean                | default false                       |
+| Properties            | Description                                                                                                                | Type                   | Values and Default                  |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------|------------------------|-------------------------------------|
+| path                  | String                                                                                                                     | Path to file           | Required, resource name property    |
+| filters               | Array of filters, Proc, Method                                                                                             | See the filter grammar | Required, no default                |
+| ignore_missing        | Don't fail if the file is missing                                                                                          | true or false          | Default is true                     |
+| eol                   | Alternate line end characters                                                                                              | String                 | default \n on unix, \r\n on windows |
+| backup                | Backup before changing                                                                                                     | Boolean, Integer       | default false                       |
+| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning                  | true or false          | no default                          |
+| safe                  | Verify that the inserts don't cause a file to grow with each converge. The filter must support safe mode for this to work. | Boolean                | default true                        |
+| sensitive             | Print the file changes                                                                                                     | Boolean                | default false                       |
 
 ## Example Usage
 
