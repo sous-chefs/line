@@ -10,6 +10,11 @@ source_url       'https://github.com/sous-chefs/line'
 issues_url       'https://github.com/sous-chefs/line/issues'
 chef_version     '>= 15.3'
 
-%w(debian ubuntu centos redhat scientific oracle amazon windows).each do |os|
-  supports os
-end
+supports 'debian'
+supports 'ubuntu'
+supports 'centos'
+supports 'redhat'
+supports 'scientific'
+supports 'oracle'
+supports 'amazon'
+supports 'windows'
