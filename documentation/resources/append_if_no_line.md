@@ -3,22 +3,22 @@
 ## Actions
 
 | Action | Description                     |
-| ------ | ------------------------------- |
+|--------|---------------------------------|
 | edit   | Append a line if it is missing. |
 
 ## Properties
 
-| Properties     | Description                       | Type             | Values and Default                      |
-| -------------- | --------------------------------- | ---------------- | --------------------------------------- |
-| path           | File to update                    | String           | Required, no default                    |
-| line           | Line contents                     | String           | Required, no default                    |
-| ignore_missing | Don't fail if the file is missing | true or false    | Default is true                         |
-| eol            | Alternate line end characters     | String           | default `\n` on unix, `\r\n` on windows |
-| backup         | Backup before changing            | Boolean, Integer | default false                           |
-| owner          | Set the `owner` of the file       | String           | no default                              |
-| group          | Set the `group` of the file       | String           | no default                              |
-| mode           | Set the `mode` of the file        | String, Integer  | no default                              |
-| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false | no default |
+| Properties            | Description                                                                                               | Type             | Values and Default                      |
+|-----------------------|-----------------------------------------------------------------------------------------------------------|------------------|-----------------------------------------|
+| path                  | File to update                                                                                            | String           | Required, no default                    |
+| line                  | Line contents                                                                                             | String           | Required, no default                    |
+| ignore_missing        | Don't fail if the file is missing                                                                         | true or false    | Default is true                         |
+| eol                   | Alternate line end characters                                                                             | String           | default `\n` on unix, `\r\n` on windows |
+| backup                | Backup before changing                                                                                    | Boolean, Integer | default false                           |
+| owner                 | Set the `owner` of the file                                                                               | String           | no default                              |
+| group                 | Set the `group` of the file                                                                               | String           | no default                              |
+| mode                  | Set the `mode` of the file                                                                                | String, Integer  | no default                              |
+| manage_symlink_source | Pass through Chef's symlink-source handling; setting it explicitly also suppresses Chef's symlink warning | true or false    | no default                              |
 
 ## Example Usage
 
