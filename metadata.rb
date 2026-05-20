@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 name             'line'
 maintainer       'Sous Chefs'
 maintainer_email 'help@sous-chefs.org'
 license          'Apache-2.0'
-description      'Provides line editing resources for use by recipes'
+description      'Provides custom resources for line editing'
 
 version          '4.6.0'
 
@@ -14,7 +16,6 @@ supports 'debian'
 supports 'ubuntu'
 supports 'centos'
 supports 'redhat'
-supports 'scientific'
 supports 'oracle'
 supports 'amazon'
 supports 'windows'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 control 'replace_or_add_manage_symlink_source' do
   describe command('test -L /tmp/replace_or_add_symlink') do
     its('exit_status') { should eq 0 }
