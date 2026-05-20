@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 property :backup, [true, false, Integer], default: false
 property :eol, String
 property :group, String

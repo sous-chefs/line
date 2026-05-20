@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Filter to insert lines between two matches
 module Line
   class Filter
