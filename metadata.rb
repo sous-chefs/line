@@ -6,7 +6,7 @@ maintainer_email 'help@sous-chefs.org'
 license          'Apache-2.0'
 description      'Provides custom resources for line editing'
 
-version          '4.6.0'
+version          '5.0.0'
 
 source_url       'https://github.com/sous-chefs/line'
 issues_url       'https://github.com/sous-chefs/line/issues'
