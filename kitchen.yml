@@ -26,6 +26,12 @@ platforms:
   - name: ubuntu-24.04
 
 suites:
+  - name: default
+    run_list:
+      - recipe[test::default]
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
   - name: add_to_list
     run_list:
       - recipe[test::add_to_list_1d]
