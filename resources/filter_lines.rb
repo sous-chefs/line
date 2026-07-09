@@ -60,8 +60,6 @@ action :edit do
     new_resource.filters.each do |filter|
       apply_filter(filter)
     end
-  when NilClass
-    false
   else
     apply_filter(new_resource.filters)
   end
