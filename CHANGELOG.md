@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [5.0.1](https://github.com/sous-chefs/line/compare/v5.0.0...v5.0.1) (2026-07-09)
+
+
+### Bug Fixes
+
+* migrate to Policyfile ([#298](https://github.com/sous-chefs/line/issues/298)) ([b5677dd](https://github.com/sous-chefs/line/commit/b5677dd9fb08a4761f504f8f9b583db0b2170dde))
+
 ## [5.0.0](https://github.com/sous-chefs/line/compare/v4.6.0...v5.0.0) (2026-05-20)
 
 
